@@ -1,28 +1,33 @@
+# Arquivos java class
 *.class
 
-# Package Files #
+# Arquivos de pacotes
 *.jar
 *.war
 
-# gwt caches and compiled units #
+# GWT caches e unidades compiladas
 war/gwt_bree/
 gwt-unitCache/
 
-# boilerplate generated classes #
+# Classes geradas
 .apt_generated/
 
-# more caches and things from deploy #
+# Caches e arquivos de deploy
 war/WEB-INF/deploy/
 war/WEB-INF/classes/
 
-#compilation logs
+# Logs da compilação
 .gwt/
 
-#caching for already compiled files
+# Cache de arquivos compilados
 gwt-unitCache/
 
-#gwt junit compilation files
+# GWT junit arquivos de compilação
 www-test/
 
-#old GWT (1.5) created this dir
+# GWT (1.5) cria esse diretório
 .gwt-tmp/
+
+# IDE
+.idea/
+*.iml
