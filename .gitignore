@@ -31,3 +31,6 @@ www-test/
 # IDE
 .idea/
 *.iml
+
+# Output
+out/
