@@ -32,5 +32,6 @@ www-test/
 .idea/
 *.iml
 
-# Output
+# Saídas
 out/
+target/
