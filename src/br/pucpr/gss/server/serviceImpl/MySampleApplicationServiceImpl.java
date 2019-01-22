@@ -1,7 +1,7 @@
-package com.pucpr.gss.server.serviceImpl;
+package br.pucpr.gss.server.serviceImpl;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.pucpr.gss.client.service.MySampleApplicationService;
+import br.pucpr.gss.client.service.MySampleApplicationService;
 
 public class MySampleApplicationServiceImpl extends RemoteServiceServlet implements MySampleApplicationService {
     // Implementation of sample interface method

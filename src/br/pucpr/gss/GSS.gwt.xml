@@ -6,14 +6,13 @@
     <inherits name='com.google.gwt.user.User'/>
 
     <!-- Specify the app entry point class.                   -->
-    <entry-point class='com.pucpr.gss.client.controller.LoginController'/>
+    <entry-point class='br.pucpr.gss.client.controller.LoginController'/>
 
     <source path="client"/>
-    <source path="server"/>
     <source path="shared"/>
 
     <!-- Specify the app servlets.                   -->
     <servlet path='/MySampleApplicationService'
-             class='com.pucpr.gss.server.serviceImpl.MySampleApplicationServiceImpl'/>
+             class='br.pucpr.gss.server.serviceImpl.MySampleApplicationServiceImpl'/>
 
 </module>

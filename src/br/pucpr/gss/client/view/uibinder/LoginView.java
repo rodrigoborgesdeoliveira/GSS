@@ -1,5 +1,6 @@
-package com.pucpr.gss.client.view.uibinder;
+package br.pucpr.gss.client.view.uibinder;
 
+import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -31,6 +32,21 @@ public class LoginView extends Composite {
 
     @UiHandler("buttonLogin")
     void onClickLogin(ClickEvent event) {
+        UsuarioLogin login = new UsuarioLogin(textBoxEmail.getText(), textBoxSenha.getText());
+        realizarLogin(login);
+    }
 
+    private void realizarLogin(UsuarioLogin login) {
+        if (!login.isEmailValido()) {
+            GWT.log("Campo Email inválido");
+            return;
+        }
+        if (!login.isSenhaValida()) {
+            GWT.log("Campo Senha inválida");
+
+            return;
+        }
+
+        // TODO: 22/01/2019 Chamar login request
     }
 }

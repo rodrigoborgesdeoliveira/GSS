@@ -1,4 +1,4 @@
-package com.pucpr.gss.shared.model;
+package br.pucpr.gss.shared.model;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.junit.Before;

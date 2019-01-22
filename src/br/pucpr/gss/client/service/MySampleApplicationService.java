@@ -1,4 +1,4 @@
-package com.pucpr.gss.client.service;
+package br.pucpr.gss.client.service;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;

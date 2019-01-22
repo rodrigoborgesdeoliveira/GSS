@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>com.pucpr.gss.MySampleApplication MySampleApplicationService</servlet-name>
-        <servlet-class>com.pucpr.gss.server.serviceImpl.MySampleApplicationServiceImpl</servlet-class>
+        <servlet-class>br.pucpr.gss.server.serviceImpl.MySampleApplicationServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>com.pucpr.gss.MySampleApplication MySampleApplicationService</servlet-name>
