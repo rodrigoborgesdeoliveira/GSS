@@ -1,10 +1,13 @@
 package com.pucpr.gss.shared.model;
 
+import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static junit.framework.TestCase.*;
 
+@RunWith(GwtMockitoTestRunner.class)
 public class UsuarioLoginTest {
 
     private UsuarioLogin usuarioLogin;
