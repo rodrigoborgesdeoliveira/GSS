@@ -1,0 +1,202 @@
+package br.pucpr.gss.server.dao;
+
+import com.google.gwt.core.client.GWT;
+import com.sun.istack.internal.Nullable;
+
+import java.sql.*;
+
+public class Conexao {
+    private static final String DRIVER = "com.mysql.jdbc.Driver"; //Driver do SGBD MySQL.
+    private static final String URL = "jdbc:mysql://localhost:3306/"; //Caminho para o MySQL.
+    private static final String DB_GSS = "gss";
+    private static final String DB_RH = "rh";
+    private static final String DB_OPCOES = "?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo";
+    private static final String USUARIO_GSS = "root";
+    private static final String SENHA_GSS = "password";
+    private static final String USUARIO_RH = "root";
+    private static final String SENHA_RH = "password";
+
+    /**
+     * Cria o banco de dados de solicitações (GSS) caso não exista ainda.
+     *
+     * @return true, se a execução do SQL ocorreu bem, false, se algo deu errado.
+     */
+    public static boolean criarBancosDeDados() {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            Class.forName(DRIVER);
+            con = DriverManager.getConnection(URL, USUARIO_GSS, SENHA_GSS);
+            stmt = con.prepareStatement("CREATE DATABASE IF NOT EXISTS " + DB_GSS + ";");
+            stmt.executeUpdate();
+
+            return true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            if (ex.getMessage().contains("Access denied")) {
+                GWT.log("Acesso para criar o banco de dados negado", ex);
+            } else {
+                GWT.log("Não foi possível criar o banco de dados", ex);
+            }
+
+            return false;
+        } finally {
+            closeConnection(con, stmt);
+        }
+    }
+
+    /**
+     * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
+     */
+    public static void criarTabelas() {
+        String SQLUsuario = "CREATE TABLE IF NOT EXISTS (" +
+                "id INT NOT NULL AUTO_INCREMENT, " +
+                "nome VARCHAR(50) NOT NULL, " +
+                "senha VARCHAR(71) NOT NULL, " +
+                "isAdmin BOOLEAN DEFAULT FALSE" + // BCrypt tem um limite de 71 bytes + 1 byte reservado
+                "PRIMARY KEY (id)";
+        // TODO: 23/01/2019 Criar as demais tabelas e executar os comandos SQL
+    }
+
+    /**
+     * Gera uma conexão com o banco de dados do GSS.
+     *
+     * @return a conexão com o banco de dados do GSS.
+     * @throws RuntimeException se algum erro ocorrer ao obter a conexão.
+     */
+    private static Connection getConexaoGSS() throws RuntimeException {
+        return getConexao(DB_GSS, USUARIO_GSS, SENHA_GSS);
+    }
+
+    /**
+     * Gera uma conexão com o banco de dados do RH.
+     *
+     * @return a conexão com o banco de dados do RH.
+     * @throws RuntimeException se algum erro ocorrer ao obter a conexão.
+     */
+    private static Connection getConexaoRH() throws RuntimeException {
+        return getConexao(DB_RH, USUARIO_RH, SENHA_RH);
+    }
+
+    /**
+     * Gera uma conexão com o banco de dados.
+     *
+     * @param db      nome do banco de dados.
+     * @param usuario usuário root do banco de dados.
+     * @param senha   senha do usuário do banco de dados.
+     * @return a conexão com o banco de dados solicitado.
+     */
+    private static Connection getConexao(String db, String usuario, String senha) {
+        try {
+            Class.forName(DRIVER);
+
+            return DriverManager.getConnection(URL + db + DB_OPCOES, usuario, senha);
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new RuntimeException("Erro na conexão: ", ex);
+        }
+    }
+
+    private static void closeConnection(Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+        }
+    }
+
+    private static void closeConnection(Connection con, PreparedStatement stmt) {
+        closeConnection(con);
+
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (SQLException ex) {
+            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+        }
+    }
+
+    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
+        closeConnection(con, stmt);
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException ex) {
+            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+        }
+    }
+
+    /**
+     * Executa um comando SQL INSERT, UPDATE ou DELETE no banco de dados do GSS.
+     *
+     * @param sql comando SQL a ser executado.
+     */
+    public static void atualizarGSS(String sql) {
+        Connection conexao = null;
+        PreparedStatement statement = null;
+
+        try {
+            conexao = getConexaoGSS();
+            statement = conexao.prepareStatement(sql);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conexao, statement);
+        }
+    }
+
+    /**
+     * Executa um comando SQL que retorna algo, como o comando SELECT, no banco de dados GSS.
+     *
+     * @param sql comando SQL a ser executado.
+     * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
+     */
+    @Nullable
+    public static ResultSet consultarGSS(String sql) {
+        Connection conexao = null;
+        PreparedStatement statement = null;
+
+        try {
+            conexao = getConexaoGSS();
+            statement = conexao.prepareStatement(sql);
+
+            return statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        } finally {
+            closeConnection(conexao, statement);
+        }
+    }
+
+    /**
+     * Executa um comando SQL que retorna algo, como o comando SELECT, no banco de dados RH.
+     *
+     * @param sql comando SQL a ser executado.
+     * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
+     */
+    @Nullable
+    public static ResultSet consultarRH(String sql) {
+        Connection conexao = null;
+        PreparedStatement statement = null;
+
+        try {
+            conexao = getConexaoRH();
+            statement = conexao.prepareStatement(sql);
+
+            return statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        } finally {
+            closeConnection(conexao, statement);
+        }
+    }
+}

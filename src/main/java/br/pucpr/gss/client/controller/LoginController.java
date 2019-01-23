@@ -19,5 +19,7 @@ public class LoginController implements EntryPoint {
         if (!login.isSenhaValida()) {
             throw new IllegalArgumentException("Senha inválida");
         }
+
+
     }
 }
