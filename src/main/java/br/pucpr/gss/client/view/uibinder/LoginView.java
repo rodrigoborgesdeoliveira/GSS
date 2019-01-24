@@ -1,15 +1,13 @@
 package br.pucpr.gss.client.view.uibinder;
 
+import br.pucpr.gss.client.controller.LoginController;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 
 public class LoginView extends Composite {
     interface LoginUiBinder extends UiBinder<HTMLPanel, LoginView> {
@@ -26,7 +24,14 @@ public class LoginView extends Composite {
     @UiField
     Button buttonLogin;
 
+    @UiField
+    Hyperlink hyperlinkCadastrar;
+
+    private LoginController loginController;
+
     public LoginView() {
+        loginController = new LoginController();
+
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -34,6 +39,11 @@ public class LoginView extends Composite {
     void onClickLogin(ClickEvent event) {
         UsuarioLogin login = new UsuarioLogin(textBoxEmail.getText(), textBoxSenha.getText());
         realizarLogin(login);
+    }
+
+    @UiHandler("hyperlinkCadastrar")
+    void onClickCadastrar(ClickEvent event) {
+        loginController.handleClickCadastrar();
     }
 
     private void realizarLogin(UsuarioLogin login) {

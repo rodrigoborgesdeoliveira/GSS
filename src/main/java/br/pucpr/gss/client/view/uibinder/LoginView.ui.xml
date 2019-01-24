@@ -3,6 +3,9 @@
     <g:HTMLPanel>
         <div align="center">
             <g:VerticalPanel>
+                <g:Label horizontalAlignment="center">
+                    <ui:msg>LOGIN</ui:msg>
+                </g:Label>
                 <g:Label>
                     <ui:msg>Email</ui:msg>
                 </g:Label>
@@ -15,6 +18,9 @@
                 <g:Button ui:field="buttonLogin">
                     <ui:msg>Login</ui:msg>
                 </g:Button>
+                <g:Hyperlink ui:field="hyperlinkCadastrar">
+                    <ui:msg>Cadastrar</ui:msg>
+                </g:Hyperlink>
             </g:VerticalPanel>
         </div>
     </g:HTMLPanel>

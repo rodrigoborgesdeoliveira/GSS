@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <div align="center">
+            <g:VerticalPanel>
+                <g:Label horizontalAlignment="center">
+                    <ui:msg>CADASTRO</ui:msg>
+                </g:Label>
+            </g:VerticalPanel>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
