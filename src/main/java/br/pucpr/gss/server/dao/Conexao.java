@@ -27,6 +27,7 @@ public class Conexao {
         try {
             Class.forName(DRIVER);
             con = DriverManager.getConnection(URL, USUARIO_GSS, SENHA_GSS);
+            // language=MySQL
             stmt = con.prepareStatement("CREATE DATABASE IF NOT EXISTS " + DB_GSS + ";");
             stmt.executeUpdate();
 
@@ -48,6 +49,7 @@ public class Conexao {
      * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
      */
     public static void criarTabelas() {
+        // language=MySQL
         String sqlUsuario = "CREATE TABLE IF NOT EXISTS usuario (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
@@ -56,6 +58,7 @@ public class Conexao {
                 "isAdmin BOOLEAN DEFAULT FALSE, " + // BCrypt tem um limite de 71 bytes + 1 byte reservado
                 "funcionario_id INT NOT NULL, " +
                 "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id));";
+        // language=MySQL
         String sqlSolicitacao = "CREATE TABLE IF NOT EXISTS solicitacao (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
@@ -69,11 +72,20 @@ public class Conexao {
                 "setor_id INT NOT NULL, " +
                 "solicitante_id INT NOT NULL, " +
                 "atendente_id INT, " +
-                "gestor_id INT NOT NULL," +
-                "FOREIGN KEY (setor_id) REFERENCES rh.setor(id)," +
-                "FOREIGN KEY (solicitante_id) REFERENCES rh.funcionario(id)," +
+                "gestor_id INT NOT NULL, " +
+                "FOREIGN KEY (setor_id) REFERENCES rh.setor(id), " +
+                "FOREIGN KEY (solicitante_id) REFERENCES rh.funcionario(id), " +
                 "FOREIGN KEY (atendente_id) REFERENCES rh.funcionario(id), " +
                 "FOREIGN KEY (gestor_id) REFERENCES rh.funcionario(id));";
+        // language=MySQL
+        String sqlEvento = "CREATE TABLE IF NOT EXISTS evento (" +
+                "id INT NOT NULL AUTO_INCREMENT, " +
+                "nome VARCHAR(50) NOT NULL, " +
+                "data_ocorrencia DATE NOT NULL, " +
+                "solicitacao_id INT NOT NULL, " +
+                "usuario_id INT NOT NULL, " +
+                "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id), " +
+                "FOREIGN KEY (usuario_id) REFERENCES usuario(id));";
         // TODO: 23/01/2019 Criar as demais tabelas e executar os comandos SQL
     }
 
