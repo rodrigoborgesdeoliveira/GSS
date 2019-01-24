@@ -69,7 +69,21 @@ em branco
 Execute os seguintes comados SQL
 ```sql
 CREATE DATABASE IF NOT EXISTS rh;
-CREATE TABLE IF NOT EXISTS setor (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), nome VARCHAR(50) NULL);
-CREATE TABLE funcionario (id INT NOT NULL AUTO_INCREMENT, email VARCHAR(254) NOT NULL, nome VARCHAR(50) NULL, setor_id INT NULL, PRIMARY KEY (id), UNIQUE INDEX email_UNIQUE (email ASC) INVISIBLE, INDEX setor_id_idx (setor_id ASC) VISIBLE, CONSTRAINT setor_id FOREIGN KEY (setor_id) REFERENCES setor (id) ON DELETE SET NULL ON UPDATE NO ACTION);
-ALTER TABLE setor ADD (gestor_id INT NULL, FOREIGN KEY(gestor_id) REFERENCES funcionario(id));
+USE rh;
+CREATE TABLE IF NOT EXISTS setor (
+  id INT NOT NULL AUTO_INCREMENT, 
+  PRIMARY KEY(id), 
+  nome VARCHAR(50) NULL);
+CREATE TABLE IF NOT EXISTS funcionario (
+  id INT NOT NULL AUTO_INCREMENT, 
+  email VARCHAR(254) NOT NULL, 
+  nome VARCHAR(50) NULL, 
+  setor_id INT NULL, 
+  PRIMARY KEY (id), 
+  UNIQUE INDEX email_UNIQUE (email ASC) INVISIBLE, 
+  INDEX setor_id_idx (setor_id ASC) VISIBLE, 
+  CONSTRAINT setor_id FOREIGN KEY (setor_id) REFERENCES setor (id) ON DELETE SET NULL ON UPDATE NO ACTION);
+ALTER TABLE setor ADD (
+  gestor_id INT NULL, 
+  FOREIGN KEY(gestor_id) REFERENCES funcionario(id));
 ```
