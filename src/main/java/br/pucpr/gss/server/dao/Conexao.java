@@ -86,7 +86,13 @@ public class Conexao {
                 "usuario_id INT NOT NULL, " +
                 "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id), " +
                 "FOREIGN KEY (usuario_id) REFERENCES usuario(id));";
-        // TODO: 23/01/2019 Criar as demais tabelas e executar os comandos SQL
+        // language=MySQL
+        String sqlInformacaoAdicional = "CREATE TABLE IF NOT EXISTS informacao_adicional (" +
+                "id INT NOT NULL AUTO_INCREMENT, " +
+                "descricao_requisicao VARCHAR(250) NOT NULL, " +
+                "resposta_requisicao VARCHAR(250), " +
+                "solicitacao_id INT NOT NULL, " +
+                "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id));";
     }
 
     /**
