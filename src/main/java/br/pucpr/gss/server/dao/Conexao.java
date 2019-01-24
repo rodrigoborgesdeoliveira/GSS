@@ -48,12 +48,32 @@ public class Conexao {
      * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
      */
     public static void criarTabelas() {
-        String SQLUsuario = "CREATE TABLE IF NOT EXISTS (" +
+        String sqlUsuario = "CREATE TABLE IF NOT EXISTS usuario (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
+                "PRIMARY KEY (id), " +
                 "nome VARCHAR(50) NOT NULL, " +
                 "senha VARCHAR(71) NOT NULL, " +
-                "isAdmin BOOLEAN DEFAULT FALSE" + // BCrypt tem um limite de 71 bytes + 1 byte reservado
-                "PRIMARY KEY (id)";
+                "isAdmin BOOLEAN DEFAULT FALSE, " + // BCrypt tem um limite de 71 bytes + 1 byte reservado
+                "funcionario_id INT NOT NULL, " +
+                "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id));";
+        String sqlSolicitacao = "CREATE TABLE IF NOT EXISTS solicitacao (" +
+                "id INT NOT NULL AUTO_INCREMENT, " +
+                "PRIMARY KEY (id), " +
+                "titulo VARCHAR(45) NOT NULL, " +
+                "descricao VARCHAR(250), " +
+                "prioridade INT NOT NULL, " +
+                "estado INT NOT NULL, " +
+                "data_criacao DATE NOT NULL, " +
+                "prazo DATE, " +
+                "descricao_solucao VARCHAR(250), " +
+                "setor_id INT NOT NULL, " +
+                "solicitante_id INT NOT NULL, " +
+                "atendente_id INT, " +
+                "gestor_id INT NOT NULL," +
+                "FOREIGN KEY (setor_id) REFERENCES rh.setor(id)," +
+                "FOREIGN KEY (solicitante_id) REFERENCES rh.funcionario(id)," +
+                "FOREIGN KEY (atendente_id) REFERENCES rh.funcionario(id), " +
+                "FOREIGN KEY (gestor_id) REFERENCES rh.funcionario(id));";
         // TODO: 23/01/2019 Criar as demais tabelas e executar os comandos SQL
     }
 
