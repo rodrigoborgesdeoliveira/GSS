@@ -21,15 +21,20 @@ public class Conexao {
      *
      * @return true, se a execução do SQL ocorreu bem, false, se algo deu errado.
      */
-    public static boolean criarBancosDeDados() {
+    public static boolean criarBancoDeDados() {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             Class.forName(DRIVER);
             con = DriverManager.getConnection(URL, USUARIO_GSS, SENHA_GSS);
             // language=MySQL
-            stmt = con.prepareStatement("CREATE DATABASE IF NOT EXISTS " + DB_GSS + ";");
-            stmt.executeUpdate();
+            final String sql = "CREATE DATABASE IF NOT EXISTS " + DB_GSS + ";";
+            stmt = con.prepareStatement(sql);
+            int resultado = stmt.executeUpdate();
+
+            GWT.log(sql + " retornou " + resultado);
+
+            criarTabelas();
 
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -48,7 +53,7 @@ public class Conexao {
     /**
      * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
      */
-    public static void criarTabelas() {
+    private static void criarTabelas() {
         // language=MySQL
         String sqlUsuario = "CREATE TABLE IF NOT EXISTS usuario (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
@@ -93,6 +98,11 @@ public class Conexao {
                 "resposta_requisicao VARCHAR(250), " +
                 "solicitacao_id INT NOT NULL, " +
                 "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id));";
+
+        executeSQLUpdateGSS(sqlUsuario);
+        executeSQLUpdateGSS(sqlSolicitacao);
+        executeSQLUpdateGSS(sqlEvento);
+        executeSQLUpdateGSS(sqlInformacaoAdicional);
     }
 
     /**
@@ -172,7 +182,7 @@ public class Conexao {
      *
      * @param sql comando SQL a ser executado.
      */
-    public static void atualizarGSS(String sql) {
+    public static void executeSQLUpdateGSS(String sql) {
         Connection conexao = null;
         PreparedStatement statement = null;
 
@@ -180,7 +190,9 @@ public class Conexao {
             conexao = getConexaoGSS();
             statement = conexao.prepareStatement(sql);
 
-            statement.executeUpdate();
+            int resultado = statement.executeUpdate();
+
+            GWT.log(sql + " retornou " + resultado);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -189,43 +201,39 @@ public class Conexao {
     }
 
     /**
-     * Executa um comando SQL que retorna algo, como o comando SELECT, no banco de dados GSS.
+     * Executa um comando SQL que retorna um resultado, como o comando SELECT, no banco de dados GSS.
      *
      * @param sql comando SQL a ser executado.
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
     @Nullable
-    public static ResultSet consultarGSS(String sql) {
-        Connection conexao = null;
-        PreparedStatement statement = null;
-
-        try {
-            conexao = getConexaoGSS();
-            statement = conexao.prepareStatement(sql);
-
-            return statement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            return null;
-        } finally {
-            closeConnection(conexao, statement);
-        }
+    public static ResultSet executeSQLQueryGSS(String sql) {
+        return executeSQLQuery(getConexaoGSS(), sql);
     }
 
     /**
-     * Executa um comando SQL que retorna algo, como o comando SELECT, no banco de dados RH.
+     * Executa um comando SQL que retorna um resultado, como o comando SELECT, no banco de dados RH.
      *
      * @param sql comando SQL a ser executado.
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
     @Nullable
-    public static ResultSet consultarRH(String sql) {
-        Connection conexao = null;
+    public static ResultSet executeSQLQueryRH(String sql) {
+        return executeSQLQuery(getConexaoRH(), sql);
+    }
+
+    /**
+     * Executa um comando SQL que retorna um resultado, como o comando SELECT.
+     *
+     * @param conexao conexão com o banco de dados que será executado o comando SQL.
+     * @param sql     comando SQL a ser executado.
+     * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
+     */
+    @Nullable
+    private static ResultSet executeSQLQuery(Connection conexao, String sql) {
         PreparedStatement statement = null;
 
         try {
-            conexao = getConexaoRH();
             statement = conexao.prepareStatement(sql);
 
             return statement.executeQuery();
