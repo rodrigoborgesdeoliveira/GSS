@@ -2,12 +2,10 @@ package br.pucpr.gss.client.view;
 
 import com.google.gwt.user.client.ui.Widget;
 
-public interface LoginView {
+public interface CadastroView {
 
     interface Presenter {
-        void onLoginButtonClicked(String email, String senha);
 
-        void onCadastrarClicked();
     }
 
     void setPresenter(Presenter presenter);

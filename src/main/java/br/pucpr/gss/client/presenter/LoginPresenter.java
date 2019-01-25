@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.CadastrarEvent;
 import br.pucpr.gss.client.view.LoginView;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -22,12 +23,12 @@ public class LoginPresenter implements Presenter, LoginView.Presenter {
     }
 
     @Override
-    public void onLoginButtonClicked() {
-
+    public void onLoginButtonClicked(String email, String senha) {
+        // TODO: 25/01/2019 Validar campos
     }
 
     @Override
     public void onCadastrarClicked() {
-
+        eventBus.fireEvent(new CadastrarEvent());
     }
 }
