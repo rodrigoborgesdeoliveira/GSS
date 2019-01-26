@@ -18,7 +18,7 @@
                 <g:Button ui:field="buttonLogin">
                     <ui:msg>Login</ui:msg>
                 </g:Button>
-                <g:Hyperlink ui:field="hyperlinkCadastrar">
+                <g:Hyperlink ui:field="linkCadastrar">
                     <ui:msg>Cadastrar</ui:msg>
                 </g:Hyperlink>
             </g:VerticalPanel>

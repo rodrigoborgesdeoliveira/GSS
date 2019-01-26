@@ -1,6 +1,5 @@
 package br.pucpr.gss.client.presenter;
 
-import br.pucpr.gss.client.Login;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.junit.Before;
@@ -10,11 +9,11 @@ import org.junit.runner.RunWith;
 @RunWith(GwtMockitoTestRunner.class)
 public class LoginPresenterTest {
 
-//    private Login loginController;
+//    private GSS loginController;
 
     @Before
     public void setUp() throws Exception {
-//        loginController = new Login();
+//        loginController = new GSS();
     }
 
     /**

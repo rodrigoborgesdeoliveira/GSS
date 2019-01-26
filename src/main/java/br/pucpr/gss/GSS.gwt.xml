@@ -6,7 +6,7 @@
     <inherits name='com.google.gwt.user.User'/>
 
     <!-- Specify the app entry point class.                   -->
-    <entry-point class='br.pucpr.gss.client.Login'/>
+    <entry-point class='br.pucpr.gss.client.GSS'/>
 
     <source path="client"/>
     <source path="shared"/>

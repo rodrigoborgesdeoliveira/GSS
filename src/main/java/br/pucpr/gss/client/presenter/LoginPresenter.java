@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.event.CadastrarEvent;
 import br.pucpr.gss.client.view.LoginView;
 import com.google.gwt.event.shared.HandlerManager;
@@ -28,7 +29,7 @@ public class LoginPresenter implements Presenter, LoginView.Presenter {
     }
 
     @Override
-    public void onCadastrarClicked() {
-        eventBus.fireEvent(new CadastrarEvent());
+    public String getOnCadastrarClickedToken() {
+        return AppController.CADASTRAR_TOKEN;
     }
 }

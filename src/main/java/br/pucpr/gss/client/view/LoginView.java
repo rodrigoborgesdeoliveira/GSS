@@ -7,7 +7,7 @@ public interface LoginView {
     interface Presenter {
         void onLoginButtonClicked(String email, String senha);
 
-        void onCadastrarClicked();
+        String getOnCadastrarClickedToken();
     }
 
     void setPresenter(Presenter presenter);

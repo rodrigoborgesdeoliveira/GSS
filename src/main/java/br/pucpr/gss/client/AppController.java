@@ -1,9 +1,6 @@
 package br.pucpr.gss.client;
 
-import br.pucpr.gss.client.event.CadastrarEvent;
-import br.pucpr.gss.client.event.CadastrarEventHandler;
-import br.pucpr.gss.client.event.LoginEvent;
-import br.pucpr.gss.client.event.LoginEventHandler;
+import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.presenter.CadastroPresenter;
 import br.pucpr.gss.client.presenter.LoginPresenter;
 import br.pucpr.gss.client.presenter.Presenter;
@@ -53,14 +50,31 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                 doCadastrar();
             }
         });
+
+        eventBus.addHandler(VoltarEvent.TYPE, new VoltarEventHandler() {
+            @Override
+            public void onVoltar(VoltarEvent event) {
+                doVoltar();
+            }
+        });
     }
 
+    /**
+     * Ao realizar o login com sucesso.
+     */
     private void doLogin() {
+        // TODO: 26/01/2019 apagar histórico e navegar para o dashboard
+    }
+
+    /**
+     * Ao finalizar o cadastro com sucesso, navegar de volta para o login.
+     */
+    private void doCadastrar() {
         History.newItem(LOGIN_TOKEN);
     }
 
-    private void doCadastrar() {
-        History.newItem(CADASTRAR_TOKEN);
+    private void doVoltar() {
+        History.back();
     }
 
     @Override

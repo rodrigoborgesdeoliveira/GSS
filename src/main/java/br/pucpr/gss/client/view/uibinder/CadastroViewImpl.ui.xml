@@ -6,6 +6,24 @@
                 <g:Label horizontalAlignment="center">
                     <ui:msg>CADASTRO</ui:msg>
                 </g:Label>
+                <g:Label>
+                    <ui:msg>Email</ui:msg>
+                </g:Label>
+                <g:TextBox ui:field="email"/>
+                <g:Label>
+                    <ui:msg>Senha</ui:msg>
+                </g:Label>
+                <g:TextBox ui:field="senha"/>
+                <g:Label>
+                    <ui:msg>Confirmar senha</ui:msg>
+                </g:Label>
+                <g:TextBox ui:field="confirmarSenha"/>
+                <g:Button ui:field="buttonCadastrar">
+                    <ui:msg>Login</ui:msg>
+                </g:Button>
+                <g:Hyperlink ui:field="linkVoltar">
+                    <ui:msg>Voltar</ui:msg>
+                </g:Hyperlink>
             </g:VerticalPanel>
         </div>
     </g:HTMLPanel>

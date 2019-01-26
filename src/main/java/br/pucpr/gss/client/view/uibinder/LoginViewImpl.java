@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.view.uibinder;
 
+import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.view.LoginView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,7 +23,7 @@ public class LoginViewImpl extends Composite implements LoginView {
     @UiField
     Button buttonLogin;
     @UiField
-    Hyperlink hyperlinkCadastrar;
+    Hyperlink linkCadastrar;
 
     private Presenter presenter;
 
@@ -33,19 +34,17 @@ public class LoginViewImpl extends Composite implements LoginView {
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+
+        if (presenter != null) {
+            // Dizer ao link cadastrar para onde ele deve apontar
+            linkCadastrar.setTargetHistoryToken(presenter.getOnCadastrarClickedToken());
+        }
     }
 
     @UiHandler("buttonLogin")
     void onClickLogin(ClickEvent event) {
         if (presenter != null) {
             presenter.onLoginButtonClicked(textBoxEmail.getText(), textBoxSenha.getText());
-        }
-    }
-
-    @UiHandler("hyperlinkCadastrar")
-    void onClickCadastrar(ClickEvent event) {
-        if (presenter != null) {
-            presenter.onCadastrarClicked();
         }
     }
 }
