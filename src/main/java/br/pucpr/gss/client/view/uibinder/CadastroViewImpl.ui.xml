@@ -13,11 +13,11 @@
                 <g:Label>
                     <ui:msg>Senha</ui:msg>
                 </g:Label>
-                <g:TextBox ui:field="senha"/>
+                <g:PasswordTextBox ui:field="senha"/>
                 <g:Label>
                     <ui:msg>Confirmar senha</ui:msg>
                 </g:Label>
-                <g:TextBox ui:field="confirmarSenha"/>
+                <g:PasswordTextBox ui:field="confirmarSenha"/>
                 <g:Button ui:field="buttonCadastrar">
                     <ui:msg>Login</ui:msg>
                 </g:Button>

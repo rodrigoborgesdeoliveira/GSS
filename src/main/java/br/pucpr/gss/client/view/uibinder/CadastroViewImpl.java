@@ -18,9 +18,9 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiField
     TextBox email;
     @UiField
-    TextBox senha;
+    PasswordTextBox senha;
     @UiField
-    TextBox confirmarSenha;
+    PasswordTextBox confirmarSenha;
     @UiField
     Button buttonCadastrar;
     @UiField
