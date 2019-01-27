@@ -62,7 +62,8 @@ public class Conexao {
                 "senha VARCHAR(71) NOT NULL, " +
                 "isAdmin BOOLEAN DEFAULT FALSE, " + // BCrypt tem um limite de 71 bytes + 1 byte reservado
                 "funcionario_id INT NOT NULL, " +
-                "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id));";
+                "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id), " +
+                "UNIQUE INDEX funcionario_id_UNIQUE (funcionario_id ASC) INVISIBLE);";
         // language=MySQL
         String sqlSolicitacao = "CREATE TABLE IF NOT EXISTS solicitacao (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +

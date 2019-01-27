@@ -22,6 +22,8 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiField
     PasswordTextBox confirmarSenha;
     @UiField
+    Label labelErro;
+    @UiField
     Button buttonCadastrar;
     @UiField
     Hyperlink linkVoltar;
@@ -42,6 +44,7 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiHandler("buttonCadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
+            ocultarLabelErro();
             presenter.onCadastrarButtonClicked(email.getText(), senha.getText(), confirmarSenha.getText());
         }
     }
@@ -51,5 +54,38 @@ public class CadastroViewImpl extends Composite implements CadastroView {
         if (presenter != null) {
             presenter.onVoltarClicked();
         }
+    }
+
+    /**
+     * Exibe uma mensagem de erro indicando que o email é inválido.
+     */
+    @Override
+    public void setEmailInvalido() {
+        labelErro.setVisible(true);
+        labelErro.setText("Email inválido");
+    }
+
+    /**
+     * Exibe uma mensagem de erro indicando que a senha é inválida.
+     */
+    @Override
+    public void setSenhaInvalida() {
+        labelErro.setVisible(true);
+        labelErro.setText("Senha inválida");
+    }
+
+    /**
+     * Exibe uma mensagem de erro indicando que a confirmação de senha é inválida.
+     */
+    @Override
+    public void setConfirmarSenhaInvalida() {
+        labelErro.setVisible(true);
+        labelErro.setText("Confirmação de senha inválida");
+    }
+
+    @Override
+    public void ocultarLabelErro() {
+        labelErro.setVisible(false);
+        labelErro.setText("");
     }
 }

@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>com.pucpr.gss.MySampleApplication MySampleApplicationService</servlet-name>
-        <servlet-class>br.pucpr.gss.server.serviceImpl.MySampleApplicationServiceImpl</servlet-class>
+        <servlet-name>com.pucpr.gss.GSS CadastroService</servlet-name>
+        <servlet-class>br.pucpr.gss.server.serviceImpl.CadastroServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>com.pucpr.gss.MySampleApplication MySampleApplicationService</servlet-name>
-        <url-pattern>/GSS/MySampleApplicationService</url-pattern>
+        <servlet-name>com.pucpr.gss.GSS CadastroService</servlet-name>
+        <url-pattern>/GSS/Cadastro</url-pattern>
     </servlet-mapping>
 </web-app>

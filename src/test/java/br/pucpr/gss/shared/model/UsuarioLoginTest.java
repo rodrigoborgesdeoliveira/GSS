@@ -66,8 +66,11 @@ public class UsuarioLoginTest {
         usuarioLogin.setSenha("");
         assertFalse(usuarioLogin.isSenhaValida());
 
-        // Validar senha válida
+        // Validar com senha curta (menor que 8 caracteres)
         usuarioLogin.setSenha("senha");
+
+        // Validar senha válida
+        usuarioLogin.setSenha("senhavalida");
         assertTrue(usuarioLogin.isSenhaValida());
     }
 }

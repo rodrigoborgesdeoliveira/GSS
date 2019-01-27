@@ -18,8 +18,9 @@
                     <ui:msg>Confirmar senha</ui:msg>
                 </g:Label>
                 <g:PasswordTextBox ui:field="confirmarSenha"/>
+                <g:Label ui:field="labelErro" visible="false"/>
                 <g:Button ui:field="buttonCadastrar">
-                    <ui:msg>Login</ui:msg>
+                    <ui:msg>Cadastrar</ui:msg>
                 </g:Button>
                 <g:Hyperlink ui:field="linkVoltar">
                     <ui:msg>Voltar</ui:msg>

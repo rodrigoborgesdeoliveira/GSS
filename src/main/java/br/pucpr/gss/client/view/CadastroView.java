@@ -13,4 +13,12 @@ public interface CadastroView {
     void setPresenter(Presenter presenter);
 
     Widget asWidget();
+
+    void setEmailInvalido();
+
+    void setSenhaInvalida();
+
+    void setConfirmarSenhaInvalida();
+
+    void ocultarLabelErro();
 }

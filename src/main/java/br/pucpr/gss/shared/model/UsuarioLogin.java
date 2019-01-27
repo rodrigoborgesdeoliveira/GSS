@@ -48,9 +48,10 @@ public class UsuarioLogin implements IsSerializable {
      * Senha não pode:
      * - Ser nula.
      * - Ser vazia.
+     * - Possuir menos de 8 caracteres.
      * @return true, se válido, e false, caso contrário.
      */
     public boolean isSenhaValida() {
-        return senha != null && !senha.isEmpty();
+        return senha != null && !(senha.length() < 8);
     }
 }
