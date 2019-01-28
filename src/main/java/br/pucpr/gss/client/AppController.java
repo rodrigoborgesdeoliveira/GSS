@@ -1,6 +1,8 @@
 package br.pucpr.gss.client;
 
-import br.pucpr.gss.client.event.*;
+import br.pucpr.gss.client.event.CadastrarEvent;
+import br.pucpr.gss.client.event.LoginEvent;
+import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.presenter.CadastroPresenter;
 import br.pucpr.gss.client.presenter.LoginPresenter;
 import br.pucpr.gss.client.presenter.Presenter;
@@ -12,6 +14,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public class AppController implements Presenter, ValueChangeHandler<String> {
@@ -37,26 +40,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     private void bind() {
         History.addValueChangeHandler(this);
 
-        eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-            @Override
-            public void onLogin(LoginEvent event) {
-                doLogin();
-            }
-        });
+        eventBus.addHandler(LoginEvent.TYPE, event -> doLogin());
 
-        eventBus.addHandler(CadastrarEvent.TYPE, new CadastrarEventHandler() {
-            @Override
-            public void onCadastrar(CadastrarEvent event) {
-                doCadastrar();
-            }
-        });
+        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCadastrar());
 
-        eventBus.addHandler(VoltarEvent.TYPE, new VoltarEventHandler() {
-            @Override
-            public void onVoltar(VoltarEvent event) {
-                doVoltar();
-            }
-        });
+        eventBus.addHandler(VoltarEvent.TYPE, event -> doVoltar());
     }
 
     /**
@@ -98,7 +86,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     GWT.runAsync(new RunAsyncCallback() {
                         @Override
                         public void onFailure(Throwable reason) {
-
+                            Window.alert("Falha ao carregar a página.");
                         }
 
                         @Override
@@ -115,7 +103,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     GWT.runAsync(new RunAsyncCallback() {
                         @Override
                         public void onFailure(Throwable reason) {
-
+                            Window.alert("Falha ao carregar a página.");
                         }
 
                         @Override

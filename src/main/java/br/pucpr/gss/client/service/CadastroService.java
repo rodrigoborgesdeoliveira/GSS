@@ -6,7 +6,6 @@ import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.user.server.rpc.UnexpectedException;
 
 @RemoteServiceRelativePath("Cadastro")
 public interface CadastroService extends RemoteService {
@@ -14,7 +13,7 @@ public interface CadastroService extends RemoteService {
 
     /**
      * Classe para chamar os métodos de CadastroService.
-     * Use CadastroService.App.getInstance() para acessar uma instância de CadastroServiceAsync
+     * Use CadastroService.RPC.getInstance() para acessar uma instância de CadastroServiceAsync
      */
     class RPC {
         private static CadastroServiceAsync instance = GWT.create(CadastroService.class);

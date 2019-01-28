@@ -7,24 +7,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Conexao {
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; //Driver do SGBD MySQL.
-    private static final String URL = "jdbc:mysql://localhost:3306/"; //Caminho para o MySQL.
-    private static final String DB_GSS = "gss";
-    private static final String DB_RH = "rh";
-    private static final String DB_OPCOES = "?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo";
-    private static final String USUARIO_GSS = "root";
-    private static final String SENHA_GSS = "password";
-    private static final String USUARIO_RH = "root";
-    private static final String SENHA_RH = "password";
+    private static Conexao instance = new Conexao();
+
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver"; //Driver do SGBD MySQL.
+    private final String URL = "jdbc:mysql://localhost:3306/"; //Caminho para o MySQL.
+    private final String DB_GSS = "gss";
+    private final String DB_RH = "rh";
+    private final String DB_OPCOES = "?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo";
+    private final String USUARIO_GSS = "root";
+    private final String SENHA_GSS = "password";
+    private final String USUARIO_RH = "root";
+    private final String SENHA_RH = "password";
 
     private static Logger logger = Logger.getLogger("Conexao");
+
+    public static synchronized Conexao getInstance() {
+        return instance;
+    }
+
+    private Conexao() {
+    }
 
     /**
      * Cria o banco de dados de solicitações (GSS) caso não exista ainda.
      *
      * @return true, se a execução do SQL ocorreu bem, false, se algo deu errado.
      */
-    public static boolean criarBancoDeDados() {
+    public void criarBancoDeDados() {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
@@ -38,16 +47,13 @@ public class Conexao {
             logger.log(Level.INFO, sql + " retornou " + resultado);
 
             criarTabelas();
-
-            return true;
         } catch (ClassNotFoundException | SQLException ex) {
             if (ex.getMessage().contains("Access denied")) {
-                logger.log(Level.INFO, "Acesso para criar o banco de dados negado", ex);
+                logger.log(Level.INFO, "Acesso ao banco de dados negado", ex);
             } else {
                 logger.log(Level.INFO, "Não foi possível criar o banco de dados", ex);
             }
 
-            return false;
         } finally {
             closeConnection(con, stmt);
         }
@@ -56,7 +62,7 @@ public class Conexao {
     /**
      * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
      */
-    private static void criarTabelas() {
+    private void criarTabelas() {
         // language=MySQL
         String sqlUsuario = "CREATE TABLE IF NOT EXISTS usuario (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
@@ -117,7 +123,7 @@ public class Conexao {
      * @return a conexão com o banco de dados do GSS.
      * @throws RuntimeException se algum erro ocorrer ao obter a conexão.
      */
-    private static Connection getConexaoGSS() throws RuntimeException {
+    private Connection getConexaoGSS() throws RuntimeException {
         return getConexao(DB_GSS, USUARIO_GSS, SENHA_GSS);
     }
 
@@ -127,7 +133,7 @@ public class Conexao {
      * @return a conexão com o banco de dados do RH.
      * @throws RuntimeException se algum erro ocorrer ao obter a conexão.
      */
-    private static Connection getConexaoRH() throws RuntimeException {
+    private Connection getConexaoRH() throws RuntimeException {
         return getConexao(DB_RH, USUARIO_RH, SENHA_RH);
     }
 
@@ -139,7 +145,7 @@ public class Conexao {
      * @param senha   senha do usuário do banco de dados.
      * @return a conexão com o banco de dados solicitado.
      */
-    private static Connection getConexao(String db, String usuario, String senha) {
+    private Connection getConexao(String db, String usuario, String senha) {
         try {
             Class.forName(DRIVER);
 
@@ -149,7 +155,7 @@ public class Conexao {
         }
     }
 
-    private static void closeConnection(Connection con) {
+    private void closeConnection(Connection con) {
         try {
             if (con != null) {
                 con.close();
@@ -159,7 +165,7 @@ public class Conexao {
         }
     }
 
-    private static void closeConnection(Connection con, PreparedStatement stmt) {
+    private void closeConnection(Connection con, PreparedStatement stmt) {
         closeConnection(con);
 
         try {
@@ -171,7 +177,7 @@ public class Conexao {
         }
     }
 
-    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
+    public void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
         closeConnection(con, stmt);
 
         try {
@@ -188,7 +194,7 @@ public class Conexao {
      *
      * @param sql comando SQL a ser executado.
      */
-    public static void executeSQLUpdateGSS(String sql) {
+    public void executeSQLUpdateGSS(String sql) {
         Connection conexao = null;
         PreparedStatement statement = null;
 
@@ -213,7 +219,7 @@ public class Conexao {
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
     @Nullable
-    public static ResultSet executeSQLQueryGSS(String sql) {
+    public ResultSet executeSQLQueryGSS(String sql) {
         return executeSQLQuery(getConexaoGSS(), sql);
     }
 
@@ -224,7 +230,7 @@ public class Conexao {
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
     @Nullable
-    public static ResultSet executeSQLQueryRH(String sql) {
+    public ResultSet executeSQLQueryRH(String sql) {
         return executeSQLQuery(getConexaoRH(), sql);
     }
 
@@ -236,7 +242,7 @@ public class Conexao {
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
     @Nullable
-    private static ResultSet executeSQLQuery(Connection conexao, String sql) {
+    private ResultSet executeSQLQuery(Connection conexao, String sql) {
         PreparedStatement statement = null;
 
         try {
