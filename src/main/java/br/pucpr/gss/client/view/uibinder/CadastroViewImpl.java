@@ -61,8 +61,7 @@ public class CadastroViewImpl extends Composite implements CadastroView {
      */
     @Override
     public void setEmailInvalido() {
-        labelErro.setVisible(true);
-        labelErro.setText("Email inválido");
+        setErro("Email inválido");
     }
 
     /**
@@ -70,8 +69,7 @@ public class CadastroViewImpl extends Composite implements CadastroView {
      */
     @Override
     public void setSenhaInvalida() {
-        labelErro.setVisible(true);
-        labelErro.setText("Senha inválida");
+        setErro("Senha inválida");
     }
 
     /**
@@ -79,13 +77,18 @@ public class CadastroViewImpl extends Composite implements CadastroView {
      */
     @Override
     public void setConfirmarSenhaInvalida() {
-        labelErro.setVisible(true);
-        labelErro.setText("Confirmação de senha inválida");
+        setErro("Confirmação de senha inválida");
     }
 
     @Override
     public void ocultarLabelErro() {
         labelErro.setVisible(false);
         labelErro.setText("");
+    }
+
+    @Override
+    public void setErro(String mensagemErro) {
+        labelErro.setVisible(true);
+        labelErro.setText(mensagemErro);
     }
 }

@@ -1,12 +1,13 @@
 package br.pucpr.gss.server.dao;
 
-import com.google.gwt.core.client.GWT;
 import com.sun.istack.internal.Nullable;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Conexao {
-    private static final String DRIVER = "com.mysql.jdbc.Driver"; //Driver do SGBD MySQL.
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; //Driver do SGBD MySQL.
     private static final String URL = "jdbc:mysql://localhost:3306/"; //Caminho para o MySQL.
     private static final String DB_GSS = "gss";
     private static final String DB_RH = "rh";
@@ -15,6 +16,8 @@ public class Conexao {
     private static final String SENHA_GSS = "password";
     private static final String USUARIO_RH = "root";
     private static final String SENHA_RH = "password";
+
+    private static Logger logger = Logger.getLogger("Conexao");
 
     /**
      * Cria o banco de dados de solicitações (GSS) caso não exista ainda.
@@ -26,22 +29,22 @@ public class Conexao {
         PreparedStatement stmt = null;
         try {
             Class.forName(DRIVER);
-            con = DriverManager.getConnection(URL, USUARIO_GSS, SENHA_GSS);
+            con = DriverManager.getConnection(URL + DB_OPCOES, USUARIO_GSS, SENHA_GSS);
             // language=MySQL
             final String sql = "CREATE DATABASE IF NOT EXISTS " + DB_GSS + ";";
             stmt = con.prepareStatement(sql);
             int resultado = stmt.executeUpdate();
 
-            GWT.log(sql + " retornou " + resultado);
+            logger.log(Level.INFO, sql + " retornou " + resultado);
 
             criarTabelas();
 
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             if (ex.getMessage().contains("Access denied")) {
-                GWT.log("Acesso para criar o banco de dados negado", ex);
+                logger.log(Level.INFO, "Acesso para criar o banco de dados negado", ex);
             } else {
-                GWT.log("Não foi possível criar o banco de dados", ex);
+                logger.log(Level.INFO, "Não foi possível criar o banco de dados", ex);
             }
 
             return false;
@@ -86,6 +89,7 @@ public class Conexao {
         // language=MySQL
         String sqlEvento = "CREATE TABLE IF NOT EXISTS evento (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
+                "PRIMARY KEY (id), " +
                 "nome VARCHAR(50) NOT NULL, " +
                 "data_ocorrencia DATE NOT NULL, " +
                 "solicitacao_id INT NOT NULL, " +
@@ -95,6 +99,7 @@ public class Conexao {
         // language=MySQL
         String sqlInformacaoAdicional = "CREATE TABLE IF NOT EXISTS informacao_adicional (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
+                "PRIMARY KEY (id), " +
                 "descricao_requisicao VARCHAR(250) NOT NULL, " +
                 "resposta_requisicao VARCHAR(250), " +
                 "solicitacao_id INT NOT NULL, " +
@@ -150,7 +155,7 @@ public class Conexao {
                 con.close();
             }
         } catch (SQLException ex) {
-            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+            logger.log(Level.INFO, "Não foi possível fechar a conexão com o banco de dados", ex);
         }
     }
 
@@ -162,7 +167,7 @@ public class Conexao {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+            logger.log(Level.INFO, "Não foi possível fechar a conexão com o banco de dados", ex);
         }
     }
 
@@ -174,7 +179,7 @@ public class Conexao {
                 rs.close();
             }
         } catch (SQLException ex) {
-            GWT.log("Não foi possível fechar a conexão com o banco de dados", ex);
+            logger.log(Level.INFO, "Não foi possível fechar a conexão com o banco de dados", ex);
         }
     }
 
@@ -193,7 +198,7 @@ public class Conexao {
 
             int resultado = statement.executeUpdate();
 
-            GWT.log(sql + " retornou " + resultado);
+            logger.log(Level.INFO, sql + " retornou " + resultado);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

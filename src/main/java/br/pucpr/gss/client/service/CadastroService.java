@@ -6,10 +6,11 @@ import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.server.rpc.UnexpectedException;
 
 @RemoteServiceRelativePath("Cadastro")
 public interface CadastroService extends RemoteService {
-    Resposta<Usuario> cadastrar(UsuarioLogin usuarioLogin);
+    Resposta<Usuario> cadastrar(UsuarioLogin usuarioLogin) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * Classe para chamar os métodos de CadastroService.
