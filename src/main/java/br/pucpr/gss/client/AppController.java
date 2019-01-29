@@ -26,9 +26,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     private final HandlerManager eventBus;
     private HasWidgets container;
 
-    private LoginViewImpl loginView;
-    private CadastroViewImpl cadastroView;
-
     public AppController(HandlerManager eventBus) {
         this.eventBus = eventBus;
         bind();
@@ -94,11 +91,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
                         @Override
                         public void onSuccess() {
-                            if (loginView == null) {
-                                loginView = new LoginViewImpl();
-                            }
-
-                            new LoginPresenter(eventBus, loginView).go(container);
+                            new LoginPresenter(eventBus, new LoginViewImpl()).go(container);
                         }
                     });
                     break;
@@ -111,11 +104,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
                         @Override
                         public void onSuccess() {
-                            if (cadastroView == null) {
-                                cadastroView = new CadastroViewImpl();
-                            }
-
-                            new CadastroPresenter(eventBus, cadastroView).go(container);
+                            new CadastroPresenter(eventBus, new CadastroViewImpl()).go(container);
                         }
                     });
                     break;
