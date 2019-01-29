@@ -12,7 +12,7 @@
     <source path="shared"/>
 
     <!-- Specify the app servlets.                   -->
-    <servlet path='/Cadastro'
-             class='br.pucpr.gss.server.serviceImpl.CadastroServiceImpl'/>
+    <servlet path='/Cadastro' class='br.pucpr.gss.server.service.CadastroServiceImpl'/>
+    <servlet path="/Login" class="br.pucpr.gss.server.service.LoginServiceImpl"/>
 
 </module>

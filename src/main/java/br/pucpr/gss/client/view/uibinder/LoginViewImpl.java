@@ -1,6 +1,5 @@
 package br.pucpr.gss.client.view.uibinder;
 
-import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.view.LoginView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,6 +23,8 @@ public class LoginViewImpl extends Composite implements LoginView {
     Button buttonLogin;
     @UiField
     Hyperlink linkCadastrar;
+    @UiField
+    Label labelErro;
 
     private Presenter presenter;
 
@@ -46,5 +47,27 @@ public class LoginViewImpl extends Composite implements LoginView {
         if (presenter != null) {
             presenter.onLoginButtonClicked(textBoxEmail.getText(), textBoxSenha.getText());
         }
+    }
+
+    @Override
+    public void setEmailInvalido() {
+        setErro("Email é obrigatório");
+    }
+
+    @Override
+    public void setSenhaInvalida() {
+        setErro("Senha é obrigatória");
+    }
+
+    @Override
+    public void ocultarLabelErro() {
+        labelErro.setVisible(false);
+        labelErro.setText("");
+    }
+
+    @Override
+    public void setErro(String mensagemErro) {
+        labelErro.setVisible(true);
+        labelErro.setText(mensagemErro);
     }
 }

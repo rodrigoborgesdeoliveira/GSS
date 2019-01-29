@@ -4,7 +4,7 @@ import br.pucpr.gss.client.event.LoginEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.CadastroService;
 import br.pucpr.gss.client.view.CadastroView;
-import br.pucpr.gss.shared.model.Resposta;
+import br.pucpr.gss.shared.model.Usuario;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
@@ -59,7 +59,7 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
             return;
         }
 
-        CadastroService.RPC.getInstance().cadastrar(usuario, new AsyncCallback<Resposta>() {
+        CadastroService.RPC.getInstance().cadastrar(usuario, new AsyncCallback<Usuario>() {
             @Override
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao cadastrar usuário", caught);
@@ -68,7 +68,7 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
             }
 
             @Override
-            public void onSuccess(Resposta result) {
+            public void onSuccess(Usuario result) {
                 GWT.log("Usuário cadastrado com sucesso");
 
                 Window.alert("Cadastro realizado com sucesso");

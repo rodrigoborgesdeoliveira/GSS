@@ -5,10 +5,18 @@
          version="4.0">
     <servlet>
         <servlet-name>com.pucpr.gss.GSS CadastroService</servlet-name>
-        <servlet-class>br.pucpr.gss.server.serviceImpl.CadastroServiceImpl</servlet-class>
+        <servlet-class>br.pucpr.gss.server.service.CadastroServiceImpl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>br.pucpr.gss.GSS LoginService</servlet-name>
+        <servlet-class>br.pucpr.gss.server.service.LoginServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>com.pucpr.gss.GSS CadastroService</servlet-name>
         <url-pattern>/GSS/Cadastro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>br.pucpr.gss.GSS LoginService</servlet-name>
+        <url-pattern>/GSS/Login</url-pattern>
     </servlet-mapping>
 </web-app>

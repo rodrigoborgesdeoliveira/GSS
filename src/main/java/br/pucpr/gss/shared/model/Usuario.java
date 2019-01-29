@@ -18,6 +18,13 @@ public class Usuario implements IsSerializable {
         this.idFuncionario = idFuncionario;
     }
 
+    public Usuario(String nome, String senha, boolean isAdmin, int idFuncionario) {
+        this.nome = nome;
+        this.senha = senha;
+        this.isAdmin = isAdmin;
+        this.idFuncionario = idFuncionario;
+    }
+
     public Usuario() {
     }
 

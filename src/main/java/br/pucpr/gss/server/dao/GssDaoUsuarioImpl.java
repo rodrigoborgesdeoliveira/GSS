@@ -1,6 +1,7 @@
 package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.shared.model.Usuario;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +13,22 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public Usuario getUsuarioByIdFuncionario(int idFuncionario) {
+    public Usuario getUsuarioByIdFuncionario(int idFuncionario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id) = ('%s');", idFuncionario);
+        return getUsuario(idFuncionario, sql);
+    }
+
+    @Override
+    public Usuario getUsuarioByIdFuncionarioESenha(int idFuncionario, String senha) throws IllegalStateException {
+        // language=MySQL
+        String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id, senha) = ('%s', SHA2('%s', 256));",
+                idFuncionario, senha);
+        return getUsuario(idFuncionario, sql);
+    }
+
+    @Nullable
+    private Usuario getUsuario(int idFuncionario, String sql) {
         ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
 
         try {
@@ -38,7 +52,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     }
 
     @Override
-    public int getQuantidadeUsuarios() {
+    public int getQuantidadeUsuarios() throws IllegalStateException {
         // language=MySQL
         String sql = "SELECT COUNT(id) FROM usuario;";
         ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);

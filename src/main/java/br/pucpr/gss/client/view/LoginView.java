@@ -13,4 +13,12 @@ public interface LoginView {
     void setPresenter(Presenter presenter);
 
     Widget asWidget();
+
+    void setEmailInvalido();
+
+    void setSenhaInvalida();
+
+    void ocultarLabelErro();
+
+    void setErro(String mensagemErro);
 }

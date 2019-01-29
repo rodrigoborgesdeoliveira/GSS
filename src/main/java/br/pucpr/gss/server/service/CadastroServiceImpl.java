@@ -1,9 +1,8 @@
-package br.pucpr.gss.server.serviceImpl;
+package br.pucpr.gss.server.service;
 
 import br.pucpr.gss.client.service.CadastroService;
 import br.pucpr.gss.server.dao.*;
 import br.pucpr.gss.server.model.Funcionario;
-import br.pucpr.gss.shared.model.Resposta;
 import br.pucpr.gss.shared.model.Usuario;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -16,7 +15,7 @@ public class CadastroServiceImpl extends RemoteServiceServlet implements Cadastr
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public Resposta<Usuario> cadastrar(UsuarioLogin usuarioLogin) throws IllegalStateException, IllegalArgumentException {
+    public Usuario cadastrar(UsuarioLogin usuarioLogin) throws IllegalStateException, IllegalArgumentException {
         // Como é possível que o banco de dados não exista ainda, tentar criá-lo.
         Conexao.getInstance().criarBancoDeDados();
 
@@ -38,16 +37,16 @@ public class CadastroServiceImpl extends RemoteServiceServlet implements Cadastr
                 // usuário é administrador
                 boolean isAdmin = gssDaoUsuario.getQuantidadeUsuarios() <= 0;
 
-                usuario = new Usuario(0, funcionario.getNome(), usuarioLogin.getSenha(), isAdmin, funcionario.getId());
+                usuario = new Usuario(funcionario.getNome(), usuarioLogin.getSenha(), isAdmin, funcionario.getId());
                 gssDaoUsuario.insertUsuario(usuario);
 
                 logger.log(Level.INFO, "Usuário cadastrado");
+
+                return usuario;
             }
         } else {
             // Usuário não existe no banco do RH
             throw new IllegalArgumentException("Email não cadastrado no RH");
         }
-
-        return new Resposta<>();
     }
 }
