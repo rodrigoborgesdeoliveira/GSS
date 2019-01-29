@@ -1,6 +1,7 @@
 package br.pucpr.gss.client.presenter;
 
 import br.pucpr.gss.client.AppController;
+import br.pucpr.gss.client.event.LoginSucesso;
 import br.pucpr.gss.client.service.LoginService;
 import br.pucpr.gss.client.view.LoginView;
 import br.pucpr.gss.shared.model.Usuario;
@@ -60,7 +61,7 @@ public class LoginPresenter implements Presenter, LoginView.Presenter {
             public void onSuccess(Usuario result) {
                 GWT.log("Login realizado com sucesso");
 
-                
+                eventBus.fireEvent(new LoginSucesso(result));
             }
         });
     }
