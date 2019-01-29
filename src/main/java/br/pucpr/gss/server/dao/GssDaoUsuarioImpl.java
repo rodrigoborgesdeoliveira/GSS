@@ -18,7 +18,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
         ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
 
         try {
-            if (resultado.next()) {
+            if (resultado != null && resultado.next()) {
                 int id = resultado.getInt(1);
                 String nome = resultado.getString(2);
                 String senha = resultado.getString(3);
@@ -44,7 +44,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
         ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
 
         try {
-            if (resultado.next()) {
+            if (resultado != null && resultado.next()) {
                 return resultado.getInt(1);
             }
         } catch (SQLException e) {

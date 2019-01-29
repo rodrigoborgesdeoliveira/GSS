@@ -19,7 +19,7 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
         ResultSet resultado = Conexao.getInstance().executeSQLQueryRH(sql);
 
         try {
-            if (resultado.next()) {
+            if (resultado != null && resultado.next()) {
                 int id = resultado.getInt(1);
                 String nome = resultado.getString(2);
                 int setorId = resultado.getInt(3);

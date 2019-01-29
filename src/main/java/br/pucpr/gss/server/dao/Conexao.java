@@ -208,7 +208,7 @@ public class Conexao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            closeConnection(conexao, statement);
+//            closeConnection(conexao, statement);
         }
     }
 
@@ -254,7 +254,7 @@ public class Conexao {
 
             return null;
         } finally {
-            closeConnection(conexao, statement);
+//            closeConnection(conexao, statement);
         }
     }
 }
