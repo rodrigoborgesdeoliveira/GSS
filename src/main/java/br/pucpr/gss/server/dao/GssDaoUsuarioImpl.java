@@ -62,7 +62,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     public void insertUsuario(Usuario usuario) {
         // language=MySQL
         String sql = String.format("INSERT INTO usuario (nome, senha, isAdmin, funcionario_id) VALUES " +
-                "('%s', '%s', %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(), usuario.getIdFuncionario());
+                "('%s', SHA2('%s', 256), %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(), usuario.getIdFuncionario());
         Conexao.getInstance().executeSQLUpdateGSS(sql);
     }
 }
