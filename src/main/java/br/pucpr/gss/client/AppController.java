@@ -40,27 +40,30 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     private void bind() {
         History.addValueChangeHandler(this);
 
-        eventBus.addHandler(LoginEvent.TYPE, event -> doLogin());
+        eventBus.addHandler(LoginEvent.TYPE, event -> doCarregarLogin());
 
-        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCadastrar());
+        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastro());
 
         eventBus.addHandler(VoltarEvent.TYPE, event -> doVoltar());
     }
 
     /**
-     * Ao realizar o login com sucesso.
+     * Carregar a tela de login.
      */
-    private void doLogin() {
-        // TODO: 26/01/2019 apagar histórico e navegar para o dashboard
-    }
-
-    /**
-     * Ao finalizar o cadastro com sucesso, navegar de volta para o login.
-     */
-    private void doCadastrar() {
+    private void doCarregarLogin() {
         History.newItem(LOGIN_TOKEN);
     }
 
+    /**
+     * Carregar a tela de cadastro.
+     */
+    private void doCarregarCadastro() {
+        History.newItem(CADASTRAR_TOKEN);
+    }
+
+    /**
+     * Voltar à tela anterior.
+     */
     private void doVoltar() {
         History.back();
     }

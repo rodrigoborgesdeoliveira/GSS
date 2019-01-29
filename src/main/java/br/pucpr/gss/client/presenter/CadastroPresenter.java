@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.LoginEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.CadastroService;
 import br.pucpr.gss.client.view.CadastroView;
@@ -7,6 +8,7 @@ import br.pucpr.gss.shared.model.Resposta;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -30,6 +32,8 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
     @Override
     public void onCadastrarButtonClicked(String email, String senha, String confirmarSenha) {
         UsuarioLogin usuario = new UsuarioLogin(email, senha);
+
+        view.ocultarLabelErro();
 
         // Validar formato do email
         if (!usuario.isEmailValido()) {
@@ -66,6 +70,10 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
             @Override
             public void onSuccess(Resposta result) {
                 GWT.log("Usuário cadastrado com sucesso");
+
+                Window.alert("Cadastro realizado com sucesso");
+
+                eventBus.fireEvent(new LoginEvent());
             }
         });
     }

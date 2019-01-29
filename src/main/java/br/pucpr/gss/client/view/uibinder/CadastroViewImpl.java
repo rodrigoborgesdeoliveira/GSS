@@ -44,7 +44,6 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiHandler("buttonCadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
-            ocultarLabelErro();
             presenter.onCadastrarButtonClicked(email.getText(), senha.getText(), confirmarSenha.getText());
         }
     }
