@@ -28,10 +28,11 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     }
 
     @Nullable
-    private Usuario getUsuario(int idFuncionario, String sql) {
-        ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
-
+    private Usuario getUsuario(int idFuncionario, String sql) throws IllegalStateException {
+        ResultSet resultado = null;
         try {
+            resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
+
             if (resultado != null && resultado.next()) {
                 int id = resultado.getInt(1);
                 String nome = resultado.getString(2);
@@ -42,6 +43,10 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } finally {
@@ -55,14 +60,19 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     public int getQuantidadeUsuarios() throws IllegalStateException {
         // language=MySQL
         String sql = "SELECT COUNT(id) FROM usuario;";
-        ResultSet resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
-
+        ResultSet resultado = null;
         try {
+            resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
+
             if (resultado != null && resultado.next()) {
                 return resultado.getInt(1);
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } finally {
@@ -73,10 +83,16 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     }
 
     @Override
-    public void insertUsuario(Usuario usuario) {
+    public void insertUsuario(Usuario usuario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("INSERT INTO usuario (nome, senha, isAdmin, funcionario_id) VALUES " +
                 "('%s', SHA2('%s', 256), %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(), usuario.getIdFuncionario());
-        Conexao.getInstance().executeSQLUpdateGSS(sql);
+        try {
+            Conexao.getInstance().executeSQLUpdateGSS(sql);
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        }
     }
 }

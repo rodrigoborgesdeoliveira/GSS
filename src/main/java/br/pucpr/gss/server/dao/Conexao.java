@@ -1,7 +1,5 @@
 package br.pucpr.gss.server.dao;
 
-import com.sun.istack.internal.Nullable;
-
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,13 +60,13 @@ public class Conexao {
     /**
      * Cria as tabelas do banco de dados de solicitações (GSS) caso não existam ainda.
      */
-    private void criarTabelas() {
+    private void criarTabelas() throws SQLException {
         // language=MySQL
         String sqlUsuario = "CREATE TABLE IF NOT EXISTS usuario (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
                 "nome VARCHAR(50) NOT NULL, " +
-                "senha VARCHAR(32) NOT NULL, " + // 256 bits para o SHA2
+                "senha VARCHAR(71) NOT NULL, " +
                 "isAdmin BOOLEAN DEFAULT FALSE, " +
                 "funcionario_id INT NOT NULL, " +
                 "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id), " +
@@ -194,7 +192,7 @@ public class Conexao {
      *
      * @param sql comando SQL a ser executado.
      */
-    public void executeSQLUpdateGSS(String sql) {
+    public void executeSQLUpdateGSS(String sql) throws SQLException {
         Connection conexao = null;
         PreparedStatement statement = null;
 
@@ -206,7 +204,9 @@ public class Conexao {
 
             logger.log(Level.INFO, sql + " retornou " + resultado);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Erro ao executar SQL update", e);
+
+            throw e;
         } finally {
             closeConnection(conexao, statement);
         }
@@ -218,8 +218,7 @@ public class Conexao {
      * @param sql comando SQL a ser executado.
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
-    @Nullable
-    public ResultSet executeSQLQueryGSS(String sql) {
+    public ResultSet executeSQLQueryGSS(String sql) throws SQLException {
         return executeSQLQuery(getConexaoGSS(), sql);
     }
 
@@ -229,8 +228,7 @@ public class Conexao {
      * @param sql comando SQL a ser executado.
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
-    @Nullable
-    public ResultSet executeSQLQueryRH(String sql) {
+    public ResultSet executeSQLQueryRH(String sql) throws SQLException {
         return executeSQLQuery(getConexaoRH(), sql);
     }
 
@@ -241,18 +239,15 @@ public class Conexao {
      * @param sql     comando SQL a ser executado.
      * @return um {@link ResultSet} com o resultado da consulta ou null se ocorrer algum erro.
      */
-    @Nullable
-    private ResultSet executeSQLQuery(Connection conexao, String sql) {
-        PreparedStatement statement = null;
-
+    private ResultSet executeSQLQuery(Connection conexao, String sql) throws SQLException {
         try {
-            statement = conexao.prepareStatement(sql);
+            PreparedStatement statement = conexao.prepareStatement(sql);
 
             return statement.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Erro ao executar SQL query", e);
 
-            return null;
+            throw e;
         }
     }
 }

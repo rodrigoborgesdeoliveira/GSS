@@ -12,13 +12,14 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public Funcionario getFuncionarioByEmail(String email) {
+    public Funcionario getFuncionarioByEmail(String email) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT id, nome, setor_id FROM funcionario WHERE (email) = ('%s');", email);
 
-        ResultSet resultado = Conexao.getInstance().executeSQLQueryRH(sql);
+        ResultSet resultado = null;
 
         try {
+            resultado = Conexao.getInstance().executeSQLQueryRH(sql);
             if (resultado != null && resultado.next()) {
                 int id = resultado.getInt(1);
                 String nome = resultado.getString(2);
@@ -28,6 +29,10 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } finally {
