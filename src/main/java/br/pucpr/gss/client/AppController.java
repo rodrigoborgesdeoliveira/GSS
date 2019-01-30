@@ -1,13 +1,12 @@
 package br.pucpr.gss.client;
 
-import br.pucpr.gss.client.event.CadastrarEvent;
-import br.pucpr.gss.client.event.LoginEvent;
-import br.pucpr.gss.client.event.LoginSucesso;
-import br.pucpr.gss.client.event.VoltarEvent;
+import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.presenter.CadastroPresenter;
+import br.pucpr.gss.client.presenter.DashboardPresenter;
 import br.pucpr.gss.client.presenter.LoginPresenter;
 import br.pucpr.gss.client.presenter.Presenter;
 import br.pucpr.gss.client.view.uibinder.CadastroViewImpl;
+import br.pucpr.gss.client.view.uibinder.DashboardViewImpl;
 import br.pucpr.gss.client.view.uibinder.LoginViewImpl;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
@@ -49,6 +48,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastro());
 
         eventBus.addHandler(VoltarEvent.TYPE, event -> doVoltar());
+
+        eventBus.addHandler(DashboardEvent.TYPE, event -> doCarregarDashboard());
     }
 
     /**
@@ -65,7 +66,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      */
     private void doLoginSucesso(Usuario usuario) {
         this.usuario = usuario;
-        History.newItem(DASHBOARD);
+        doCarregarDashboard();
     }
 
     /**
@@ -80,6 +81,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      */
     private void doVoltar() {
         History.back();
+    }
+
+    private void doCarregarDashboard() {
+        History.newItem(DASHBOARD);
     }
 
     @Override
@@ -138,7 +143,13 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     });
                     break;
                 case DASHBOARD:
-                    // TODO: 29/01/2019 Implementar Dashboard view e redirecionar para a dashboard aqui
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new DashboardPresenter(eventBus, new DashboardViewImpl()).go(container);
+                    }
+
                     break;
             }
         }

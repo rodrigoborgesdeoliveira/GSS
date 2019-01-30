@@ -1,0 +1,34 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <g:HTMLPanel>
+        <g:VerticalPanel>
+            <g:Hyperlink>
+                <ui:msg>Dashboard</ui:msg>
+            </g:Hyperlink>
+            <g:Label>
+                <ui:msg>Solicitações</ui:msg>
+            </g:Label>
+            <g:Hyperlink>
+                <ui:msg>Cadastrar solicitação</ui:msg>
+            </g:Hyperlink>
+            <g:Hyperlink>
+                <ui:msg>Consultar solicitações</ui:msg>
+            </g:Hyperlink>
+            <g:Label>
+                <ui:msg>Indicadores</ui:msg>
+            </g:Label>
+            <g:Hyperlink>
+                <ui:msg>Gerar indicadores</ui:msg>
+            </g:Hyperlink>
+            <g:Label>
+                <ui:msg>Cadastros</ui:msg>
+            </g:Label>
+            <g:Hyperlink>
+                <ui:msg>Gerenciar cadastros</ui:msg>
+            </g:Hyperlink>
+            <g:Hyperlink>
+                <ui:msg>Sair</ui:msg>
+            </g:Hyperlink>
+        </g:VerticalPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>
