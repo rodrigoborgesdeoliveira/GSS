@@ -1,6 +1,7 @@
 package br.pucpr.gss.client.presenter;
 
 import br.pucpr.gss.client.AppController;
+import br.pucpr.gss.client.event.LogoutEvent;
 import br.pucpr.gss.client.view.MenuView;
 import com.google.gwt.event.shared.HandlerManager;
 
@@ -18,26 +19,36 @@ public class MenuPresenter implements MenuView.Presenter {
 
     @Override
     public String getOnDashboardClickedToken() {
-        return AppController.DASHBOARD;
+        return AppController.DASHBOARD_TOKEN;
     }
 
     @Override
     public String getOnCadastrarSolicitacaoClickedToken() {
-        return null;
+        return AppController.CADASTRAR_SOLICITACAO_TOKEN;
     }
 
     @Override
     public String getOnConsultarSolicitacoesClickedToken() {
-        return null;
+        return "";
     }
 
     @Override
     public String getOnGerarIndicadoresClickedToken() {
-        return null;
+        return "";
     }
 
     @Override
     public String getOnGerenciarCadastrosClickedToken() {
-        return null;
+        return "";
+    }
+
+    @Override
+    public String getOnSairClickedToken() {
+        return AppController.LOGIN_TOKEN;
+    }
+
+    @Override
+    public void onSairClicked() {
+        eventBus.fireEvent(new LogoutEvent());
     }
 }

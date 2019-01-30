@@ -14,6 +14,10 @@ public interface MenuView {
         String getOnGerarIndicadoresClickedToken();
 
         String getOnGerenciarCadastrosClickedToken();
+
+        String getOnSairClickedToken();
+
+        void onSairClicked();
     }
 
     void setPresenter(Presenter presenter);

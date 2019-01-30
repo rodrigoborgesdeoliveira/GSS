@@ -1,10 +1,8 @@
 package br.pucpr.gss.client;
 
 import br.pucpr.gss.client.event.*;
-import br.pucpr.gss.client.presenter.CadastroPresenter;
-import br.pucpr.gss.client.presenter.DashboardPresenter;
-import br.pucpr.gss.client.presenter.LoginPresenter;
-import br.pucpr.gss.client.presenter.Presenter;
+import br.pucpr.gss.client.presenter.*;
+import br.pucpr.gss.client.view.uibinder.CadastroSolicitacaoViewImpl;
 import br.pucpr.gss.client.view.uibinder.CadastroViewImpl;
 import br.pucpr.gss.client.view.uibinder.DashboardViewImpl;
 import br.pucpr.gss.client.view.uibinder.LoginViewImpl;
@@ -23,7 +21,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     // Tokens do histórico
     public static final String LOGIN_TOKEN = "login";
     public static final String CADASTRAR_TOKEN = "cadastrar";
-    public static final String DASHBOARD = "dashboard";
+    public static final String DASHBOARD_TOKEN = "dashboard";
+    public static final String CADASTRAR_SOLICITACAO_TOKEN = "cadastrarSolicitacao";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -50,6 +49,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(VoltarEvent.TYPE, event -> doVoltar());
 
         eventBus.addHandler(DashboardEvent.TYPE, event -> doCarregarDashboard());
+
+        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastroSolicitacao());
+
+        eventBus.addHandler(LogoutEvent.TYPE, event -> doLogout());
     }
 
     /**
@@ -84,7 +87,15 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     }
 
     private void doCarregarDashboard() {
-        History.newItem(DASHBOARD);
+        History.newItem(DASHBOARD_TOKEN);
+    }
+
+    private void doCarregarCadastroSolicitacao() {
+        History.newItem(CADASTRAR_SOLICITACAO_TOKEN);
+    }
+
+    private void doLogout() {
+        usuario = null;
     }
 
     @Override
@@ -118,7 +129,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                                 new LoginPresenter(eventBus, new LoginViewImpl()).go(container);
                             } else {
                                 // Usuário está logado, redirecionar para a dashboard
-                                History.newItem(DASHBOARD);
+                                History.newItem(DASHBOARD_TOKEN);
                             }
                         }
                     });
@@ -137,17 +148,26 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                                 new CadastroPresenter(eventBus, new CadastroViewImpl()).go(container);
                             } else {
                                 // Usuário está logado, redirecionar para a dashboard
-                                History.newItem(DASHBOARD);
+                                History.newItem(DASHBOARD_TOKEN);
                             }
                         }
                     });
                     break;
-                case DASHBOARD:
-                    if (/*usuario == null*/false) {
+                case DASHBOARD_TOKEN:
+                    if (usuario == null) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
                         new DashboardPresenter(eventBus, new DashboardViewImpl()).go(container);
+                    }
+
+                    break;
+                case CADASTRAR_SOLICITACAO_TOKEN:
+                    if (/*usuario == null*/false) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new CadastroSolicitacaoPresenter(eventBus, new CadastroSolicitacaoViewImpl()).go(container);
                     }
 
                     break;
