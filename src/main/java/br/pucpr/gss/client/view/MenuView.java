@@ -23,4 +23,6 @@ public interface MenuView {
     void setPresenter(Presenter presenter);
 
     Widget asWidget();
+
+    void setUIAdmin();
 }

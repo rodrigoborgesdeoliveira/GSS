@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MenuViewImpl extends Composite implements MenuView {
@@ -31,6 +32,8 @@ public class MenuViewImpl extends Composite implements MenuView {
     Hyperlink gerenciarCadastros;
     @UiField
     Hyperlink sair;
+    @UiField
+    VerticalPanel grupoCadastros;
 
     public MenuViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -55,5 +58,10 @@ public class MenuViewImpl extends Composite implements MenuView {
         if (presenter != null) {
             presenter.onSairClicked();
         }
+    }
+
+    @Override
+    public void setUIAdmin() {
+        grupoCadastros.setVisible(true);
     }
 }

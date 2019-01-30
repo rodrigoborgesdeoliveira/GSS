@@ -5,27 +5,33 @@
             <g:Hyperlink ui:field="dashboard">
                 <ui:msg>Dashboard</ui:msg>
             </g:Hyperlink>
-            <g:Label>
-                <ui:msg>Solicitações</ui:msg>
-            </g:Label>
-            <g:Hyperlink ui:field="cadastrarSolicitacao">
-                <ui:msg>Cadastrar solicitação</ui:msg>
-            </g:Hyperlink>
-            <g:Hyperlink ui:field="consultarSolicitacoes">
-                <ui:msg>Consultar solicitações</ui:msg>
-            </g:Hyperlink>
-            <g:Label>
-                <ui:msg>Indicadores</ui:msg>
-            </g:Label>
-            <g:Hyperlink ui:field="gerarIndicadores">
-                <ui:msg>Gerar indicadores</ui:msg>
-            </g:Hyperlink>
-            <g:Label ui:field="cadastros">
-                <ui:msg>Cadastros</ui:msg>
-            </g:Label>
-            <g:Hyperlink ui:field="gerenciarCadastros">
-                <ui:msg>Gerenciar cadastros</ui:msg>
-            </g:Hyperlink>
+            <g:VerticalPanel ui:field="grupoSolicitacoes">
+                <g:Label>
+                    <ui:msg>Solicitações</ui:msg>
+                </g:Label>
+                <g:Hyperlink ui:field="cadastrarSolicitacao">
+                    <ui:msg>Cadastrar solicitação</ui:msg>
+                </g:Hyperlink>
+                <g:Hyperlink ui:field="consultarSolicitacoes">
+                    <ui:msg>Consultar solicitações</ui:msg>
+                </g:Hyperlink>
+            </g:VerticalPanel>
+            <g:VerticalPanel ui:field="grupoIndicadores">
+                <g:Label>
+                    <ui:msg>Indicadores</ui:msg>
+                </g:Label>
+                <g:Hyperlink ui:field="gerarIndicadores">
+                    <ui:msg>Gerar indicadores</ui:msg>
+                </g:Hyperlink>
+            </g:VerticalPanel>
+            <g:VerticalPanel ui:field="grupoCadastros" visible="false">
+                <g:Label>
+                    <ui:msg>Cadastros</ui:msg>
+                </g:Label>
+                <g:Hyperlink ui:field="gerenciarCadastros">
+                    <ui:msg>Gerenciar cadastros</ui:msg>
+                </g:Hyperlink>
+            </g:VerticalPanel>
             <g:Hyperlink ui:field="sair">
                 <ui:msg>Sair</ui:msg>
             </g:Hyperlink>

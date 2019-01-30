@@ -10,11 +10,15 @@ public class MenuPresenter implements MenuView.Presenter {
     private HandlerManager eventBus;
     private MenuView view;
 
-    public MenuPresenter(HandlerManager eventBus, MenuView view) {
+    public MenuPresenter(HandlerManager eventBus, MenuView view, boolean isAdmin) {
         this.eventBus = eventBus;
         this.view = view;
 
         this.view.setPresenter(this);
+
+        if (isAdmin) {
+            this.view.setUIAdmin();
+        }
     }
 
     @Override

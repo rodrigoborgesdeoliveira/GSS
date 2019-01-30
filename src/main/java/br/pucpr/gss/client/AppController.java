@@ -158,16 +158,17 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
-                        new DashboardPresenter(eventBus, new DashboardViewImpl()).go(container);
+                        new DashboardPresenter(eventBus, new DashboardViewImpl(), usuario).go(container);
                     }
 
                     break;
                 case CADASTRAR_SOLICITACAO_TOKEN:
-                    if (/*usuario == null*/false) {
+                    if (usuario == null) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
-                        new CadastroSolicitacaoPresenter(eventBus, new CadastroSolicitacaoViewImpl()).go(container);
+                        new CadastroSolicitacaoPresenter(eventBus, new CadastroSolicitacaoViewImpl(), usuario)
+                                .go(container);
                     }
 
                     break;

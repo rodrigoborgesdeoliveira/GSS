@@ -1,17 +1,17 @@
 package br.pucpr.gss.client.presenter;
 
-import br.pucpr.gss.client.view.DashboardView;
+import br.pucpr.gss.client.view.CadastroSolicitacaoView;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
-public class DashboardPresenter implements Presenter, DashboardView.Presenter {
+public class CadastroSolicitacaoPresenter implements Presenter, CadastroSolicitacaoView.Presenter {
 
     private HandlerManager eventBus;
-    private DashboardView view;
+    private CadastroSolicitacaoView view;
     private Usuario usuario;
 
-    public DashboardPresenter(HandlerManager eventBus, DashboardView view, Usuario usuario) {
+    public CadastroSolicitacaoPresenter(HandlerManager eventBus, CadastroSolicitacaoView view, Usuario usuario) {
         this.eventBus = eventBus;
         this.view = view;
         this.usuario = usuario;
