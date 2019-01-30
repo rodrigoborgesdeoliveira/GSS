@@ -68,8 +68,8 @@ public class Conexao {
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
                 "nome VARCHAR(50) NOT NULL, " +
-                "senha VARCHAR(71) NOT NULL, " +
-                "isAdmin BOOLEAN DEFAULT FALSE, " + // BCrypt tem um limite de 71 bytes + 1 byte reservado
+                "senha VARCHAR(32) NOT NULL, " + // 256 bits para o SHA2
+                "isAdmin BOOLEAN DEFAULT FALSE, " +
                 "funcionario_id INT NOT NULL, " +
                 "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id), " +
                 "UNIQUE INDEX funcionario_id_UNIQUE (funcionario_id ASC) INVISIBLE);";
@@ -78,12 +78,12 @@ public class Conexao {
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
                 "titulo VARCHAR(45) NOT NULL, " +
-                "descricao VARCHAR(250), " +
+                "descricao TEXT, " +
                 "prioridade INT NOT NULL, " +
                 "estado INT NOT NULL, " +
                 "data_criacao DATE NOT NULL, " +
                 "prazo DATE, " +
-                "descricao_solucao VARCHAR(250), " +
+                "descricao_solucao TEXT, " +
                 "setor_id INT NOT NULL, " +
                 "solicitante_id INT NOT NULL, " +
                 "atendente_id INT, " +
@@ -106,8 +106,8 @@ public class Conexao {
         String sqlInformacaoAdicional = "CREATE TABLE IF NOT EXISTS informacao_adicional (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
-                "descricao_requisicao VARCHAR(250) NOT NULL, " +
-                "resposta_requisicao VARCHAR(250), " +
+                "descricao_requisicao TEXT NOT NULL, " +
+                "resposta_requisicao TEXT, " +
                 "solicitacao_id INT NOT NULL, " +
                 "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id));";
 
