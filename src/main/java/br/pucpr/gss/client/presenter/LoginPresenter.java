@@ -54,7 +54,7 @@ public class LoginPresenter implements Presenter, LoginView.Presenter {
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao fazer login", caught);
 
-
+                view.setErro(caught.getLocalizedMessage());
             }
 
             @Override
