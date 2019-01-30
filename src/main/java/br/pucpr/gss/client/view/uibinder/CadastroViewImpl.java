@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.*;
 
 public class CadastroViewImpl extends Composite implements CadastroView {
 
-    interface CadastroViewUiBinder extends UiBinder<HTMLPanel, CadastroViewImpl> {
+    interface CadastroViewUiBinder extends UiBinder<Widget, CadastroViewImpl> {
     }
 
     private static CadastroViewUiBinder uiBinder = GWT.create(CadastroViewUiBinder.class);

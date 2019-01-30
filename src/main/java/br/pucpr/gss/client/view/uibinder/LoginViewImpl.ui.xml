@@ -16,7 +16,7 @@
                 <g:PasswordTextBox ui:field="textBoxSenha"/>
                 <g:Label ui:field="labelErro" visible="false"/>
                 <g:Button ui:field="buttonLogin">
-                    <ui:msg>Login</ui:msg>
+                    <ui:msg>Entrar</ui:msg>
                 </g:Button>
                 <g:Hyperlink ui:field="linkCadastrar">
                     <ui:msg>Cadastrar</ui:msg>

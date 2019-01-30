@@ -10,5 +10,7 @@ public interface DashboardView {
 
     void setPresenter(Presenter presenter);
 
+    MenuView getMenuView();
+
     Widget asWidget();
 }

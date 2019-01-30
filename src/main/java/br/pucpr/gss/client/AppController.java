@@ -143,7 +143,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     });
                     break;
                 case DASHBOARD:
-                    if (usuario == null) {
+                    if (/*usuario == null*/false) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
