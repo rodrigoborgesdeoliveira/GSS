@@ -11,4 +11,8 @@ public interface GssDao {
 
         void insertUsuario(br.pucpr.gss.shared.model.Usuario usuario);
     }
+
+    interface Solicitacao {
+        void insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao);
+    }
 }

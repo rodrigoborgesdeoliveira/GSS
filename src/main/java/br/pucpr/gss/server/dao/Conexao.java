@@ -121,7 +121,7 @@ public class Conexao {
      * @return a conexão com o banco de dados do GSS.
      * @throws RuntimeException se algum erro ocorrer ao obter a conexão.
      */
-    private Connection getConexaoGSS() throws RuntimeException {
+    public Connection getConexaoGSS() throws RuntimeException {
         return getConexao(DB_GSS, USUARIO_GSS, SENHA_GSS);
     }
 
@@ -213,6 +213,23 @@ public class Conexao {
     }
 
     /**
+     * Executa um comando SQL INSERT, UPDATE ou DELETE no banco de dados.
+     *
+     * @param statement PreparedStatement com comando SQL a ser executado.
+     */
+    public void executeSQLUpdate(PreparedStatement statement) throws SQLException {
+        try {
+            int resultado = statement.executeUpdate();
+
+            logger.log(Level.INFO, "Retornou " + resultado);
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Erro ao executar SQL update", e);
+
+            throw e;
+        }
+    }
+
+    /**
      * Executa um comando SQL que retorna um resultado, como o comando SELECT, no banco de dados GSS.
      *
      * @param sql comando SQL a ser executado.
@@ -243,6 +260,25 @@ public class Conexao {
         try {
             PreparedStatement statement = conexao.prepareStatement(sql);
 
+            return statement.executeQuery();
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Erro ao executar SQL query", e);
+
+            throw e;
+        }
+    }
+
+    /**
+     * Executar uma consulta no banco de dados nos casos em que não é possível construir uma String SQL facilmente.
+     * Como por exemplo, em casos em que uma data é utilizada.
+     * Se possível, utilize o {@link Conexao#executeSQLQuery(Connection, String)}.
+     *
+     * @param statement PreparedStatement para realizar a consulta.
+     * @return ResultSet com o resultado da consulta.
+     * @throws SQLException Caso haja um erro na consulta.
+     */
+    public ResultSet executeSQLQuery(PreparedStatement statement) throws SQLException {
+        try {
             return statement.executeQuery();
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Erro ao executar SQL query", e);

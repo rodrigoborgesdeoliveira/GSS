@@ -1,9 +1,12 @@
 package br.pucpr.gss.server.service;
 
 import br.pucpr.gss.client.service.SolicitacaoService;
+import br.pucpr.gss.server.dao.GssDao;
+import br.pucpr.gss.server.dao.GssDaoSolicitacaoImpl;
 import br.pucpr.gss.server.dao.RhDao;
 import br.pucpr.gss.server.dao.RhDaoSetorImpl;
 import br.pucpr.gss.shared.model.Setor;
+import br.pucpr.gss.shared.model.Solicitacao;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.util.ArrayList;
@@ -22,5 +25,14 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         logger.log(Level.INFO, "Lista de setores: " + setores);
 
         return setores;
+    }
+
+    @Override
+    public void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
+        GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
+
+        gssDaoSolicitacao.insertSolicitacao(solicitacao);
+
+        logger.log(Level.INFO, "Solicitação criada com sucesso");
     }
 }

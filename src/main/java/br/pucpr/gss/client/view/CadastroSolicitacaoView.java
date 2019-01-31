@@ -7,7 +7,9 @@ import java.util.ArrayList;
 public interface CadastroSolicitacaoView {
 
     interface Presenter {
+        void onCadastrarButtonClicked(String titulo, int indiceSetor, String descricao);
 
+        void onCancelarButtonClicked();
     }
 
     void setPresenter(Presenter presenter);

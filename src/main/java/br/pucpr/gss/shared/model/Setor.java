@@ -20,12 +20,20 @@ public class Setor implements IsSerializable {
         this.idGestor = idGestor;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
 
+    public int getIdGestor() {
+        return idGestor;
+    }
+
     @Override
     public String toString() {
-        return "id = " + id + ", nome = " + nome + ", idGestor = " + idGestor;
+        return "(id = " + id + ", nome = " + nome + ", idGestor = " + idGestor + ")";
     }
 }
