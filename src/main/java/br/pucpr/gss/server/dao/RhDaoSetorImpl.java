@@ -1,31 +1,34 @@
 package br.pucpr.gss.server.dao;
 
-import br.pucpr.gss.server.model.Funcionario;
+import br.pucpr.gss.shared.model.Setor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
+public class RhDaoSetorImpl implements RhDao.Setor {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public Funcionario getFuncionarioByEmail(String email) throws IllegalStateException {
+    public ArrayList<Setor> getSetores() throws IllegalStateException {
         // language=MySQL
-        String sql = String.format("SELECT id, nome, setor_id FROM funcionario WHERE (email) = ('%s');", email);
-
+        String sql = "SELECT * FROM setor;";
         ResultSet resultado = null;
+        ArrayList<Setor> setores = new ArrayList<>();
 
         try {
             resultado = Conexao.getInstance().executeSQLQueryRH(sql);
-            if (resultado != null && resultado.next()) {
-                int id = resultado.getInt(1);
-                String nome = resultado.getString(2);
-                int setorId = resultado.getInt(3);
+            if (resultado != null) {
+                while (resultado.next()) {
+                    int id = resultado.getInt(1);
+                    String nome = resultado.getString(2);
+                    int idGestor = resultado.getInt(3);
 
-                return new Funcionario(id, email, nome, setorId);
+                    setores.add(new Setor(id, nome, idGestor));
+                }
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível ler resultado", e);
@@ -39,6 +42,6 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
             Conexao.getInstance().closeConnection(null, null, resultado);
         }
 
-        return null;
+        return setores;
     }
 }

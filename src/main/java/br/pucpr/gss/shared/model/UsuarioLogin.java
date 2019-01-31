@@ -6,6 +6,9 @@ public class UsuarioLogin implements IsSerializable {
     private String email;
     private String senha;
 
+    /**
+     * Construtor para o serializable.
+     */
     public UsuarioLogin() {
     }
 
@@ -49,6 +52,7 @@ public class UsuarioLogin implements IsSerializable {
      * - Ser nula.
      * - Ser vazia.
      * - Possuir menos de 8 caracteres.
+     *
      * @return true, se válido, e false, caso contrário.
      */
     public boolean isSenhaValida() {

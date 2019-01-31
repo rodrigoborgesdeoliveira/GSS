@@ -46,7 +46,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } catch (Exception ex) {
-            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } finally {
@@ -72,7 +72,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } catch (Exception ex) {
-            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } finally {
@@ -90,7 +90,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
         try {
             Conexao.getInstance().executeSQLUpdateGSS(sql);
         } catch (Exception ex) {
-            logger.log(Level.WARNING, "Erro com o banco de dado", ex);
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         }

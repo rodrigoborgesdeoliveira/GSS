@@ -16,13 +16,13 @@
                 <g:HorizontalPanel>
                     <g:VerticalPanel>
                         <g:Label>
-                            <ui:msg>Título</ui:msg>
+                            <ui:msg>Título da solicitação</ui:msg>
                         </g:Label>
                         <g:TextBox ui:field="titulo"/>
                     </g:VerticalPanel>
                     <g:VerticalPanel>
                         <g:Label>
-                            <ui:msg>Setor</ui:msg>
+                            <ui:msg>Setor responsável</ui:msg>
                         </g:Label>
                         <g:ListBox ui:field="setor"/>
                     </g:VerticalPanel>

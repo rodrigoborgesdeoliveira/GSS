@@ -25,6 +25,9 @@ public class Usuario implements IsSerializable {
         this.idFuncionario = idFuncionario;
     }
 
+    /**
+     * Construtor para o serializable.
+     */
     public Usuario() {
     }
 

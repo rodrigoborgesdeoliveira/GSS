@@ -7,6 +7,7 @@ import br.pucpr.gss.shared.model.Usuario;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
@@ -28,9 +29,12 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
             Usuario usuario = gssDaoUsuario.getUsuarioByIdFuncionarioESenha(funcionario.getId(), usuarioLogin.getSenha());
 
             if (usuario != null) {
+                logger.log(Level.INFO, "Login realizado");
                 return usuario;
             }
         }
+
+        logger.log(Level.WARNING, "Falha no login");
 
         throw new IllegalArgumentException("Email e/ou senha inválidos");
     }

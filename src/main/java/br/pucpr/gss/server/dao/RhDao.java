@@ -1,5 +1,7 @@
 package br.pucpr.gss.server.dao;
 
+import java.util.ArrayList;
+
 public interface RhDao {
 
     interface Funcionario {
@@ -7,6 +9,6 @@ public interface RhDao {
     }
 
     interface Setor {
-
+        ArrayList<br.pucpr.gss.shared.model.Setor> getSetores();
     }
 }
