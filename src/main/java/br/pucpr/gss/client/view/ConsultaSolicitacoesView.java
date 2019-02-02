@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface ConsultaSolicitacoesView {
 
     interface Presenter {
-
+        void onCancelarButtonClicked();
     }
 
     void setPresenter(Presenter presenter);

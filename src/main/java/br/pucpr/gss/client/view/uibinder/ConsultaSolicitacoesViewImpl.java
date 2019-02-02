@@ -3,8 +3,11 @@ package br.pucpr.gss.client.view.uibinder;
 import br.pucpr.gss.client.view.ConsultaSolicitacoesView;
 import br.pucpr.gss.client.view.MenuView;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -23,6 +26,8 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     MenuView menu;
     @UiField
     ListBox listaSolicitacoes;
+    @UiField
+    Button cancelar;
 
     public ConsultaSolicitacoesViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -44,6 +49,13 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     public void carregarListaSolicitacoes(ArrayList<String> solicitacoes) {
         for (String solicitacao : solicitacoes) {
             listaSolicitacoes.addItem(solicitacao);
+        }
+    }
+
+    @UiHandler("cancelar")
+    void onClickCancelar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onCancelarButtonClicked();
         }
     }
 }
