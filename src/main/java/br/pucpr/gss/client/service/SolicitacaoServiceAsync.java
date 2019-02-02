@@ -10,4 +10,6 @@ public interface SolicitacaoServiceAsync {
     void getListaSetores(AsyncCallback<ArrayList<Setor>> async);
 
     void cadastrarSolicitacao(Solicitacao solicitacao, AsyncCallback<Void> async);
+
+    void consultarSolicitacoes(int idUsuario, AsyncCallback<ArrayList<Solicitacao>> async);
 }

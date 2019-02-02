@@ -1,6 +1,7 @@
 package br.pucpr.gss.server.util;
 
 import br.pucpr.gss.shared.model.Estado;
+import br.pucpr.gss.shared.model.Prioridade;
 
 public class Util {
 
@@ -13,8 +14,8 @@ public class Util {
     /**
      * Cria um estado correspondente ao índice indicado.
      *
-     * @param indiceEstado Valor entre 0 e 7. Qualquer outro valor criará um estado <em>Aguardando atendimento</em>.
-     * @return Estado correspondente ao índice.
+     * @param indiceEstado Valor de 0 a 7. Qualquer outro valor criará um estado <em>Aguardando atendimento</em>.
+     * @return {@link Estado} correspondente ao índice.
      */
     public static Estado recuperarEstado(int indiceEstado) {
         switch (indiceEstado) {
@@ -42,6 +43,27 @@ public class Util {
                 return null;
             case 7:
                 // Aguardando informações adicionais
+                return null;
+        }
+    }
+
+    /**
+     * Cria uma prioridade correspondente ao índice indicado.
+     *
+     * @param indicePrioridade Valor de 0 a 2. Qualquer outro valor será considerado como prioridade normal.
+     * @return {@link Prioridade} correspondente ao índice.
+     */
+    public static Prioridade recuperarPrioridade(int indicePrioridade) {
+        switch (indicePrioridade) {
+            case 0:
+                // Prioridade baixa
+                return null;
+            case 1:
+            default:
+                // Prioridade normal
+                return null;
+            case 2:
+                // Prioridade alta
                 return null;
         }
     }

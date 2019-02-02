@@ -33,7 +33,7 @@ public class MenuPresenter implements MenuView.Presenter {
 
     @Override
     public String getOnConsultarSolicitacoesClickedToken() {
-        return "";
+        return AppController.CONSULTAR_SOLICITACOES_TOKEN;
     }
 
     @Override

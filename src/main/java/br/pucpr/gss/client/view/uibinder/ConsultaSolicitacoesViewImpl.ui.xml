@@ -1,0 +1,55 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
+             xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
+    <g:DockLayoutPanel unit='EM'>
+        <g:north size="5">
+            <g:HorizontalPanel>
+                <g:Label>CONSULTA DE SOLICITAÇÕES</g:Label>
+            </g:HorizontalPanel>
+        </g:north>
+        <g:west size='16'>
+            <custom:MenuViewImpl ui:field="menu"/>
+        </g:west>
+
+        <g:center>
+            <g:VerticalPanel>
+                <g:HorizontalPanel>
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Título da solicitação</ui:msg>
+                        </g:Label>
+                        <g:SuggestBox ui:field="titulo"/>
+                    </g:VerticalPanel>
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Data inicial</ui:msg>
+                        </g:Label>
+                        <dp:DateBox ui:field="dataInicial"/>
+                    </g:VerticalPanel>
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Data final</ui:msg>
+                        </g:Label>
+                        <dp:DateBox ui:field="dataFinal"/>
+                    </g:VerticalPanel>
+                    <g:Button ui:field="pesquisar">
+                        <ui:msg>Pesquisar</ui:msg>
+                    </g:Button>
+                </g:HorizontalPanel>
+                <g:Label>
+                    <ui:msg>Lista de solicitações</ui:msg>
+                </g:Label>
+                <g:ListBox width="600px" ui:field="listaSolicitacoes"/>
+                <g:HorizontalPanel>
+                    <g:Button ui:field="cancelar">
+                        <ui:msg>Cancelar</ui:msg>
+                    </g:Button>
+                    <g:Button ui:field="consultar">
+                        <ui:msg>Consultar</ui:msg>
+                    </g:Button>
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+        </g:center>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

@@ -1,5 +1,7 @@
 package br.pucpr.gss.server.dao;
 
+import java.util.ArrayList;
+
 public interface GssDao {
 
     interface Usuario {
@@ -14,5 +16,7 @@ public interface GssDao {
 
     interface Solicitacao {
         void insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao);
+
+        ArrayList<br.pucpr.gss.shared.model.Solicitacao> getSolicitacoesByIdUsuario(int idUsuario);
     }
 }

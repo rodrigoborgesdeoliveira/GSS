@@ -1,10 +1,16 @@
 package br.pucpr.gss.server.dao;
 
+import br.pucpr.gss.server.util.Util;
+import br.pucpr.gss.shared.model.Estado;
+import br.pucpr.gss.shared.model.Prioridade;
 import br.pucpr.gss.shared.model.Solicitacao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,5 +51,49 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
         } finally {
             Conexao.getInstance().closeConnection(conexao, stmt, null);
         }
+    }
+
+    @Override
+    public ArrayList<Solicitacao> getSolicitacoesByIdUsuario(int idUsuario) {
+        // language=MySQL
+        String sql = String.format("SELECT * FROM gss.solicitacao WHERE " +
+                "solicitante_id = %d OR atendente_id = %d OR gestor_id = %d;", idUsuario, idUsuario, idUsuario);
+        ResultSet resultado = null;
+        ArrayList<Solicitacao> solicitacoes = new ArrayList<>();
+
+        try {
+            resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
+            if (resultado != null) {
+                while (resultado.next()) {
+                    int id = resultado.getInt("id");
+                    String titulo = resultado.getString("titulo");
+                    String descricao = resultado.getString("descricao");
+                    Prioridade prioridade = Util.recuperarPrioridade(resultado.getInt("prioridade"));
+                    Estado estado = Util.recuperarEstado(resultado.getInt("estado"));
+                    Date dataCriacao = resultado.getDate("data_criacao");
+                    Date prazo = resultado.getDate("prazo");
+                    String descricaoSolucao = resultado.getString("descricao_solucao");
+                    int idSetor = resultado.getInt("setor_id");
+                    int idSolicitante = resultado.getInt("solicitante_id");
+                    int idAtendente = resultado.getInt("atendente_id");
+                    int idGestor = resultado.getInt("gestor_id");
+
+                    solicitacoes.add(new Solicitacao(id, titulo, descricao, prioridade, estado, dataCriacao, prazo,
+                            descricaoSolucao, idSetor, idSolicitante, idAtendente, idGestor));
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(null, null, resultado);
+        }
+
+        return solicitacoes;
     }
 }

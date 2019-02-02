@@ -35,4 +35,11 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         logger.log(Level.INFO, "Solicitação criada com sucesso");
     }
+
+    @Override
+    public ArrayList<Solicitacao> consultarSolicitacoes(int idUsuario) {
+        GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
+
+        return gssDaoSolicitacao.getSolicitacoesByIdUsuario(idUsuario);
+    }
 }

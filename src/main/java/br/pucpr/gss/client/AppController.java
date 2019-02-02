@@ -2,10 +2,7 @@ package br.pucpr.gss.client;
 
 import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.presenter.*;
-import br.pucpr.gss.client.view.uibinder.CadastroSolicitacaoViewImpl;
-import br.pucpr.gss.client.view.uibinder.CadastroViewImpl;
-import br.pucpr.gss.client.view.uibinder.DashboardViewImpl;
-import br.pucpr.gss.client.view.uibinder.LoginViewImpl;
+import br.pucpr.gss.client.view.uibinder.*;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -23,6 +20,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String CADASTRAR_TOKEN = "cadastrar";
     public static final String DASHBOARD_TOKEN = "dashboard";
     public static final String CADASTRAR_SOLICITACAO_TOKEN = "cadastrarSolicitacao";
+    public static final String CONSULTAR_SOLICITACOES_TOKEN = "consultarSolicitacao";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -44,15 +42,17 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
         eventBus.addHandler(LoginSucesso.TYPE, event -> doLoginSucesso(event.getUsuario()));
 
-        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastro());
-
         eventBus.addHandler(VoltarEvent.TYPE, event -> doVoltar());
+
+        eventBus.addHandler(LogoutEvent.TYPE, event -> doLogout());
+
+        eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastro());
 
         eventBus.addHandler(DashboardEvent.TYPE, event -> doCarregarDashboard());
 
         eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastroSolicitacao());
 
-        eventBus.addHandler(LogoutEvent.TYPE, event -> doLogout());
+        eventBus.addHandler(ConsultarSolicitacoesEvent.TYPE, event -> doCarregarConsultaSolicitacoes());
     }
 
     /**
@@ -86,6 +86,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         History.back();
     }
 
+    private void doLogout() {
+        usuario = null;
+    }
+
     private void doCarregarDashboard() {
         History.newItem(DASHBOARD_TOKEN);
     }
@@ -94,8 +98,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         History.newItem(CADASTRAR_SOLICITACAO_TOKEN);
     }
 
-    private void doLogout() {
-        usuario = null;
+    private void doCarregarConsultaSolicitacoes() {
+        History.newItem(CONSULTAR_SOLICITACOES_TOKEN);
     }
 
     @Override
@@ -172,6 +176,14 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     }
 
                     break;
+                case CONSULTAR_SOLICITACOES_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new ConsultaSolicitacoesPresenter(eventBus, new ConsultaSolicitacoesViewImpl(), usuario)
+                                .go(container);
+                    }
             }
         }
     }
