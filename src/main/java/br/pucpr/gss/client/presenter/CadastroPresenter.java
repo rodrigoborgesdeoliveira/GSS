@@ -79,7 +79,7 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
     }
 
     @Override
-    public void onVoltarClicked() {
+    public void onCancelarButtonClicked() {
         eventBus.fireEvent(new VoltarEvent());
     }
 }

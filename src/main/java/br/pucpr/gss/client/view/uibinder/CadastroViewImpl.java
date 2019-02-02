@@ -26,14 +26,12 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiField
     Button buttonCadastrar;
     @UiField
-    Hyperlink linkVoltar;
+    Button cancelar;
 
     private Presenter presenter;
 
     public CadastroViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
-
-        linkVoltar.setTargetHistoryToken("");
     }
 
     @Override
@@ -48,10 +46,10 @@ public class CadastroViewImpl extends Composite implements CadastroView {
         }
     }
 
-    @UiHandler("linkVoltar")
+    @UiHandler("cancelar")
     void onClickVoltar(ClickEvent event) {
         if (presenter != null) {
-            presenter.onVoltarClicked();
+            presenter.onCancelarButtonClicked();
         }
     }
 

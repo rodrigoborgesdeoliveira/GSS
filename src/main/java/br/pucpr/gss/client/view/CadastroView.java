@@ -7,7 +7,7 @@ public interface CadastroView {
     interface Presenter {
         void onCadastrarButtonClicked(String email, String senha, String confirmarSenha);
 
-        void onVoltarClicked();
+        void onCancelarButtonClicked();
     }
 
     void setPresenter(Presenter presenter);
