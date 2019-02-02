@@ -24,7 +24,7 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiField
     Label labelErro;
     @UiField
-    Button buttonCadastrar;
+    Button cadastrar;
     @UiField
     Button cancelar;
 
@@ -39,7 +39,7 @@ public class CadastroViewImpl extends Composite implements CadastroView {
         this.presenter = presenter;
     }
 
-    @UiHandler("buttonCadastrar")
+    @UiHandler("cadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
             presenter.onCadastrarButtonClicked(email.getText(), senha.getText(), confirmarSenha.getText());

@@ -23,7 +23,7 @@
                     <g:Button ui:field="cancelar">
                         <ui:msg>Cancelar</ui:msg>
                     </g:Button>
-                    <g:Button ui:field="buttonCadastrar">
+                    <g:Button ui:field="cadastrar">
                         <ui:msg>Cadastrar</ui:msg>
                     </g:Button>
                 </g:HorizontalPanel>
