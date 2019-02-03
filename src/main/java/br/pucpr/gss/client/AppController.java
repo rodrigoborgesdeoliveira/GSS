@@ -3,6 +3,7 @@ package br.pucpr.gss.client;
 import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.presenter.*;
 import br.pucpr.gss.client.view.uibinder.*;
+import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
@@ -21,13 +22,18 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String DASHBOARD_TOKEN = "dashboard";
     public static final String CADASTRAR_SOLICITACAO_TOKEN = "cadastrarSolicitacao";
     public static final String CONSULTAR_SOLICITACOES_TOKEN = "consultarSolicitacao";
+    public static final String DETALHES_SOLICITACAO_TOKEN = "detalhesSolicitacao";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
 
     private Usuario usuario;
+    private Solicitacao solicitacao;
 
     public AppController(HandlerManager eventBus) {
+        // Usuário desenvolvimento
+        usuario = new Usuario(1, "Rodrigo Borges", "rodrigo123", true, 2);
+
         this.eventBus = eventBus;
         bind();
     }
@@ -53,6 +59,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(CadastrarEvent.TYPE, event -> doCarregarCadastroSolicitacao());
 
         eventBus.addHandler(ConsultarSolicitacoesEvent.TYPE, event -> doCarregarConsultaSolicitacoes());
+
+        eventBus.addHandler(DetalhesSolicitacaoEvent.TYPE, event -> doCarregarDetalhesSolicitacao(event.getSolicitacao()));
     }
 
     /**
@@ -100,6 +108,12 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
     private void doCarregarConsultaSolicitacoes() {
         History.newItem(CONSULTAR_SOLICITACOES_TOKEN);
+    }
+
+    private void doCarregarDetalhesSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+
+        History.newItem(DETALHES_SOLICITACAO_TOKEN);
     }
 
     @Override
@@ -184,6 +198,17 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         new ConsultaSolicitacoesPresenter(eventBus, new ConsultaSolicitacoesViewImpl(), usuario)
                                 .go(container);
                     }
+                    break;
+                case DETALHES_SOLICITACAO_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new DetalhesSolicitacaoPresenter(eventBus, new DetalhesSolicitacaoViewImpl(), usuario, solicitacao)
+                                .go(container);
+                    }
+
+                    break;
             }
         }
     }

@@ -1,0 +1,98 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
+             xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
+    <g:DockLayoutPanel unit='EM'>
+        <!-- Cabeçalho -->
+        <g:north size="5">
+            <g:HorizontalPanel>
+                <g:Label>DETALHES DA SOLICITAÇÃO</g:Label>
+            </g:HorizontalPanel>
+        </g:north>
+
+        <!-- Menu -->
+        <g:west size='16'>
+            <custom:MenuViewImpl ui:field="menu"/>
+        </g:west>
+
+        <!-- Corpo da página -->
+        <g:center>
+            <g:VerticalPanel>
+                <g:HorizontalPanel>
+                    <!-- Título da solicitação -->
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Título da solicitação</ui:msg>
+                        </g:Label>
+                        <g:Label ui:field="titulo"/>
+                    </g:VerticalPanel>
+                    <!-- Data inicial -->
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Data inicial</ui:msg>
+                        </g:Label>
+                        <g:Label ui:field="dataInicial"/>
+                    </g:VerticalPanel>
+                    <!-- Prazo -->
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Prazo</ui:msg>
+                        </g:Label>
+                        <g:Label ui:field="prazo"/>
+                        <dp:DateBox ui:field="prazoVisaoAtendente" visible="false"/>
+                    </g:VerticalPanel>
+                    <!-- Setor responsável -->
+                    <g:VerticalPanel>
+                        <g:Label ui:field="labelSetor" visible="false">
+                            <ui:msg>Setor responsável</ui:msg>
+                        </g:Label>
+                        <g:ListBox ui:field="setorVisaoGestor" visible="false"/>
+                        <g:Label ui:field="setorVisaoSolicitante" visible="false"/>
+                    </g:VerticalPanel>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <!-- Estado -->
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Estado</ui:msg>
+                        </g:Label>
+                        <g:Label ui:field="estadoVisaoGestor"/>
+                        <g:ListBox ui:field="estado" visible="false"/>
+                    </g:VerticalPanel>
+                    <!-- Prioridade -->
+                    <g:VerticalPanel>
+                        <g:Label>
+                            <ui:msg>Prioridade</ui:msg>
+                        </g:Label>
+                        <g:ListBox ui:field="prioridade"/>
+                    </g:VerticalPanel>
+                    <!-- Atendente -->
+                    <g:VerticalPanel>
+                        <g:Label ui:field="labelAtendente" visible="false"/>
+                        <g:Label ui:field="atendenteVisaoSolicitante" visible="false"/>
+                        <g:ListBox ui:field="atendenteVisaoGestor" visible="false"/>
+                    </g:VerticalPanel>
+                </g:HorizontalPanel>
+                <!-- Histórico -->
+                <g:Label>
+                    <ui:msg>Histórico</ui:msg>
+                </g:Label>
+                <g:ListBox width="600px" ui:field="historico" visibleItemCount="10"/>
+                <!-- Descrição -->
+                <g:Label>
+                    <ui:msg>Descricao</ui:msg>
+                </g:Label>
+                <g:TextArea ui:field="descricao"/>
+                <!-- Botões inferiores -->
+                <g:HorizontalPanel>
+                    <g:Button ui:field="cancelar">
+                        <ui:msg>Cancelar</ui:msg>
+                    </g:Button>
+                    <g:Button ui:field="salvar">
+                        <ui:msg>Salvar</ui:msg>
+                    </g:Button>
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+        </g:center>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

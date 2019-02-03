@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.DetalhesSolicitacaoEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.ConsultaSolicitacoesView;
@@ -63,5 +64,12 @@ public class ConsultaSolicitacoesPresenter implements Presenter, ConsultaSolicit
     @Override
     public void onCancelarButtonClicked() {
         eventBus.fireEvent(new VoltarEvent());
+    }
+
+    @Override
+    public void onConsultarButtonClicked(int indiceSolicitacao) {
+        Solicitacao solicitacao = listaSolicitacoes.get(indiceSolicitacao);
+
+        eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
     }
 }

@@ -8,6 +8,8 @@ public interface ConsultaSolicitacoesView {
 
     interface Presenter {
         void onCancelarButtonClicked();
+
+        void onConsultarButtonClicked(int indiceSolicitacao);
     }
 
     void setPresenter(Presenter presenter);
