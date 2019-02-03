@@ -40,7 +40,7 @@
                 <g:Label>
                     <ui:msg>Lista de solicitações</ui:msg>
                 </g:Label>
-                <g:ListBox width="600px" ui:field="listaSolicitacoes"/>
+                <g:ListBox width="600px" ui:field="listaSolicitacoes" visibleItemCount="25"/>
                 <g:HorizontalPanel>
                     <g:Button ui:field="cancelar">
                         <ui:msg>Cancelar</ui:msg>

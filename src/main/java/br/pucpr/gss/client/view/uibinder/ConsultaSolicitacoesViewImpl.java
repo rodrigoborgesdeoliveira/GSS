@@ -31,8 +31,6 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
 
     public ConsultaSolicitacoesViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
-
-        listaSolicitacoes.setVisibleItemCount(25);
     }
 
     @Override
