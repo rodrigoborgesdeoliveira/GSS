@@ -1,6 +1,7 @@
 package br.pucpr.gss.shared.fabrica;
 
 import br.pucpr.gss.shared.model.estado.*;
+import br.pucpr.gss.shared.model.prioridade.Prioridade;
 
 public class FabricaEstado extends Fabrica {
     public static final int AGUARDANDO_ATENDIMENTO = 0;
@@ -39,5 +40,15 @@ public class FabricaEstado extends Fabrica {
             case AGUARDANDO_INFORMACOES_ADICIONAIS:
                 return new AguardandoInformacoesAdicionais();
         }
+    }
+
+    /**
+     * Anular método.
+     *
+     * @return null.
+     */
+    @Override
+    public Prioridade criarPrioridade(int indicePrioridade) {
+        return null;
     }
 }
