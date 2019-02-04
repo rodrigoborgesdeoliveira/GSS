@@ -42,8 +42,8 @@
                         <dp:DateBox ui:field="prazoVisaoAtendente" visible="false"/>
                     </g:VerticalPanel>
                     <!-- Setor responsável -->
-                    <g:VerticalPanel>
-                        <g:Label ui:field="labelSetor" visible="false">
+                    <g:VerticalPanel ui:field="grupoSetor">
+                        <g:Label>
                             <ui:msg>Setor responsável</ui:msg>
                         </g:Label>
                         <g:ListBox ui:field="setorVisaoGestor" visible="false"/>
@@ -67,8 +67,8 @@
                         <g:ListBox ui:field="prioridade"/>
                     </g:VerticalPanel>
                     <!-- Atendente -->
-                    <g:VerticalPanel>
-                        <g:Label ui:field="labelAtendente" visible="false"/>
+                    <g:VerticalPanel ui:field="grupoAtendente">
+                        <g:Label><ui:msg>Atendente</ui:msg></g:Label>
                         <g:Label ui:field="atendenteVisaoSolicitante" visible="false"/>
                         <g:ListBox ui:field="atendenteVisaoGestor" visible="false"/>
                     </g:VerticalPanel>

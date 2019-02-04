@@ -23,6 +23,15 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         this.view.setPresenter(this);
 
         new MenuPresenter(eventBus, this.view.getMenuView(), usuario.isAdmin());
+
+        // Carregar a view de acordo com o tipo de usuário em relação à solicitação
+        if (usuario.getId() == solicitacao.getIdAtendente()) {
+            this.view.setAtendenteUI();
+        } else if (usuario.getId() == solicitacao.getIdSolicitante()) {
+            this.view.setSolicitanteUI();
+        } else if (usuario.getId() == solicitacao.getIdGestor()) {
+            this.view.setGestorUI();
+        }
     }
 
     @Override

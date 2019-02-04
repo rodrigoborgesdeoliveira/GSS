@@ -18,7 +18,7 @@ public class Solicitacao implements IsSerializable {
     private String descricaoSolucao;
     private int idSetor;
     private int idSolicitante;
-    private int idAtendente;
+    private int idAtendente = -1; // Inicialmente a solicitação não foi delegada a nenhum atendenete ainda
     private int idGestor;
 
     /**

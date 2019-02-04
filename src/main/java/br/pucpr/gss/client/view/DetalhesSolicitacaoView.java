@@ -13,4 +13,10 @@ public interface DetalhesSolicitacaoView {
     Widget asWidget();
 
     MenuView getMenuView();
+
+    void setAtendenteUI();
+
+    void setSolicitanteUI();
+
+    void setGestorUI();
 }
