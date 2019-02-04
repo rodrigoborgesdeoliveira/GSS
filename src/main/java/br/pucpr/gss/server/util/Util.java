@@ -1,7 +1,7 @@
 package br.pucpr.gss.server.util;
 
-import br.pucpr.gss.shared.model.Estado;
-import br.pucpr.gss.shared.model.Prioridade;
+import br.pucpr.gss.shared.model.estado.Estado;
+import br.pucpr.gss.shared.model.prioridade.Prioridade;
 
 public class Util {
 

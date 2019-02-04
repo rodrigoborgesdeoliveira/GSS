@@ -31,9 +31,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     private Solicitacao solicitacao;
 
     public AppController(HandlerManager eventBus) {
-        // Usuário desenvolvimento
-        usuario = new Usuario(1, "Rodrigo Borges", "rodrigo123", true, 2);
-
         this.eventBus = eventBus;
         bind();
     }

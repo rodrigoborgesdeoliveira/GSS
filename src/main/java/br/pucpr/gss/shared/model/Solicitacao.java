@@ -1,5 +1,7 @@
 package br.pucpr.gss.shared.model;
 
+import br.pucpr.gss.shared.model.estado.Estado;
+import br.pucpr.gss.shared.model.prioridade.Prioridade;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import java.util.Date;

@@ -1,9 +1,9 @@
 package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.server.util.Util;
-import br.pucpr.gss.shared.model.Estado;
-import br.pucpr.gss.shared.model.Prioridade;
 import br.pucpr.gss.shared.model.Solicitacao;
+import br.pucpr.gss.shared.model.estado.Estado;
+import br.pucpr.gss.shared.model.prioridade.Prioridade;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

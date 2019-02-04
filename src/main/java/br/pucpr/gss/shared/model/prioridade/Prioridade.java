@@ -1,4 +1,4 @@
-package br.pucpr.gss.shared.model;
+package br.pucpr.gss.shared.model.prioridade;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
