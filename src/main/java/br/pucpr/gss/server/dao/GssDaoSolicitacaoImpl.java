@@ -1,6 +1,8 @@
 package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.server.util.Util;
+import br.pucpr.gss.shared.fabrica.Fabrica;
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.estado.Estado;
 import br.pucpr.gss.shared.model.prioridade.Prioridade;
@@ -33,7 +35,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
             stmt.setString(1, solicitacao.getTitulo());
             stmt.setString(2, solicitacao.getDescricao());
             stmt.setInt(3, 1); // 1 = Prioridade normal
-            stmt.setInt(4, 0); // 0 = Estado aguardando atendimento
+            stmt.setInt(4, FabricaEstado.AGUARDANDO_ATENDIMENTO);
             stmt.setDate(5, new java.sql.Date(solicitacao.getDataCriacao().getTime()));
             stmt.setInt(6, solicitacao.getIdSetor());
             stmt.setInt(7, solicitacao.getIdSolicitante());
@@ -64,12 +66,13 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
         try {
             resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
             if (resultado != null) {
+                Fabrica fabricaEstado = new FabricaEstado();
                 while (resultado.next()) {
                     int id = resultado.getInt("id");
                     String titulo = resultado.getString("titulo");
                     String descricao = resultado.getString("descricao");
                     Prioridade prioridade = Util.recuperarPrioridade(resultado.getInt("prioridade"));
-                    Estado estado = Util.recuperarEstado(resultado.getInt("estado"));
+                    Estado estado = fabricaEstado.criarEstado(resultado.getInt("estado"));
                     Date dataCriacao = resultado.getDate("data_criacao");
                     Date prazo = resultado.getDate("prazo");
                     String descricaoSolucao = resultado.getString("descricao_solucao");
