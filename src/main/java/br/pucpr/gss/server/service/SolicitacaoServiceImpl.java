@@ -1,12 +1,11 @@
 package br.pucpr.gss.server.service;
 
 import br.pucpr.gss.client.service.SolicitacaoService;
-import br.pucpr.gss.server.dao.GssDao;
-import br.pucpr.gss.server.dao.GssDaoSolicitacaoImpl;
-import br.pucpr.gss.server.dao.RhDao;
-import br.pucpr.gss.server.dao.RhDaoSetorImpl;
+import br.pucpr.gss.server.dao.*;
+import br.pucpr.gss.server.model.Funcionario;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
+import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.util.ArrayList;
@@ -28,6 +27,16 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
+    public Setor getSetorById(int idSetor) throws IllegalStateException {
+        RhDao.Setor rhDaoSetor = new RhDaoSetorImpl();
+        Setor setor = rhDaoSetor.getSetorById(idSetor);
+
+        logger.log(Level.INFO, "Setor encontrado: " + setor);
+
+        return setor;
+    }
+
+    @Override
     public void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
 
@@ -41,5 +50,31 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
 
         return gssDaoSolicitacao.getSolicitacoesByIdUsuario(idUsuario);
+    }
+
+    @Override
+    public Usuario getAtendenteById(int idAtendente) throws IllegalStateException, IllegalArgumentException {
+        GssDao.Usuario gssDaoUsuario = new GssDaoUsuarioImpl();
+
+        Usuario atendente = gssDaoUsuario.getUsuarioById(idAtendente);
+        if (atendente == null) {
+            throw new IllegalArgumentException("Atendente não existe");
+        }
+
+        return atendente;
+    }
+
+    @Override
+    public ArrayList<Usuario> getListaAtendentesByIdSetor(int idSetor) throws IllegalStateException {
+        RhDao.Funcionario rhDaoFuncionario = new RhDaoFuncionarioImpl();
+        ArrayList<Funcionario> funcionarios = rhDaoFuncionario.getFuncionarioByIdSetor(idSetor);
+
+        ArrayList<Usuario> atendentes = new ArrayList<>();
+
+        for (Funcionario f : funcionarios) {
+            atendentes.add(new Usuario(f.getNome(), f.getId()));
+        }
+
+        return atendentes;
     }
 }

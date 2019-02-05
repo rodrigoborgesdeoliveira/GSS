@@ -2,6 +2,7 @@ package br.pucpr.gss.client.service;
 
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
+import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -12,9 +13,15 @@ import java.util.ArrayList;
 public interface SolicitacaoService extends RemoteService {
     ArrayList<Setor> getListaSetores() throws IllegalStateException;
 
+    Setor getSetorById(int idSetor) throws IllegalStateException;
+
     void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
 
-    ArrayList<Solicitacao> consultarSolicitacoes(int idUsuario);
+    ArrayList<Solicitacao> consultarSolicitacoes(int idUsuario) throws IllegalStateException;
+
+    Usuario getAtendenteById(int idAtendente) throws IllegalStateException, IllegalArgumentException;
+
+    ArrayList<Usuario> getListaAtendentesByIdSetor(int idSetor) throws IllegalStateException;
 
     /**
      * Classe para chamar os métodos de SolicitacaoService.

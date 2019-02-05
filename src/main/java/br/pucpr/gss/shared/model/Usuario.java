@@ -25,6 +25,24 @@ public class Usuario implements IsSerializable {
         this.idFuncionario = idFuncionario;
     }
 
+    public Usuario(int id, String nome, boolean isAdmin, int idFuncionario) {
+        this.id = id;
+        this.nome = nome;
+        this.isAdmin = isAdmin;
+        this.idFuncionario = idFuncionario;
+    }
+
+    public Usuario(int id, String nome, int idFuncionario) {
+        this.id = id;
+        this.nome = nome;
+        this.idFuncionario = idFuncionario;
+    }
+
+    public Usuario(String nome, int idFuncionario) {
+        this.nome = nome;
+        this.idFuncionario = idFuncionario;
+    }
+
     /**
      * Construtor para o serializable.
      */

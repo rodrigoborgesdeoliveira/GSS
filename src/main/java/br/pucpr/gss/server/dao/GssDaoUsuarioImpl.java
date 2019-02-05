@@ -13,10 +13,17 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
+    public Usuario getUsuarioById(int id) {
+        // language=MySQL
+        String sql = String.format("SELECT * FROM usuario WHERE id = %d;", id);
+        return getUsuario(sql);
+    }
+
+    @Override
     public Usuario getUsuarioByIdFuncionario(int idFuncionario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id) = ('%s');", idFuncionario);
-        return getUsuario(idFuncionario, sql);
+        return getUsuario(sql);
     }
 
     @Override
@@ -24,22 +31,22 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id, senha) = ('%s', SHA2('%s', 256));",
                 idFuncionario, senha);
-        return getUsuario(idFuncionario, sql);
+        return getUsuario(sql);
     }
 
     @Nullable
-    private Usuario getUsuario(int idFuncionario, String sql) throws IllegalStateException {
+    private Usuario getUsuario(String sql) throws IllegalStateException {
         ResultSet resultado = null;
         try {
             resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
 
             if (resultado != null && resultado.next()) {
-                int id = resultado.getInt(1);
-                String nome = resultado.getString(2);
-                String senha = resultado.getString(3);
-                boolean isAdmin = resultado.getBoolean(4);
+                int id = resultado.getInt("id");
+                String nome = resultado.getString("nome");
+                boolean isAdmin = resultado.getBoolean("isAdmin");
+                int idFuncionario = resultado.getInt("funcionario_id");
 
-                return new Usuario(id, nome, senha, isAdmin, idFuncionario);
+                return new Usuario(id, nome, isAdmin, idFuncionario);
             }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível ler resultado", e);
@@ -86,7 +93,8 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     public void insertUsuario(Usuario usuario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("INSERT INTO usuario (nome, senha, isAdmin, funcionario_id) VALUES " +
-                "('%s', SHA2('%s', 256), %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(), usuario.getIdFuncionario());
+                        "('%s', SHA2('%s', 256), %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(),
+                usuario.getIdFuncionario());
         try {
             Conexao.getInstance().executeSQLUpdateGSS(sql);
         } catch (Exception ex) {

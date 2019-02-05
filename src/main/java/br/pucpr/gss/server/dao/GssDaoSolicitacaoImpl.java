@@ -21,7 +21,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public void insertSolicitacao(Solicitacao solicitacao) {
+    public void insertSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
         Connection conexao = Conexao.getInstance().getConexaoGSS();
 
         // language=MySQL
@@ -56,7 +56,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
     }
 
     @Override
-    public ArrayList<Solicitacao> getSolicitacoesByIdUsuario(int idUsuario) {
+    public ArrayList<Solicitacao> getSolicitacoesByIdUsuario(int idUsuario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM gss.solicitacao WHERE " +
                 "solicitante_id = %d OR atendente_id = %d OR gestor_id = %d;", idUsuario, idUsuario, idUsuario);

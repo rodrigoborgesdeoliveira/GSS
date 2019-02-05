@@ -13,6 +13,12 @@ public class Funcionario {
         this.setorId = setorId;
     }
 
+    public Funcionario(int id, String nome, int setorId) {
+        this.id = id;
+        this.nome = nome;
+        this.setorId = setorId;
+    }
+
     public int getId() {
         return id;
     }

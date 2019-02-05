@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public interface GssDao {
 
     interface Usuario {
+        br.pucpr.gss.shared.model.Usuario getUsuarioById(int id);
+
         br.pucpr.gss.shared.model.Usuario getUsuarioByIdFuncionario(int idFuncionario);
 
         br.pucpr.gss.shared.model.Usuario getUsuarioByIdFuncionarioESenha(int idFuncionario, String senha);

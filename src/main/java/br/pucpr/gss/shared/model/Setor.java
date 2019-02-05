@@ -36,4 +36,10 @@ public class Setor implements IsSerializable {
     public String toString() {
         return "(id = " + id + ", nome = " + nome + ", idGestor = " + idGestor + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Override esse método para ver dois setores com o mesmo id como sendo o mesmo
+        return obj instanceof Setor && id == ((Setor) obj).id;
+    }
 }

@@ -10,19 +10,21 @@ public abstract class Estado implements IsSerializable {
     public Estado() {
     }
 
-    abstract Estado iniciarAtendimento();
+    public abstract String getNome();
 
-    abstract Estado pausarAtendimento();
+    public abstract Estado iniciarAtendimento();
 
-    abstract Estado continuarAtendimento();
+    public abstract Estado pausarAtendimento();
 
-    abstract Estado oferecerSolucao();
+    public abstract Estado continuarAtendimento();
 
-    abstract Estado aceitarSolucao();
+    public abstract Estado oferecerSolucao();
 
-    abstract Estado rejeitarSolucao();
+    public abstract Estado aceitarSolucao();
 
-    abstract Estado requisitarInformacoesAdicionais();
+    public abstract Estado rejeitarSolucao();
 
-    abstract Estado registrarInformacoesAdicionais();
+    public abstract Estado requisitarInformacoesAdicionais();
+
+    public abstract Estado registrarInformacoesAdicionais();
 }

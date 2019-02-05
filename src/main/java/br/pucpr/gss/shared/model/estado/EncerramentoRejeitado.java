@@ -2,42 +2,47 @@ package br.pucpr.gss.shared.model.estado;
 
 public class EncerramentoRejeitado extends Estado {
     @Override
-    Estado iniciarAtendimento() {
+    public String getNome() {
+        return "Encerramento rejeitado";
+    }
+
+    @Override
+    public Estado iniciarAtendimento() {
         return null;
     }
 
     @Override
-    Estado pausarAtendimento() {
+    public Estado pausarAtendimento() {
         return null;
     }
 
     @Override
-    Estado continuarAtendimento() {
+    public Estado continuarAtendimento() {
         return null;
     }
 
     @Override
-    Estado oferecerSolucao() {
+    public Estado oferecerSolucao() {
         return null;
     }
 
     @Override
-    Estado aceitarSolucao() {
+    public Estado aceitarSolucao() {
         return null;
     }
 
     @Override
-    Estado rejeitarSolucao() {
+    public Estado rejeitarSolucao() {
         return null;
     }
 
     @Override
-    Estado requisitarInformacoesAdicionais() {
+    public Estado requisitarInformacoesAdicionais() {
         return null;
     }
 
     @Override
-    Estado registrarInformacoesAdicionais() {
+    public Estado registrarInformacoesAdicionais() {
         return null;
     }
 }

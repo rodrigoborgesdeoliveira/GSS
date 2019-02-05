@@ -8,6 +8,9 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSolicitacaoView {
     interface DetalhesSolicitacaoViewImplUiBinder extends UiBinder<Widget, DetalhesSolicitacaoViewImpl> {
     }
@@ -22,25 +25,33 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @UiField
     MenuView menu;
     @UiField
-    Label prazo;
+    Label labelTituloSolicitacao;
     @UiField
-    DateBox prazoVisaoAtendente;
+    Label labelDataInicial;
     @UiField
-    VerticalPanel grupoSetor;
+    Label labelPrazo;
     @UiField
-    ListBox setorVisaoGestor;
+    DateBox dateBoxPrazoVisaoAtendente;
     @UiField
-    Label setorVisaoSolicitante;
+    VerticalPanel verticalPanelSetor;
     @UiField
-    Label estadoVisaoGestor;
+    ListBox listBoxSetorVisaoGestor;
     @UiField
-    ListBox estado;
+    Label labelSetorVisaoSolicitante;
     @UiField
-    VerticalPanel grupoAtendente;
+    Label labelEstado;
     @UiField
-    Label atendenteVisaoSolicitante;
+    ListBox listBoxPrioridade;
     @UiField
-    ListBox atendenteVisaoGestor;
+    VerticalPanel verticalPanelAtendente;
+    @UiField
+    Label labelAtendenteVisaoSolicitante;
+    @UiField
+    ListBox labelAtendenteVisaoGestor;
+    @UiField
+    TextArea textAreaDescricao;
+    @UiField
+    ListBox listBoxHistorico;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -52,48 +63,55 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         return menu;
     }
 
+    private void setUI(String tituloSolicitacao, String descricao, String dataInicial, String estado) {
+        labelTituloSolicitacao.setText(tituloSolicitacao);
+        textAreaDescricao.setText(descricao);
+        labelDataInicial.setText(dataInicial);
+        labelEstado.setText(estado);
+    }
+
     @Override
-    public void setAtendenteUI() {
-        prazo.setVisible(false);
-        prazoVisaoAtendente.setVisible(true);
-        grupoSetor.setVisible(false);
-        estadoVisaoGestor.setVisible(false);
-        estado.setVisible(true);
-        grupoAtendente.setVisible(false);
-        // TODO: 04/02/2019 Setar os possíveis estados
+    public void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
+                               int indicePrioridade, ArrayList<String> prioridades) {
+        labelPrazo.setVisible(false);
+        dateBoxPrazoVisaoAtendente.setVisible(true);
+        verticalPanelSetor.setVisible(false);
+        verticalPanelAtendente.setVisible(false);
+
+        setUI(tituloSolicitacao, descricao, dataInicial, estado);
         // TODO: 04/02/2019 Setar as possíveis prioridades
     }
 
     @Override
-    public void setSolicitanteUI() {
-        prazo.setVisible(true);
-        prazoVisaoAtendente.setVisible(false);
-        grupoSetor.setVisible(true);
-        setorVisaoGestor.setVisible(false);
-        setorVisaoSolicitante.setVisible(true);
-        estadoVisaoGestor.setVisible(false);
-        estado.setVisible(true);
-        grupoAtendente.setVisible(true);
-        atendenteVisaoSolicitante.setVisible(true);
-        atendenteVisaoGestor.setVisible(false);
+    public void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
+                                 String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente) {
+        labelPrazo.setVisible(true);
+        dateBoxPrazoVisaoAtendente.setVisible(false);
+        verticalPanelSetor.setVisible(true);
+        listBoxSetorVisaoGestor.setVisible(false);
+        labelSetorVisaoSolicitante.setVisible(true);
+        verticalPanelAtendente.setVisible(true);
+        labelAtendenteVisaoSolicitante.setVisible(true);
+        labelAtendenteVisaoGestor.setVisible(false);
 
-        // TODO: 04/02/2019 Setar os possíveis estados
+        setUI(tituloSolicitacao, descricao, dataInicial, estado);
         // TODO: 04/02/2019 Setar as possíveis prioridades
     }
 
     @Override
-    public void setGestorUI() {
-        prazo.setVisible(true);
-        prazoVisaoAtendente.setVisible(false);
-        grupoSetor.setVisible(true);
-        setorVisaoGestor.setVisible(true);
-        setorVisaoSolicitante.setVisible(false);
-        estadoVisaoGestor.setVisible(true);
-        estado.setVisible(false);
-        grupoAtendente.setVisible(true);
-        atendenteVisaoSolicitante.setVisible(false);
-        atendenteVisaoGestor.setVisible(true);
+    public void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
+                            ArrayList<String> setores, String estado, int prioridade, ArrayList<String> prioridades,
+                            int indiceAtendente, ArrayList<String> atendentes) {
+        labelPrazo.setVisible(true);
+        dateBoxPrazoVisaoAtendente.setVisible(false);
+        verticalPanelSetor.setVisible(true);
+        listBoxSetorVisaoGestor.setVisible(true);
+        labelSetorVisaoSolicitante.setVisible(false);
+        verticalPanelAtendente.setVisible(true);
+        labelAtendenteVisaoSolicitante.setVisible(false);
+        labelAtendenteVisaoGestor.setVisible(true);
 
+        setUI(tituloSolicitacao, descricao, dataInicial, estado);
         // TODO: 04/02/2019 Setar as possíveis prioridades
     }
 }
