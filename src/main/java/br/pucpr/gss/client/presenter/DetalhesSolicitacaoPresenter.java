@@ -23,6 +23,9 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     private Setor setor;
     private ArrayList<Setor> setores;
     private Usuario atendente;
+    private ArrayList<Usuario> atendentes;
+    private int indiceSetor;
+    private int indiceAtendente;
 
     public DetalhesSolicitacaoPresenter(HandlerManager eventBus, DetalhesSolicitacaoView view, Usuario usuario,
                                         Solicitacao solicitacao) {
@@ -38,18 +41,41 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         setViewUI();
     }
 
+    /**
+     * Busca informações de um dado setor.
+     *
+     * @param idSetor       ID do setor para buscar informações.
+     * @param asyncCallback Função para ser chamada após retorno do servidor.
+     */
     private void fetchSolicitacaoSetor(int idSetor, AsyncCallback<Setor> asyncCallback) {
         SolicitacaoService.RPC.getInstance().getSetorById(idSetor, asyncCallback);
     }
 
+    /**
+     * Busca informações de um dado atendente.
+     *
+     * @param idAtendente   ID do atendente para buscar informações.
+     * @param asyncCallback Função para ser chamada após retorno do servidor.
+     */
     private void fetchSolicitacaoAtendente(int idAtendente, AsyncCallback<Usuario> asyncCallback) {
         SolicitacaoService.RPC.getInstance().getAtendenteById(idAtendente, asyncCallback);
     }
 
+    /**
+     * Busca a lista de todos os setores cadastrados no banco de dados do RH.
+     *
+     * @param asyncCallback Função para ser chamada após o retorno do servidor.
+     */
     private void fetchSetores(AsyncCallback<ArrayList<Setor>> asyncCallback) {
         SolicitacaoService.RPC.getInstance().getListaSetores(asyncCallback);
     }
 
+    /**
+     * Busca a lista de todos os atendentes em um dado setor.
+     *
+     * @param idSetor       ID do setor para buscar os atendentes.
+     * @param asyncCallback Função para ser chamada após o retorno do servidor.
+     */
     private void fetchAtendentes(int idSetor, AsyncCallback<ArrayList<Usuario>> asyncCallback) {
         SolicitacaoService.RPC.getInstance().getListaAtendentesByIdSetor(idSetor, asyncCallback);
     }
@@ -62,11 +88,11 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.NORMAL).getNome());
 
         // Carregar a view de acordo com o tipo de usuário em relação à solicitação
-        if (usuario.getId() == solicitacao.getIdAtendente()) {
+        if (usuario.getIdFuncionario() == solicitacao.getIdAtendente()) {
             this.view.setAtendenteUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao().toString(),
                     solicitacao.getPrazo(), solicitacao.getEstado().getNome(),
                     prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades);
-        } else if (usuario.getId() == solicitacao.getIdSolicitante()) {
+        } else if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
             fetchSolicitacaoSetor(solicitacao.getIdSetor(), new AsyncCallback<Setor>() {
                 @Override
                 public void onFailure(Throwable caught) {
@@ -97,7 +123,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
                 }
             });
-        } else if (usuario.getId() == solicitacao.getIdGestor()) {
+        } else if (usuario.getIdFuncionario() == solicitacao.getIdGestor()) {
             prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.ALTA).getNome());
 
             fetchSetores(new AsyncCallback<ArrayList<Setor>>() {
@@ -109,19 +135,27 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 @Override
                 public void onSuccess(ArrayList<Setor> result) {
                     setores = result;
-                    setor = setores.get(setores.indexOf(new Setor(solicitacao.getIdSetor(), "", 0)));
+                    indiceSetor = setores.indexOf(new Setor(solicitacao.getIdSetor(), "", 0));
 
-//                    fetchAtendentes();
+                    fetchAtendentes(solicitacao.getIdSetor(), new AsyncCallback<ArrayList<Usuario>>() {
+                        @Override
+                        public void onFailure(Throwable caught) {
+                            Window.alert("Não foi possível carregar a lista de atendentes");
+                        }
+
+                        @Override
+                        public void onSuccess(ArrayList<Usuario> result) {
+                            atendentes = result;
+                            // Se id do atendente da solicitação for 0, indice será -1 e portanto a lista não mostrará
+                            // nenhum item selecionado
+                            indiceAtendente = atendentes.indexOf(new Usuario(0, "", false,
+                                    solicitacao.getIdAtendente()));
+
+                            setGestorUI(prioridades);
+                        }
+                    });
                 }
             });
-
-            ArrayList<String> nomesSetores = new ArrayList<>();
-            for (Setor s : setores) {
-                nomesSetores.add(s.getNome());
-            }
-            /*this.view.setGestorUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao().toString(),
-                    solicitacao.getPrazo().toString(), setor.getId(), nomesSetores, solicitacao.getEstado().getNome(),
-                    prioridades.indexOf(solicitacao.getPrioridade().getNome()),prioridades, );*/
         }
     }
 
@@ -132,6 +166,24 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 setor.getNome(), solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
                 atendente != null ? atendente.getNome() : "");
+    }
+
+    private void setGestorUI(ArrayList<String> prioridades) {
+        String prazo = solicitacao.getPrazo() != null ? solicitacao.getPrazo().toString() : "";
+
+        ArrayList<String> nomesSetores = new ArrayList<>();
+        for (Setor s : setores) {
+            nomesSetores.add(s.getNome());
+        }
+
+        ArrayList<String> nomesAtendentes = new ArrayList<>();
+        for (Usuario a : atendentes) {
+            nomesAtendentes.add(a.getNome());
+        }
+
+        this.view.setGestorUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao().toString(),
+                prazo, indiceSetor, nomesSetores, solicitacao.getEstado().getNome(),
+                prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades, indiceAtendente, nomesAtendentes);
     }
 
     @Override

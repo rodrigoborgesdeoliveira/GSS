@@ -17,7 +17,7 @@ public interface SolicitacaoService extends RemoteService {
 
     void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
 
-    ArrayList<Solicitacao> consultarSolicitacoes(int idUsuario) throws IllegalStateException;
+    ArrayList<Solicitacao> consultarSolicitacoes(int idFuncionario) throws IllegalStateException;
 
     Usuario getAtendenteById(int idAtendente) throws IllegalStateException, IllegalArgumentException;
 

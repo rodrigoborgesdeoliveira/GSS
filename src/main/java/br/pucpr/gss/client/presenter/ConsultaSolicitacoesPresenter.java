@@ -39,26 +39,27 @@ public class ConsultaSolicitacoesPresenter implements Presenter, ConsultaSolicit
     }
 
     private void fetchSolicitacoes() {
-        SolicitacaoService.RPC.getInstance().consultarSolicitacoes(usuario.getId(), new AsyncCallback<ArrayList<Solicitacao>>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                GWT.log("Erro ao carregar lista de solicitações", caught);
+        SolicitacaoService.RPC.getInstance().consultarSolicitacoes(usuario.getIdFuncionario(),
+                new AsyncCallback<ArrayList<Solicitacao>>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        GWT.log("Erro ao carregar lista de solicitações", caught);
 
-                Window.alert("Não foi possível carregar lista de solicitações, tente novamente.");
-            }
+                        Window.alert("Não foi possível carregar lista de solicitações, tente novamente.");
+                    }
 
-            @Override
-            public void onSuccess(ArrayList<Solicitacao> result) {
-                listaSolicitacoes = result;
-                ArrayList<String> solicitacoesNome = new ArrayList<>();
+                    @Override
+                    public void onSuccess(ArrayList<Solicitacao> result) {
+                        listaSolicitacoes = result;
+                        ArrayList<String> solicitacoesNome = new ArrayList<>();
 
-                for (Solicitacao solicitacao : listaSolicitacoes) {
-                    solicitacoesNome.add(solicitacao.getTitulo());
-                }
+                        for (Solicitacao solicitacao : listaSolicitacoes) {
+                            solicitacoesNome.add(solicitacao.getTitulo());
+                        }
 
-                view.carregarListaSolicitacoes(solicitacoesNome);
-            }
-        });
+                        view.carregarListaSolicitacoes(solicitacoesNome);
+                    }
+                });
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface SolicitacaoServiceAsync {
 
     void cadastrarSolicitacao(Solicitacao solicitacao, AsyncCallback<Void> async);
 
-    void consultarSolicitacoes(int idUsuario, AsyncCallback<ArrayList<Solicitacao>> async);
+    void consultarSolicitacoes(int idFuncionario, AsyncCallback<ArrayList<Solicitacao>> async);
 
     void getAtendenteById(int idAtendente, AsyncCallback<Usuario> async);
 

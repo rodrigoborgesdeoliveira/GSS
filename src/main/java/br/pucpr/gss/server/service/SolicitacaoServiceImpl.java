@@ -46,10 +46,10 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public ArrayList<Solicitacao> consultarSolicitacoes(int idUsuario) {
+    public ArrayList<Solicitacao> consultarSolicitacoes(int idFuncionario) {
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
 
-        return gssDaoSolicitacao.getSolicitacoesByIdUsuario(idUsuario);
+        return gssDaoSolicitacao.getSolicitacoesByIdFuncionario(idFuncionario);
     }
 
     @Override

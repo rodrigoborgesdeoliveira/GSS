@@ -56,10 +56,10 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
     }
 
     @Override
-    public ArrayList<Solicitacao> getSolicitacoesByIdUsuario(int idUsuario) throws IllegalStateException {
+    public ArrayList<Solicitacao> getSolicitacoesByIdFuncionario(int idFuncionario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM gss.solicitacao WHERE " +
-                "solicitante_id = %d OR atendente_id = %d OR gestor_id = %d;", idUsuario, idUsuario, idUsuario);
+                "solicitante_id = %d OR atendente_id = %d OR gestor_id = %d;", idFuncionario, idFuncionario, idFuncionario);
         ResultSet resultado = null;
         ArrayList<Solicitacao> solicitacoes = new ArrayList<>();
 

@@ -70,7 +70,7 @@ public class CadastroSolicitacaoPresenter implements Presenter, CadastroSolicita
     @Override
     public void onCadastrarButtonClicked(String titulo, int indiceSetor, String descricao) {
         Setor setorSelecionado = listaSetores.get(indiceSetor);
-        Solicitacao solicitacao = new Solicitacao(titulo, descricao, new Date(), setorSelecionado.getId(), usuario.getId(),
+        Solicitacao solicitacao = new Solicitacao(titulo, descricao, new Date(), setorSelecionado.getId(), usuario.getIdFuncionario(),
                 setorSelecionado.getIdGestor());
         SolicitacaoService.RPC.getInstance().cadastrarSolicitacao(solicitacao, new AsyncCallback<Void>() {
             @Override

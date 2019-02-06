@@ -39,7 +39,7 @@ public class Setor implements IsSerializable {
 
     @Override
     public boolean equals(Object obj) {
-        // Override esse método para ver dois setores com o mesmo id como sendo o mesmo
+        // Sobrescrever esse método para ver dois setores com o mesmo id como sendo o mesmo
         return obj instanceof Setor && id == ((Setor) obj).id;
     }
 }

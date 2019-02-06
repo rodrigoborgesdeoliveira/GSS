@@ -32,12 +32,6 @@ public class Usuario implements IsSerializable {
         this.idFuncionario = idFuncionario;
     }
 
-    public Usuario(int id, String nome, int idFuncionario) {
-        this.id = id;
-        this.nome = nome;
-        this.idFuncionario = idFuncionario;
-    }
-
     public Usuario(String nome, int idFuncionario) {
         this.nome = nome;
         this.idFuncionario = idFuncionario;
@@ -67,5 +61,11 @@ public class Usuario implements IsSerializable {
 
     public int getIdFuncionario() {
         return idFuncionario;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Sobrescrever esse método para ver dois usuários com o mesmo id de funcionário como sendo o mesmo
+        return obj instanceof Usuario && this.idFuncionario == ((Usuario) obj).idFuncionario;
     }
 }
