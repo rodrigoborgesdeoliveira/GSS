@@ -126,8 +126,9 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setSolicitanteUI(ArrayList<String> prioridades) {
+        String prazo = solicitacao.getPrazo() != null ? solicitacao.getPrazo().toString() : "";
         view.setSolicitanteUI(solicitacao.getTitulo(), solicitacao.getDescricao(),
-                solicitacao.getDataCriacao().toString(), solicitacao.getPrazo().toString(),
+                solicitacao.getDataCriacao().toString(), prazo,
                 setor.getNome(), solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
                 atendente != null ? atendente.getNome() : "");

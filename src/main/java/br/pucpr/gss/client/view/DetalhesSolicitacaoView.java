@@ -24,6 +24,6 @@ public interface DetalhesSolicitacaoView {
                           String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente);
 
     void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
-                     ArrayList<String> setores, String estado, int prioridade, ArrayList<String> prioridades,
+                     ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
                      int indiceAtendente, ArrayList<String> atendentes);
 }

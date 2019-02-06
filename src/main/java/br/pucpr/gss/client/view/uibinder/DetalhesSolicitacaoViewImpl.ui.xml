@@ -71,14 +71,14 @@
                             <ui:msg>Atendente</ui:msg>
                         </g:Label>
                         <g:Label ui:field="labelAtendenteVisaoSolicitante" visible="false"/>
-                        <g:ListBox ui:field="labelAtendenteVisaoGestor" visible="false"/>
+                        <g:ListBox ui:field="listBoxAtendenteVisaoGestor" visible="false"/>
                     </g:VerticalPanel>
                 </g:HorizontalPanel>
                 <!-- Descrição -->
                 <g:Label>
-                    <ui:msg>Descricao</ui:msg>
+                    <ui:msg>Descrição</ui:msg>
                 </g:Label>
-                <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao"/>
+                <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao" enabled="false"/>
                 <!-- Histórico -->
                 <g:Label>
                     <ui:msg>Histórico</ui:msg>

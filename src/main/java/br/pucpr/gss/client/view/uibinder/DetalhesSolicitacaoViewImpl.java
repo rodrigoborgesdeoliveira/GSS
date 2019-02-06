@@ -47,7 +47,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @UiField
     Label labelAtendenteVisaoSolicitante;
     @UiField
-    ListBox labelAtendenteVisaoGestor;
+    ListBox listBoxAtendenteVisaoGestor;
     @UiField
     TextArea textAreaDescricao;
     @UiField
@@ -63,28 +63,41 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         return menu;
     }
 
-    private void setUI(String tituloSolicitacao, String descricao, String dataInicial, String estado) {
+    private void setUI(String tituloSolicitacao, String descricao, String dataInicial, String estado,
+                       int indicePrioridade, ArrayList<String> prioridades) {
         labelTituloSolicitacao.setText(tituloSolicitacao);
         textAreaDescricao.setText(descricao);
         labelDataInicial.setText(dataInicial);
         labelEstado.setText(estado);
+
+        for (String p : prioridades) {
+            listBoxPrioridade.addItem(p);
+        }
+        listBoxPrioridade.setSelectedIndex(indicePrioridade);
     }
 
     @Override
     public void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
                                int indicePrioridade, ArrayList<String> prioridades) {
+
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+
+        // Definir elementos visíveis da interface
         labelPrazo.setVisible(false);
         dateBoxPrazoVisaoAtendente.setVisible(true);
         verticalPanelSetor.setVisible(false);
         verticalPanelAtendente.setVisible(false);
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado);
-        // TODO: 04/02/2019 Setar as possíveis prioridades
+        dateBoxPrazoVisaoAtendente.setValue(prazo);
     }
 
     @Override
     public void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
                                  String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente) {
+
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+
+        // Definir elementos visíveis da interface
         labelPrazo.setVisible(true);
         dateBoxPrazoVisaoAtendente.setVisible(false);
         verticalPanelSetor.setVisible(true);
@@ -92,16 +105,22 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         labelSetorVisaoSolicitante.setVisible(true);
         verticalPanelAtendente.setVisible(true);
         labelAtendenteVisaoSolicitante.setVisible(true);
-        labelAtendenteVisaoGestor.setVisible(false);
+        listBoxAtendenteVisaoGestor.setVisible(false);
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado);
-        // TODO: 04/02/2019 Setar as possíveis prioridades
+        // Definir valor dos elementos
+        labelPrazo.setText(prazo);
+        labelSetorVisaoSolicitante.setText(setor);
+        labelAtendenteVisaoSolicitante.setText(nomeAtendente);
     }
 
     @Override
     public void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
-                            ArrayList<String> setores, String estado, int prioridade, ArrayList<String> prioridades,
+                            ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
                             int indiceAtendente, ArrayList<String> atendentes) {
+
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+
+        // Definir elementos visíveis da interface
         labelPrazo.setVisible(true);
         dateBoxPrazoVisaoAtendente.setVisible(false);
         verticalPanelSetor.setVisible(true);
@@ -109,9 +128,19 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         labelSetorVisaoSolicitante.setVisible(false);
         verticalPanelAtendente.setVisible(true);
         labelAtendenteVisaoSolicitante.setVisible(false);
-        labelAtendenteVisaoGestor.setVisible(true);
+        listBoxAtendenteVisaoGestor.setVisible(true);
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado);
-        // TODO: 04/02/2019 Setar as possíveis prioridades
+        // Definir valor dos elementos
+        labelPrazo.setText(prazo);
+
+        for (String setor : setores) {
+            listBoxSetorVisaoGestor.addItem(setor);
+        }
+        listBoxSetorVisaoGestor.setSelectedIndex(indiceSetor);
+
+        for (String atendente : atendentes) {
+            listBoxAtendenteVisaoGestor.addItem(atendente);
+        }
+        listBoxAtendenteVisaoGestor.setSelectedIndex(indiceAtendente);
     }
 }
