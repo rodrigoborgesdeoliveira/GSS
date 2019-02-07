@@ -13,6 +13,13 @@ public interface RhDao {
     interface Setor {
         ArrayList<br.pucpr.gss.shared.model.Setor> getSetores();
 
+        /**
+         * Retorna todos os setores, exceto aquele ao qual o funcionário pertence.
+         *
+         * @return Lista de setores, exceto o setor do funcionário.
+         */
+        ArrayList<br.pucpr.gss.shared.model.Setor> getSetoresExcluindoFuncionario(int idFuncionario);
+
         br.pucpr.gss.shared.model.Setor getSetorById(int idSetor);
     }
 }

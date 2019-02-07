@@ -27,6 +27,16 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
+    public ArrayList<Setor> getListaOutrosSetores(int idFuncionario) throws IllegalStateException {
+        RhDao.Setor rhDaoSetor = new RhDaoSetorImpl();
+        ArrayList<Setor> setores = rhDaoSetor.getSetoresExcluindoFuncionario(idFuncionario);
+
+        logger.log(Level.INFO, "Lista de setores: " + setores);
+
+        return setores;
+    }
+
+    @Override
     public Setor getSetorById(int idSetor) throws IllegalStateException {
         RhDao.Setor rhDaoSetor = new RhDaoSetorImpl();
         Setor setor = rhDaoSetor.getSetorById(idSetor);

@@ -1,6 +1,7 @@
 package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.shared.model.Setor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
@@ -17,6 +18,20 @@ public class RhDaoSetorImpl implements RhDao.Setor {
     public ArrayList<Setor> getSetores() throws IllegalStateException {
         // language=MySQL
         String sql = "SELECT * FROM setor;";
+        return getSetores(sql);
+    }
+
+    @Override
+    public ArrayList<Setor> getSetoresExcluindoFuncionario(int idFuncionario) {
+        // language=MySQL
+        String sql = String.format("SELECT * FROM setor WHERE id NOT IN (SELECT setor_id FROM funcionario WHERE id = %d);",
+                idFuncionario);
+
+        return getSetores(sql);
+    }
+
+    @NotNull
+    private ArrayList<Setor> getSetores(String sql) {
         ResultSet resultado = null;
         ArrayList<Setor> setores = new ArrayList<>();
 

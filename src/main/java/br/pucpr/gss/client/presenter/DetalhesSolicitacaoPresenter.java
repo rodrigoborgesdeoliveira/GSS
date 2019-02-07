@@ -146,7 +146,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                         @Override
                         public void onSuccess(ArrayList<Usuario> result) {
                             atendentes = result;
-                            // Se id do atendente da solicitação for 0, indice será -1 e portanto a lista não mostrará
+                            // Se id do atendente da solicitação for 0, índice será -1 e portanto a lista não mostrará
                             // nenhum item selecionado
                             indiceAtendente = atendentes.indexOf(new Usuario(0, "", false,
                                     solicitacao.getIdAtendente()));

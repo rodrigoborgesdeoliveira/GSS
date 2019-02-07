@@ -45,26 +45,27 @@ public class CadastroSolicitacaoPresenter implements Presenter, CadastroSolicita
      * Obtém a lista de setores no banco de dados do RH.
      */
     private void fetchListaSetores() {
-        SolicitacaoService.RPC.getInstance().getListaSetores(new AsyncCallback<ArrayList<Setor>>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                GWT.log("Erro ao carregar lista de setores", caught);
+        SolicitacaoService.RPC.getInstance().getListaOutrosSetores(usuario.getIdFuncionario(),
+                new AsyncCallback<ArrayList<Setor>>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        GWT.log("Erro ao carregar lista de setores", caught);
 
-                Window.alert("Não foi possível carregar lista de setores, tente novamente.");
-            }
+                        Window.alert("Não foi possível carregar lista de setores, tente novamente.");
+                    }
 
-            @Override
-            public void onSuccess(ArrayList<Setor> result) {
-                listaSetores = result;
-                ArrayList<String> setoresNome = new ArrayList<>();
+                    @Override
+                    public void onSuccess(ArrayList<Setor> result) {
+                        listaSetores = result;
+                        ArrayList<String> setoresNome = new ArrayList<>();
 
-                for (Setor setor : result) {
-                    setoresNome.add(setor.getNome());
-                }
+                        for (Setor setor : result) {
+                            setoresNome.add(setor.getNome());
+                        }
 
-                view.carregarListaSetores(setoresNome);
-            }
-        });
+                        view.carregarListaSetores(setoresNome);
+                    }
+                });
     }
 
     @Override

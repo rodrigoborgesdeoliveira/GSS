@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public interface SolicitacaoServiceAsync {
     void getListaSetores(AsyncCallback<ArrayList<Setor>> async);
 
+    void getListaOutrosSetores(int idFuncionario, AsyncCallback<ArrayList<Setor>> async);
+
     void getSetorById(int idSetor, AsyncCallback<Setor> async);
 
     void cadastrarSolicitacao(Solicitacao solicitacao, AsyncCallback<Void> async);

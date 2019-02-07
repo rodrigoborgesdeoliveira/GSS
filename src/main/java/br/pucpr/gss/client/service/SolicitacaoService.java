@@ -13,6 +13,13 @@ import java.util.ArrayList;
 public interface SolicitacaoService extends RemoteService {
     ArrayList<Setor> getListaSetores() throws IllegalStateException;
 
+    /**
+     * Retorna a lista de todos os setores exceto aquele pertencente ao funcionário.
+     *
+     * @return Lista de setores em que o funcionário não faz parte.
+     */
+    ArrayList<Setor> getListaOutrosSetores(int idFuncionario) throws IllegalStateException;
+
     Setor getSetorById(int idSetor) throws IllegalStateException;
 
     void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
