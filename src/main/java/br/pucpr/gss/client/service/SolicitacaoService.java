@@ -28,7 +28,12 @@ public interface SolicitacaoService extends RemoteService {
 
     Usuario getAtendenteById(int idAtendente) throws IllegalStateException, IllegalArgumentException;
 
-    ArrayList<Usuario> getListaAtendentesByIdSetor(int idSetor) throws IllegalStateException;
+    /**
+     * Retorna uma lista de todos os atendentes de um dados setor, exceto pelo próprio gestor.
+     *
+     * @return Lista dos atendentes.
+     */
+    ArrayList<Usuario> getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor) throws IllegalStateException;
 
     /**
      * Classe para chamar os métodos de SolicitacaoService.

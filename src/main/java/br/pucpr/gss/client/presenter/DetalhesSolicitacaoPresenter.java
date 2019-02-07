@@ -71,13 +71,13 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     /**
-     * Busca a lista de todos os atendentes em um dado setor.
+     * Busca a lista de todos os atendentes em um dado setor, exceto o próprio gestor.
      *
      * @param idSetor       ID do setor para buscar os atendentes.
      * @param asyncCallback Função para ser chamada após o retorno do servidor.
      */
-    private void fetchAtendentes(int idSetor, AsyncCallback<ArrayList<Usuario>> asyncCallback) {
-        SolicitacaoService.RPC.getInstance().getListaAtendentesByIdSetor(idSetor, asyncCallback);
+    private void fetchAtendentes(int idSetor, int idGestor, AsyncCallback<ArrayList<Usuario>> asyncCallback) {
+        SolicitacaoService.RPC.getInstance().getListaAtendentesByIdSetorExcetoGestor(idSetor, idGestor, asyncCallback);
     }
 
     private void setViewUI() {
@@ -138,7 +138,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     setores = result;
                     indiceSetor = setores.indexOf(new Setor(solicitacao.getIdSetor(), "", 0));
 
-                    fetchAtendentes(solicitacao.getIdSetor(), new AsyncCallback<ArrayList<Usuario>>() {
+                    fetchAtendentes(solicitacao.getIdSetor(), solicitacao.getIdGestor(), new AsyncCallback<ArrayList<Usuario>>() {
                         @Override
                         public void onFailure(Throwable caught) {
                             Window.alert("Não foi possível carregar a lista de atendentes");

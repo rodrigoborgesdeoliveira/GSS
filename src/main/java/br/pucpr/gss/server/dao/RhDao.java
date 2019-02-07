@@ -7,7 +7,7 @@ public interface RhDao {
     interface Funcionario {
         br.pucpr.gss.server.model.Funcionario getFuncionarioByEmail(String email);
 
-        ArrayList<br.pucpr.gss.server.model.Funcionario> getFuncionarioByIdSetor(int idSetor);
+        ArrayList<br.pucpr.gss.server.model.Funcionario> getFuncionariosByIdSetor(int idSetor);
     }
 
     interface Setor {

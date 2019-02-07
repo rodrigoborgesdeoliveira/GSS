@@ -75,14 +75,16 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public ArrayList<Usuario> getListaAtendentesByIdSetor(int idSetor) throws IllegalStateException {
+    public ArrayList<Usuario> getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor) throws IllegalStateException {
         RhDao.Funcionario rhDaoFuncionario = new RhDaoFuncionarioImpl();
-        ArrayList<Funcionario> funcionarios = rhDaoFuncionario.getFuncionarioByIdSetor(idSetor);
+        ArrayList<Funcionario> funcionarios = rhDaoFuncionario.getFuncionariosByIdSetor(idSetor);
 
         ArrayList<Usuario> atendentes = new ArrayList<>();
 
         for (Funcionario f : funcionarios) {
-            atendentes.add(new Usuario(f.getNome(), f.getId()));
+            if (f.getId() != idGestor) {
+                atendentes.add(new Usuario(f.getNome(), f.getId()));
+            }
         }
 
         return atendentes;

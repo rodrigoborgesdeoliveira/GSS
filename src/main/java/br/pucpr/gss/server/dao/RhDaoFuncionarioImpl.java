@@ -44,7 +44,7 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
     }
 
     @Override
-    public ArrayList<Funcionario> getFuncionarioByIdSetor(int idSetor) {
+    public ArrayList<Funcionario> getFuncionariosByIdSetor(int idSetor) {
         // language=MySQL
         String sql = String.format("SELECT * FROM funcionario WHERE setor_id = %d;", idSetor);
 
