@@ -62,12 +62,12 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     /**
-     * Busca a lista de todos os setores cadastrados no banco de dados do RH.
+     * Busca a lista de todos os setores cadastrados no banco de dados do RH, exceto o setor do solicitante.
      *
      * @param asyncCallback Função para ser chamada após o retorno do servidor.
      */
-    private void fetchSetores(AsyncCallback<ArrayList<Setor>> asyncCallback) {
-        SolicitacaoService.RPC.getInstance().getListaSetores(asyncCallback);
+    private void fetchSetores(int idSolicitante, AsyncCallback<ArrayList<Setor>> asyncCallback) {
+        SolicitacaoService.RPC.getInstance().getListaOutrosSetores(idSolicitante, asyncCallback);
     }
 
     /**
@@ -89,7 +89,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
         // Carregar a view de acordo com o tipo de usuário em relação à solicitação
         if (usuario.getIdFuncionario() == solicitacao.getIdAtendente()) {
-            this.view.setAtendenteUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao().toString(),
+            this.view.setAtendenteUI(solicitacao.getTitulo(), solicitacao.getDescricao(),
+                    solicitacao.getDataCriacao().toString(),
                     solicitacao.getPrazo(), solicitacao.getEstado().getNome(),
                     prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades);
         } else if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
@@ -126,7 +127,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         } else if (usuario.getIdFuncionario() == solicitacao.getIdGestor()) {
             prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.ALTA).getNome());
 
-            fetchSetores(new AsyncCallback<ArrayList<Setor>>() {
+            fetchSetores(solicitacao.getIdSolicitante(), new AsyncCallback<ArrayList<Setor>>() {
                 @Override
                 public void onFailure(Throwable caught) {
                     Window.alert("Não foi possível carregar a lista de setores");
