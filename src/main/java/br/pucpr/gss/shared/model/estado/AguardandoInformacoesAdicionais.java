@@ -1,9 +1,16 @@
 package br.pucpr.gss.shared.model.estado;
 
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
+
 public class AguardandoInformacoesAdicionais extends Estado {
     @Override
     public String getNome() {
         return "Aguardando informações adicionais";
+    }
+
+    @Override
+    public int getIndice() {
+        return FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS;
     }
 
     @Override

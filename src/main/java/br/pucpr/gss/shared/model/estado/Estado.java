@@ -12,6 +12,8 @@ public abstract class Estado implements IsSerializable {
 
     public abstract String getNome();
 
+    public abstract int getIndice();
+
     public abstract Estado iniciarAtendimento();
 
     public abstract Estado pausarAtendimento();

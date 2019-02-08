@@ -68,6 +68,10 @@ public class Solicitacao implements IsSerializable {
         return prioridade;
     }
 
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+
     public Estado getEstado() {
         return estado;
     }
@@ -80,12 +84,20 @@ public class Solicitacao implements IsSerializable {
         return prazo;
     }
 
+    public void setPrazo(Date prazo) {
+        this.prazo = prazo;
+    }
+
     public String getDescricaoSolucao() {
         return descricaoSolucao;
     }
 
     public int getIdSetor() {
         return idSetor;
+    }
+
+    public void setIdSetor(int idSetor) {
+        this.idSetor = idSetor;
     }
 
     public int getIdSolicitante() {
@@ -96,7 +108,15 @@ public class Solicitacao implements IsSerializable {
         return idAtendente;
     }
 
+    public void setIdAtendente(int idAtendente) {
+        this.idAtendente = idAtendente;
+    }
+
     public int getIdGestor() {
         return idGestor;
+    }
+
+    public void setIdGestor(int idGestor) {
+        this.idGestor = idGestor;
     }
 }

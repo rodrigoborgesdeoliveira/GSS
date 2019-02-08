@@ -21,4 +21,6 @@ public interface SolicitacaoServiceAsync {
     void getAtendenteById(int idAtendente, AsyncCallback<Usuario> async);
 
     void getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor, AsyncCallback<ArrayList<Usuario>> async);
+
+    void updateSolicitacao(Solicitacao solicitacao, AsyncCallback<Void> async);
 }

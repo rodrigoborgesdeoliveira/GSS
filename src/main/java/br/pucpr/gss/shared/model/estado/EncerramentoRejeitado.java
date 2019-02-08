@@ -1,9 +1,16 @@
 package br.pucpr.gss.shared.model.estado;
 
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
+
 public class EncerramentoRejeitado extends Estado {
     @Override
     public String getNome() {
         return "Encerramento rejeitado";
+    }
+
+    @Override
+    public int getIndice() {
+        return FabricaEstado.ENCERRAMENTO_REJEITADO;
     }
 
     @Override

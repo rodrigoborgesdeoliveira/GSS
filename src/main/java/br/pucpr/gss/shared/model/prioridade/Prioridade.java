@@ -11,4 +11,6 @@ public abstract class Prioridade implements IsSerializable {
     }
 
     public abstract String getNome();
+
+    public abstract int getIndice();
 }

@@ -1,5 +1,7 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.DashboardEvent;
+import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.shared.fabrica.Fabrica;
@@ -7,12 +9,15 @@ import br.pucpr.gss.shared.fabrica.FabricaPrioridade;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicitacaoView.Presenter {
 
@@ -26,6 +31,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     private ArrayList<Usuario> atendentes;
     private int indiceSetor;
     private int indiceAtendente;
+
+    private final Fabrica fabricaPrioridade = new FabricaPrioridade();
 
     public DetalhesSolicitacaoPresenter(HandlerManager eventBus, DetalhesSolicitacaoView view, Usuario usuario,
                                         Solicitacao solicitacao) {
@@ -81,19 +88,19 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setViewUI() {
-        Fabrica fabricaPrioridade = new FabricaPrioridade();
-
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.NORMAL).getNome());
 
         // Carregar a view de acordo com o tipo de usuário em relação à solicitação
         if (usuario.getIdFuncionario() == solicitacao.getIdAtendente()) {
+            // Atendente
             this.view.setAtendenteUI(solicitacao.getTitulo(), solicitacao.getDescricao(),
                     solicitacao.getDataCriacao().toString(),
                     solicitacao.getPrazo(), solicitacao.getEstado().getNome(),
                     prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades);
         } else if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
+            // Solicitante
             fetchSolicitacaoSetor(solicitacao.getIdSetor(), new AsyncCallback<Setor>() {
                 @Override
                 public void onFailure(Throwable caught) {
@@ -125,6 +132,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 }
             });
         } else if (usuario.getIdFuncionario() == solicitacao.getIdGestor()) {
+            // Gestor
             prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.ALTA).getNome());
 
             fetchSetores(solicitacao.getIdSolicitante(), new AsyncCallback<ArrayList<Setor>>() {
@@ -191,5 +199,57 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     public void go(HasWidgets container) {
         container.clear();
         container.add(view.asWidget());
+    }
+
+    @Override
+    public void onCancelarButtonClicked() {
+        eventBus.fireEvent(new VoltarEvent());
+    }
+
+    @Override
+    public void onSalvarButtonClicked(@Nullable Date prazo, int indiceSetor, int indicePrioridade, int indiceAtendente) {
+        if (prazo != null) {
+            solicitacao.setPrazo(prazo);
+        }
+
+        boolean isSetorAlterado = false; // se índice setor for < 0 ou o id do setor não for alterado, permanecerá falso
+
+        if (indiceSetor >= 0) {
+            Setor setor = setores.get(indiceSetor);
+
+            if (solicitacao.getIdSetor() != setor.getId()) {
+                isSetorAlterado = true;
+
+                solicitacao.setIdSetor(setor.getId());
+                solicitacao.setIdGestor(setor.getIdGestor());
+            }
+        }
+
+        if (!isSetorAlterado) {
+            if (indicePrioridade >= 0) {
+                solicitacao.setPrioridade(fabricaPrioridade.criarPrioridade(indicePrioridade));
+            }
+
+            if (indiceAtendente >= 0) {
+                solicitacao.setIdAtendente(atendentes.get(indiceAtendente).getId());
+            }
+        }
+
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                GWT.log("Erro ao atualizar solicitação", caught);
+
+                Window.alert("Não foi possível salvar a solicitação, tente novamente.");
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                GWT.log("Solicitação atualizada");
+
+                Window.alert("Solicitação atualizada com sucesso");
+                eventBus.fireEvent(new DashboardEvent());
+            }
+        });
     }
 }

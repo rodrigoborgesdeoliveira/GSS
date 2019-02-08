@@ -3,8 +3,10 @@ package br.pucpr.gss.client.view.uibinder;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.client.view.MenuView;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 
@@ -142,5 +144,22 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
             listBoxAtendenteVisaoGestor.addItem(atendente);
         }
         listBoxAtendenteVisaoGestor.setSelectedIndex(indiceAtendente);
+    }
+
+    @UiHandler("buttonCancelar")
+    void onClickCancelar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onCancelarButtonClicked();
+        }
+    }
+
+    @UiHandler("buttonSalvar")
+    void onClickSalvar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onSalvarButtonClicked(dateBoxPrazoVisaoAtendente.getValue(),
+                    listBoxSetorVisaoGestor.isVisible() ? listBoxSetorVisaoGestor.getSelectedIndex() : -1,
+                    listBoxPrioridade.getSelectedIndex(),
+                    listBoxAtendenteVisaoGestor.isVisible() ? listBoxAtendenteVisaoGestor.getSelectedIndex() : -1);
+        }
     }
 }

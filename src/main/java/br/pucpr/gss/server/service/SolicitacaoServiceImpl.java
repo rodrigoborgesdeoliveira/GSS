@@ -89,4 +89,13 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         return atendentes;
     }
+
+    @Override
+    public void updateSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
+        GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
+
+        gssDaoSolicitacao.updateSolicitacao(solicitacao);
+
+        logger.log(Level.INFO, "Solicitação atualizada com sucesso");
+    }
 }

@@ -20,5 +20,7 @@ public interface GssDao {
         void insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao);
 
         ArrayList<br.pucpr.gss.shared.model.Solicitacao> getSolicitacoesByIdFuncionario(int idFuncionario);
+
+        void updateSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao);
     }
 }

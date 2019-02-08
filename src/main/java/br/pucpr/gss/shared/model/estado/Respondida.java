@@ -1,9 +1,16 @@
 package br.pucpr.gss.shared.model.estado;
 
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
+
 public class Respondida extends Estado {
     @Override
     public String getNome() {
         return "Respondida";
+    }
+
+    @Override
+    public int getIndice() {
+        return FabricaEstado.RESPONDIDA;
     }
 
     @Override

@@ -1,9 +1,16 @@
 package br.pucpr.gss.shared.model.estado;
 
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
+
 public class EncerramentoProposto extends Estado {
     @Override
     public String getNome() {
         return "Encerramento proposto";
+    }
+
+    @Override
+    public int getIndice() {
+        return FabricaEstado.ENCERRAMENTO_PROPOSTO;
     }
 
     @Override

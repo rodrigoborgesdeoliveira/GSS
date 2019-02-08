@@ -7,10 +7,7 @@ import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.estado.Estado;
 import br.pucpr.gss.shared.model.prioridade.Prioridade;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -99,5 +96,48 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
         }
 
         return solicitacoes;
+    }
+
+    @Override
+    public void updateSolicitacao(Solicitacao solicitacao) {
+        Connection conexao = Conexao.getInstance().getConexaoGSS();
+
+        // language=MySQL
+        String sql = "UPDATE solicitacao SET prioridade = ?, estado = ?, prazo = ?, descricao_solucao = ?, setor_id = ?," +
+                "atendente_id = ?, gestor_id = ? WHERE (id = ?);";
+
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, solicitacao.getPrioridade().getIndice());
+            stmt.setInt(2, solicitacao.getEstado().getIndice());
+            if (solicitacao.getPrazo() != null) {
+                stmt.setDate(3, new java.sql.Date(solicitacao.getPrazo().getTime()));
+            } else {
+                stmt.setNull(3, Types.DATE);
+            }
+            stmt.setString(4, solicitacao.getDescricaoSolucao());
+            stmt.setInt(5, solicitacao.getIdSetor());
+            if (solicitacao.getIdAtendente() > 0) {
+                stmt.setInt(6, solicitacao.getIdAtendente());
+            } else {
+                stmt.setNull(6, Types.INTEGER);
+            }
+            stmt.setInt(7, solicitacao.getIdGestor());
+            stmt.setInt(8, solicitacao.getId());
+
+            Conexao.getInstance().executeSQLUpdate(stmt);
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(conexao, stmt, null);
+        }
     }
 }
