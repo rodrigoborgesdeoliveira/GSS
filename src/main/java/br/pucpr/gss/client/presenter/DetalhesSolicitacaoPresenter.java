@@ -231,7 +231,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
             }
 
             if (indiceAtendente >= 0) {
-                solicitacao.setIdAtendente(atendentes.get(indiceAtendente).getId());
+                solicitacao.setIdAtendente(atendentes.get(indiceAtendente).getIdFuncionario());
             }
         }
 
