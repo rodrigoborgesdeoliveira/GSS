@@ -24,8 +24,8 @@ public class RhDaoSetorImpl implements RhDao.Setor {
     @Override
     public ArrayList<Setor> getSetoresExcluindoFuncionario(int idFuncionario) {
         // language=MySQL
-        String sql = String.format("SELECT * FROM setor WHERE id NOT IN (SELECT setor_id FROM funcionario WHERE id = %d);",
-                idFuncionario);
+        String sql = String.format("SELECT * FROM setor WHERE NOT gestor_id = %d AND id NOT IN (SELECT setor_id FROM " +
+                "funcionario WHERE id = %d);", idFuncionario, idFuncionario);
 
         return getSetores(sql);
     }
