@@ -76,6 +76,10 @@ public class Solicitacao implements IsSerializable {
         return estado;
     }
 
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     public Date getDataCriacao() {
         return dataCriacao;
     }

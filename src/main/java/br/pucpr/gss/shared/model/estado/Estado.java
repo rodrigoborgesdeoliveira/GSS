@@ -1,5 +1,6 @@
 package br.pucpr.gss.shared.model.estado;
 
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public abstract class Estado implements IsSerializable {
@@ -29,4 +30,8 @@ public abstract class Estado implements IsSerializable {
     public abstract Estado requisitarInformacoesAdicionais();
 
     public abstract Estado registrarInformacoesAdicionais();
+
+    public Estado transferirSolicitacao(){
+        return new FabricaEstado().criarEstado(FabricaEstado.AGUARDANDO_ATENDIMENTO);
+    }
 }

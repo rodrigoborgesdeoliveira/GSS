@@ -222,6 +222,12 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
                 solicitacao.setIdSetor(setor.getId());
                 solicitacao.setIdGestor(setor.getIdGestor());
+
+                // Resetar os estado para aguardando atendimento, prioridade para normal, e limpar o prazo e atendente
+                solicitacao.setEstado(solicitacao.getEstado().transferirSolicitacao());
+                solicitacao.setPrioridade(fabricaPrioridade.criarPrioridade(FabricaPrioridade.NORMAL));
+                solicitacao.setPrazo(null);
+                solicitacao.setIdAtendente(0); // 0 ou menos para ser marcado como SQL NULL no banco de dados
             }
         }
 

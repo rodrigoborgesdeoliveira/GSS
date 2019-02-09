@@ -53,4 +53,9 @@ public class AguardandoAtendimento extends Estado {
     public Estado registrarInformacoesAdicionais() {
         return null;
     }
+
+    @Override
+    public Estado transferirSolicitacao() {
+        return this;
+    }
 }
