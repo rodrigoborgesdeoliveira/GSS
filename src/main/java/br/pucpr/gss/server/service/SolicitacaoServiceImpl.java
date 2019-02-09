@@ -66,7 +66,7 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     public Usuario getAtendenteById(int idAtendente) throws IllegalStateException, IllegalArgumentException {
         GssDao.Usuario gssDaoUsuario = new GssDaoUsuarioImpl();
 
-        Usuario atendente = gssDaoUsuario.getUsuarioById(idAtendente);
+        Usuario atendente = gssDaoUsuario.getUsuarioByIdFuncionario(idAtendente);
         if (atendente == null) {
             throw new IllegalArgumentException("Atendente não existe");
         }
