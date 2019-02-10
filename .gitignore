@@ -36,5 +36,10 @@ www-test/
 out/ # Gerada pelo GWT
 target/ # Gerada pelo GwtMockito
 
+# Não estavam sendo detectados pelo gitignore
+out/production/GSS/META-INF/GSS.kotlin_module
+out/test/GSS/META-INF/GSS.kotlin_module
+target/classes/META-INF/GSS.kotlin_module
+
 # Gradle
 .gradle/
