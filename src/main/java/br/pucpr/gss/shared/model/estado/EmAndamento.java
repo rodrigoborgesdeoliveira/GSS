@@ -15,22 +15,22 @@ public class EmAndamento extends Estado {
 
     @Override
     public Estado iniciarAtendimento() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado pausarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.PAUSADA);
     }
 
     @Override
     public Estado continuarAtendimento() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado oferecerSolucao() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.ENCERRAMENTO_PROPOSTO);
     }
 
     @Override

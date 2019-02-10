@@ -16,7 +16,7 @@ public class AguardandoAtendimento extends Estado {
 
     @Override
     public Estado iniciarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.EM_ANDAMENTO);
     }
 
     @Override
@@ -52,10 +52,5 @@ public class AguardandoAtendimento extends Estado {
     @Override
     public Estado registrarInformacoesAdicionais() {
         return null;
-    }
-
-    @Override
-    public Estado transferirSolicitacao() {
-        return this;
     }
 }

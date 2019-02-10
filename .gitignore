@@ -33,8 +33,8 @@ www-test/
 *.iml
 
 # Saídas
-out/* # Gerada pelo GWT
-target/* # Gerada pelo GwtMockito
+out/ # Gerada pelo GWT
+target/ # Gerada pelo GwtMockito
 
 # Gradle
 .gradle/

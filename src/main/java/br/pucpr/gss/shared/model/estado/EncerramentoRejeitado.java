@@ -20,12 +20,12 @@ public class EncerramentoRejeitado extends Estado {
 
     @Override
     public Estado pausarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.PAUSADA);
     }
 
     @Override
     public Estado continuarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.EM_ANDAMENTO);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class EncerramentoRejeitado extends Estado {
 
     @Override
     public Estado rejeitarSolucao() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado requisitarInformacoesAdicionais() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS);
     }
 
     @Override

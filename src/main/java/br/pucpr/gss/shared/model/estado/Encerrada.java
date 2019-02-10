@@ -35,7 +35,7 @@ public class Encerrada extends Estado {
 
     @Override
     public Estado aceitarSolucao() {
-        return null;
+        return this;
     }
 
     @Override

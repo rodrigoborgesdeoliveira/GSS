@@ -20,17 +20,17 @@ public class Pausada extends Estado {
 
     @Override
     public Estado pausarAtendimento() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado continuarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.EM_ANDAMENTO);
     }
 
     @Override
     public Estado oferecerSolucao() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.ENCERRAMENTO_PROPOSTO);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Pausada extends Estado {
 
     @Override
     public Estado requisitarInformacoesAdicionais() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS);
     }
 
     @Override

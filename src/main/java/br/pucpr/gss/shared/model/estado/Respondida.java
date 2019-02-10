@@ -20,17 +20,17 @@ public class Respondida extends Estado {
 
     @Override
     public Estado pausarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.PAUSADA);
     }
 
     @Override
     public Estado continuarAtendimento() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.EM_ANDAMENTO);
     }
 
     @Override
     public Estado oferecerSolucao() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.ENCERRAMENTO_PROPOSTO);
     }
 
     @Override
@@ -45,11 +45,11 @@ public class Respondida extends Estado {
 
     @Override
     public Estado requisitarInformacoesAdicionais() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS);
     }
 
     @Override
     public Estado registrarInformacoesAdicionais() {
-        return null;
+        return this;
     }
 }

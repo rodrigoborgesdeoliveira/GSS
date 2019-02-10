@@ -30,17 +30,17 @@ public class EncerramentoProposto extends Estado {
 
     @Override
     public Estado oferecerSolucao() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado aceitarSolucao() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.ENCERRADA);
     }
 
     @Override
     public Estado rejeitarSolucao() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.ENCERRAMENTO_REJEITADO);
     }
 
     @Override

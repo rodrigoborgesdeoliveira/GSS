@@ -45,11 +45,11 @@ public class AguardandoInformacoesAdicionais extends Estado {
 
     @Override
     public Estado requisitarInformacoesAdicionais() {
-        return null;
+        return this;
     }
 
     @Override
     public Estado registrarInformacoesAdicionais() {
-        return null;
+        return new FabricaEstado().criarEstado(FabricaEstado.RESPONDIDA);
     }
 }
