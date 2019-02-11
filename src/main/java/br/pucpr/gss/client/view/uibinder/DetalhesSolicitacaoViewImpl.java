@@ -24,6 +24,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     }
 
     private Presenter presenter;
+
+    @UiField
+    Label labelIniciarAtendimento;
+    @UiField
+    Label labelPausarAtendimento;
+    @UiField
+    Label labelContinuarAtendimento;
     @UiField
     MenuView menu;
     @UiField
@@ -160,6 +167,42 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
                     listBoxSetorVisaoGestor.isVisible() ? listBoxSetorVisaoGestor.getSelectedIndex() : -1,
                     listBoxPrioridade.getSelectedIndex(),
                     listBoxAtendenteVisaoGestor.isVisible() ? listBoxAtendenteVisaoGestor.getSelectedIndex() : -1);
+        }
+    }
+
+    @Override
+    public void setVisibilidadeIniciarAtendimento(boolean visivel) {
+        labelIniciarAtendimento.setVisible(visivel);
+    }
+
+    @Override
+    public void setVisibilidadePausarAtendimento(boolean visivel) {
+        labelPausarAtendimento.setVisible(visivel);
+    }
+
+    @Override
+    public void setVisibilidadeContinuarAtendimento(boolean visivel) {
+        labelContinuarAtendimento.setVisible(visivel);
+    }
+
+    @UiHandler("labelIniciarAtendimento")
+    void onClickIniciarAtendimento(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onIniciarAtendimentoClicked();
+        }
+    }
+
+    @UiHandler("labelPausarAtendimento")
+    void onClickPausarAtendimento(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onPausarAtendimentoClicked();
+        }
+    }
+
+    @UiHandler("labelContinuarAtendimento")
+    void onClickContinuarAtendimento(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onContinuarAtendimentoClicked();
         }
     }
 }

@@ -7,6 +7,15 @@
         <g:north size="5">
             <g:HorizontalPanel>
                 <g:Label>DETALHES DA SOLICITAÇÃO</g:Label>
+                <g:Label ui:field="labelIniciarAtendimento" visible="false">
+                    <ui:msg>Iniciar</ui:msg>
+                </g:Label>
+                <g:Label ui:field="labelPausarAtendimento" visible="false">
+                    <ui:msg>Pausar</ui:msg>
+                </g:Label>
+                <g:Label ui:field="labelContinuarAtendimento" visible="false">
+                    <ui:msg>Retomar</ui:msg>
+                </g:Label>
             </g:HorizontalPanel>
         </g:north>
 

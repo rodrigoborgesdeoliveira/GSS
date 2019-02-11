@@ -20,6 +20,12 @@ public interface DetalhesSolicitacaoView {
          * @param indiceAtendente  Índice do atendente na lista ou -1, caso não seja necessário alterá-lo.
          */
         void onSalvarButtonClicked(@Nullable Date prazo, int indiceSetor, int indicePrioridade, int indiceAtendente);
+
+        void onIniciarAtendimentoClicked();
+
+        void onPausarAtendimentoClicked();
+
+        void onContinuarAtendimentoClicked();
     }
 
     void setPresenter(Presenter presenter);
@@ -37,4 +43,25 @@ public interface DetalhesSolicitacaoView {
     void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
                      ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
                      int indiceAtendente, ArrayList<String> atendentes);
+
+    /**
+     * Define a visibilidade da opção de iniciar um atendimento.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeIniciarAtendimento(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de pausar um atendimento.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadePausarAtendimento(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de continuar um atendimento.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeContinuarAtendimento(boolean visivel);
 }

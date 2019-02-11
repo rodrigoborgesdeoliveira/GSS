@@ -5,6 +5,7 @@ import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.shared.fabrica.Fabrica;
+import br.pucpr.gss.shared.fabrica.FabricaEstado;
 import br.pucpr.gss.shared.fabrica.FabricaPrioridade;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
@@ -88,6 +89,10 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setViewUI() {
+        view.setVisibilidadeIniciarAtendimento(false);
+        view.setVisibilidadePausarAtendimento(false);
+        view.setVisibilidadeContinuarAtendimento(false);
+
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.NORMAL).getNome());
@@ -99,6 +104,28 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     solicitacao.getDataCriacao().toString(),
                     solicitacao.getPrazo(), solicitacao.getEstado().getNome(),
                     prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades);
+
+            // Dependendo do estado, exibir as opções de iniciar, pausar e continuar atendimento
+            switch (solicitacao.getEstado().getIndice()) {
+                case FabricaEstado.AGUARDANDO_ATENDIMENTO:
+                    view.setVisibilidadeIniciarAtendimento(true);
+                    break;
+                case FabricaEstado.EM_ANDAMENTO:
+                    view.setVisibilidadePausarAtendimento(true);
+                    break;
+                case FabricaEstado.PAUSADA:
+                    view.setVisibilidadeContinuarAtendimento(true);
+                    break;
+                case FabricaEstado.RESPONDIDA:
+                case FabricaEstado.ENCERRAMENTO_REJEITADO:
+                    view.setVisibilidadePausarAtendimento(true);
+                    view.setVisibilidadeContinuarAtendimento(true);
+                    break;
+                default:
+                    view.setVisibilidadeIniciarAtendimento(false);
+                    view.setVisibilidadePausarAtendimento(false);
+                    view.setVisibilidadeContinuarAtendimento(false);
+            }
         } else if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
             // Solicitante
             fetchSolicitacaoSetor(solicitacao.getIdSetor(), new AsyncCallback<Setor>() {
@@ -255,6 +282,60 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
                 Window.alert("Solicitação atualizada com sucesso");
                 eventBus.fireEvent(new DashboardEvent());
+            }
+        });
+    }
+
+    @Override
+    public void onIniciarAtendimentoClicked() {
+        solicitacao.setEstado(solicitacao.getEstado().iniciarAtendimento());
+
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Não foi possível iniciar o atendimento");
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                setViewUI();
+                Window.alert("Atendimento iniciado");
+            }
+        });
+    }
+
+    @Override
+    public void onPausarAtendimentoClicked() {
+        solicitacao.setEstado(solicitacao.getEstado().pausarAtendimento());
+
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Não foi possível pausar o atendimento");
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                setViewUI();
+                Window.alert("Atendimento pausado");
+            }
+        });
+    }
+
+    @Override
+    public void onContinuarAtendimentoClicked() {
+        solicitacao.setEstado(solicitacao.getEstado().continuarAtendimento());
+
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert("Não foi possível retomar o atendimento");
+            }
+
+            @Override
+            public void onSuccess(Void result) {
+                setViewUI();
+                Window.alert("Atendimento retomado");
             }
         });
     }
