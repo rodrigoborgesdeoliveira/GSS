@@ -77,7 +77,9 @@ public class Solicitacao implements IsSerializable {
     }
 
     public void setEstado(Estado estado) {
-        this.estado = estado;
+        if (estado != null) {
+            this.estado = estado;
+        }
     }
 
     public Date getDataCriacao() {
