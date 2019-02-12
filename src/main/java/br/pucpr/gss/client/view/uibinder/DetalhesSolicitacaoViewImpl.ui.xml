@@ -7,15 +7,6 @@
         <g:north size="5">
             <g:HorizontalPanel>
                 <g:Label>DETALHES DA SOLICITAÇÃO</g:Label>
-                <g:Label ui:field="labelIniciarAtendimento" visible="false">
-                    <ui:msg>Iniciar</ui:msg>
-                </g:Label>
-                <g:Label ui:field="labelPausarAtendimento" visible="false">
-                    <ui:msg>Pausar</ui:msg>
-                </g:Label>
-                <g:Label ui:field="labelContinuarAtendimento" visible="false">
-                    <ui:msg>Retomar</ui:msg>
-                </g:Label>
             </g:HorizontalPanel>
         </g:north>
 
@@ -81,6 +72,23 @@
                         </g:Label>
                         <g:Label ui:field="labelAtendenteVisaoSolicitante" visible="false"/>
                         <g:ListBox ui:field="listBoxAtendenteVisaoGestor" visible="false"/>
+                    </g:VerticalPanel>
+                    <!-- Atendimento -->
+                    <g:VerticalPanel ui:field="verticalPanelAtendimento" visible="false">
+                        <g:Label>
+                            <ui:msg>Atendimento</ui:msg>
+                        </g:Label>
+                        <g:HorizontalPanel>
+                            <g:Button ui:field="buttonIniciarAtendimento" visible="false">
+                                <ui:msg>Iniciar</ui:msg>
+                            </g:Button>
+                            <g:Button ui:field="buttonPausarAtendimento" visible="false">
+                                <ui:msg>Pausar</ui:msg>
+                            </g:Button>
+                            <g:Button ui:field="buttonContinuarAtendimento" visible="false">
+                                <ui:msg>Retomar</ui:msg>
+                            </g:Button>
+                        </g:HorizontalPanel>
                     </g:VerticalPanel>
                 </g:HorizontalPanel>
                 <!-- Descrição -->

@@ -26,11 +26,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     private Presenter presenter;
 
     @UiField
-    Label labelIniciarAtendimento;
+    VerticalPanel verticalPanelAtendimento;
     @UiField
-    Label labelPausarAtendimento;
+    Button buttonIniciarAtendimento;
     @UiField
-    Label labelContinuarAtendimento;
+    Button buttonPausarAtendimento;
+    @UiField
+    Button buttonContinuarAtendimento;
     @UiField
     MenuView menu;
     @UiField
@@ -170,36 +172,52 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         }
     }
 
+    /**
+     * Exibe ou esconde o painel de atendimento considerando a visbilidade dos botões de inicar, pausar e retomar o
+     * atendimento.
+     */
+    private void showHidePanelAtendimento() {
+        if (buttonIniciarAtendimento.isVisible() || buttonPausarAtendimento.isVisible() ||
+                buttonContinuarAtendimento.isVisible()) {
+            verticalPanelAtendimento.setVisible(true);
+        } else {
+            verticalPanelAtendimento.setVisible(false);
+        }
+    }
+
     @Override
     public void setVisibilidadeIniciarAtendimento(boolean visivel) {
-        labelIniciarAtendimento.setVisible(visivel);
+        buttonIniciarAtendimento.setVisible(visivel);
+        showHidePanelAtendimento();
     }
 
     @Override
     public void setVisibilidadePausarAtendimento(boolean visivel) {
-        labelPausarAtendimento.setVisible(visivel);
+        buttonPausarAtendimento.setVisible(visivel);
+        showHidePanelAtendimento();
     }
 
     @Override
     public void setVisibilidadeContinuarAtendimento(boolean visivel) {
-        labelContinuarAtendimento.setVisible(visivel);
+        buttonContinuarAtendimento.setVisible(visivel);
+        showHidePanelAtendimento();
     }
 
-    @UiHandler("labelIniciarAtendimento")
+    @UiHandler("buttonIniciarAtendimento")
     void onClickIniciarAtendimento(ClickEvent event) {
         if (presenter != null) {
             presenter.onIniciarAtendimentoClicked();
         }
     }
 
-    @UiHandler("labelPausarAtendimento")
+    @UiHandler("buttonPausarAtendimento")
     void onClickPausarAtendimento(ClickEvent event) {
         if (presenter != null) {
             presenter.onPausarAtendimentoClicked();
         }
     }
 
-    @UiHandler("labelContinuarAtendimento")
+    @UiHandler("buttonContinuarAtendimento")
     void onClickContinuarAtendimento(ClickEvent event) {
         if (presenter != null) {
             presenter.onContinuarAtendimentoClicked();
