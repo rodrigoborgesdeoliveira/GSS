@@ -26,6 +26,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     private Presenter presenter;
 
     @UiField
+    Hyperlink linkRequisitarInformacoesAdicionais;
+    @UiField
     VerticalPanel verticalPanelAtendimento;
     @UiField
     Button buttonIniciarAtendimento;
@@ -67,6 +69,11 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+
+        if (presenter != null) {
+            linkRequisitarInformacoesAdicionais.setTargetHistoryToken(this.presenter
+                    .getOnRequisitarInformacoesAdicionaisClickedToken());
+        }
     }
 
     @Override

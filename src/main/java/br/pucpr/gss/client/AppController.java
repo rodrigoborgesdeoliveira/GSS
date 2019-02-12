@@ -23,6 +23,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String CADASTRAR_SOLICITACAO_TOKEN = "cadastrarSolicitacao";
     public static final String CONSULTAR_SOLICITACOES_TOKEN = "consultarSolicitacao";
     public static final String DETALHES_SOLICITACAO_TOKEN = "detalhesSolicitacao";
+    public static final String REQUISICAO_INFORMACOES_ADICIONAIS = "requisicaoInformacoesAdicionais";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -58,6 +59,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(ConsultarSolicitacoesEvent.TYPE, event -> doCarregarConsultaSolicitacoes());
 
         eventBus.addHandler(DetalhesSolicitacaoEvent.TYPE, event -> doCarregarDetalhesSolicitacao(event.getSolicitacao()));
+
+        eventBus.addHandler(RequisitarInformacoesAdicionaisEvent.TYPE, event ->
+                doCarregarRequisicaoInformacoesAdicionais(event.getSolicitacao()));
     }
 
     /**
@@ -111,6 +115,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         this.solicitacao = solicitacao;
 
         History.newItem(DETALHES_SOLICITACAO_TOKEN);
+    }
+
+    private void doCarregarRequisicaoInformacoesAdicionais(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
     }
 
     @Override
@@ -203,6 +211,16 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     } else {
                         new DetalhesSolicitacaoPresenter(eventBus, new DetalhesSolicitacaoViewImpl(), usuario, solicitacao)
                                 .go(container);
+                    }
+
+                    break;
+                case REQUISICAO_INFORMACOES_ADICIONAIS:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new RequisicaoInformacoesAdicionaisPresenter(eventBus, new RequisicaoInformacoesAdicionaisViewImpl(),
+                                usuario, solicitacao).go(container);
                     }
 
                     break;

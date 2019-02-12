@@ -26,6 +26,10 @@ public interface DetalhesSolicitacaoView {
         void onPausarAtendimentoClicked();
 
         void onContinuarAtendimentoClicked();
+
+        String getOnRequisitarInformacoesAdicionaisClickedToken();
+
+        void onRequisitarInformacoesAdicionaisClicked();
     }
 
     void setPresenter(Presenter presenter);

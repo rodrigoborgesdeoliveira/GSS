@@ -1,6 +1,8 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.event.DashboardEvent;
+import br.pucpr.gss.client.event.RequisitarInformacoesAdicionaisEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
@@ -338,5 +340,15 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 Window.alert("Atendimento retomado");
             }
         });
+    }
+
+    @Override
+    public String getOnRequisitarInformacoesAdicionaisClickedToken() {
+        return AppController.REQUISICAO_INFORMACOES_ADICIONAIS;
+    }
+
+    @Override
+    public void onRequisitarInformacoesAdicionaisClicked() {
+        eventBus.fireEvent(new RequisitarInformacoesAdicionaisEvent(solicitacao));
     }
 }

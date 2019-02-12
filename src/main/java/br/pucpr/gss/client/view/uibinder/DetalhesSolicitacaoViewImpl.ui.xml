@@ -7,6 +7,9 @@
         <g:north size="5">
             <g:HorizontalPanel>
                 <g:Label>DETALHES DA SOLICITAÇÃO</g:Label>
+                <g:Hyperlink ui:field="linkRequisitarInformacoesAdicionais">
+                    <ui:msg>Requisitar informações adicionais</ui:msg>
+                </g:Hyperlink>
             </g:HorizontalPanel>
         </g:north>
 
