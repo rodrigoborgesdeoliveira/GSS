@@ -210,6 +210,11 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         showHidePanelAtendimento();
     }
 
+    @Override
+    public void setVisibilidadeRequisitarInformacoesAdicionais(boolean visivel) {
+        linkRequisitarInformacoesAdicionais.setVisible(visivel);
+    }
+
     @UiHandler("buttonIniciarAtendimento")
     void onClickIniciarAtendimento(ClickEvent event) {
         if (presenter != null) {

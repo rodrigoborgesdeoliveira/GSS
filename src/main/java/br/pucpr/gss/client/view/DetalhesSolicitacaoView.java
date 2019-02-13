@@ -68,4 +68,11 @@ public interface DetalhesSolicitacaoView {
      * @param visivel true, se visível, false, caso contrário.
      */
     void setVisibilidadeContinuarAtendimento(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de requisitar informações adicionais.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeRequisitarInformacoesAdicionais(boolean visivel);
 }
