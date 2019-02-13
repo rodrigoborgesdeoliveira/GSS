@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.service;
 
+import br.pucpr.gss.shared.model.InformacaoAdicional;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
@@ -23,4 +24,8 @@ public interface SolicitacaoServiceAsync {
     void getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor, AsyncCallback<ArrayList<Usuario>> async);
 
     void updateSolicitacao(Solicitacao solicitacao, AsyncCallback<Void> async);
+
+    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, AsyncCallback<Void> async);
+
+    void getInformacaoAdicionalByIdSolicitacao(int idSolicitacao, AsyncCallback<InformacaoAdicional> async);
 }

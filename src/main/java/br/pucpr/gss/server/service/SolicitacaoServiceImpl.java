@@ -3,6 +3,7 @@ package br.pucpr.gss.server.service;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.server.dao.*;
 import br.pucpr.gss.server.model.Funcionario;
+import br.pucpr.gss.shared.model.InformacaoAdicional;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
@@ -97,5 +98,33 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         gssDaoSolicitacao.updateSolicitacao(solicitacao);
 
         logger.log(Level.INFO, "Solicitação atualizada com sucesso");
+    }
+
+    @Override
+    public void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException {
+        GssDao.InformacaoAdicional gssDaoInformacaoAdicional = new GssDaoInformacaoAdicionalImpl();
+
+        // Verificar se já existe uma informação adicional para a solicitação. Então criar ou atualizar a já existente.
+        InformacaoAdicional info = gssDaoInformacaoAdicional
+                .getInformacaoAdicionalByIdSolicitacao(informacaoAdicional.getIdSolicitacao());
+        if (info == null) {
+            // Criar um novo
+            gssDaoInformacaoAdicional.insertInformacaoAdicional(informacaoAdicional);
+
+            logger.log(Level.INFO, "Informação adicional registrada com sucesso");
+        } else {
+            // Atualizar existente
+            info.setDescricao(informacaoAdicional.getDescricao());
+            gssDaoInformacaoAdicional.updateInformacaoAdicional(info);
+
+            logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
+        }
+    }
+
+    @Override
+    public InformacaoAdicional getInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException {
+        GssDao.InformacaoAdicional gssDaoInformacaoAdicional = new GssDaoInformacaoAdicionalImpl();
+
+        return gssDaoInformacaoAdicional.getInformacaoAdicionalByIdSolicitacao(idSolicitacao);
     }
 }

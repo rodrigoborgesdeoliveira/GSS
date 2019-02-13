@@ -40,7 +40,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
 
             Conexao.getInstance().executeSQLUpdate(stmt);
         } catch (SQLException e) {
-            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+            logger.log(Level.WARNING, "Não foi possível executar statement", e);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } catch (Exception ex) {
@@ -129,7 +129,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
 
             Conexao.getInstance().executeSQLUpdate(stmt);
         } catch (SQLException e) {
-            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+            logger.log(Level.WARNING, "Não foi possível executar statement", e);
 
             throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
         } catch (Exception ex) {

@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.service;
 
+import br.pucpr.gss.shared.model.InformacaoAdicional;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
@@ -36,6 +37,10 @@ public interface SolicitacaoService extends RemoteService {
     ArrayList<Usuario> getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor) throws IllegalStateException;
 
     void updateSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
+
+    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException;
+
+    InformacaoAdicional getInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
 
     /**
      * Classe para chamar os métodos de SolicitacaoService.

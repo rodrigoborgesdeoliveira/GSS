@@ -17,13 +17,6 @@
         <!-- Corpo da página -->
         <g:center>
             <g:VerticalPanel>
-                <!-- Título da requisição -->
-                <g:VerticalPanel>
-                    <g:Label>
-                        <ui:msg>Título da requisição</ui:msg>
-                    </g:Label>
-                    <g:TextBox ui:field="textBoxTituloRequisicao"/>
-                </g:VerticalPanel>
                 <!-- Descrição -->
                 <g:Label>
                     <ui:msg>Descrição</ui:msg>

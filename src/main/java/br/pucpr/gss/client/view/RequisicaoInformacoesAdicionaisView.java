@@ -5,7 +5,9 @@ import com.google.gwt.user.client.ui.Widget;
 public interface RequisicaoInformacoesAdicionaisView {
 
     interface Presenter {
+        void onCancelarButtonClicked();
 
+        void onSalvarButtonClicked(String descricao);
     }
 
     void setPresenter(Presenter presenter);
@@ -14,4 +16,5 @@ public interface RequisicaoInformacoesAdicionaisView {
 
     MenuView getMenuView();
 
+    void setDescricao(String descricao);
 }
