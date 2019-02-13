@@ -51,13 +51,13 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
                     @Override
                     public void onSuccess(InformacaoAdicional result) {
                         informacaoAdicional = result;
+
+                        if (informacaoAdicional != null) {
+                            // Uma informação adicional já foi requisitada antes, inserir a descrição na tela
+                            view.setDescricao(informacaoAdicional.getDescricao());
+                        }
                     }
                 });
-
-        if (informacaoAdicional != null) {
-            // Uma informação adicional já foi requisitada antes, inserir a descrição na tela
-            view.setDescricao(informacaoAdicional.getDescricao());
-        }
     }
 
     @Override
