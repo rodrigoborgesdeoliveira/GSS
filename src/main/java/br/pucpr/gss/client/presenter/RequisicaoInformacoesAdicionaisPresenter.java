@@ -1,5 +1,6 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.DetalhesSolicitacaoEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.RequisicaoInformacoesAdicionaisView;
@@ -81,9 +82,21 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
 
             @Override
             public void onSuccess(Void result) {
-                Window.alert("Requisição salva com sucesso");
+                // Atualizar o estado da solicitação para refletir a requisição de informações adicionais
+                solicitacao.setEstado(solicitacao.getEstado().requisitarInformacoesAdicionais());
 
-                eventBus.fireEvent(new VoltarEvent());
+                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        Window.alert("Requisição salva com sucesso");
+                    }
+
+                    @Override
+                    public void onSuccess(Void result) {
+                        eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
+                    }
+                });
+
             }
         });
     }
