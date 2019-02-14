@@ -240,7 +240,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         History.newItem(LOGIN_TOKEN);
                     } else {
                         new RegistroInformacoesAdicionaisPresenter(eventBus, new RegistroInformacoesAdicionaisViewImpl(),
-                                usuario, informacaoAdicional).go(container);
+                                usuario, solicitacao, informacaoAdicional).go(container);
                     }
 
                     break;

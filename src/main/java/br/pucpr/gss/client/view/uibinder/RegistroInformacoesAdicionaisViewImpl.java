@@ -3,8 +3,10 @@ package br.pucpr.gss.client.view.uibinder;
 import br.pucpr.gss.client.view.MenuView;
 import br.pucpr.gss.client.view.RegistroInformacoesAdicionaisView;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,6 +28,8 @@ public class RegistroInformacoesAdicionaisViewImpl extends Composite implements 
 
     @UiField
     TextArea textAreaDescricao;
+    @UiField
+    TextArea textAreaInformacoesAdicionais;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -40,5 +44,19 @@ public class RegistroInformacoesAdicionaisViewImpl extends Composite implements 
     @Override
     public void setDescricao(String descricao) {
         textAreaDescricao.setText(descricao);
+    }
+
+    @UiHandler("buttonCancelar")
+    void onClickCancelar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onCancelarButtonClicked();
+        }
+    }
+
+    @UiHandler("buttonSalvar")
+    void onClickSalvar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onSalvarButtonClicked(textAreaInformacoesAdicionais.getText());
+        }
     }
 }

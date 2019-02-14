@@ -88,11 +88,13 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
                 SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
-                        Window.alert("Requisição salva com sucesso");
+                        Window.alert("Não foi possível atualizar o estado da solicitação");
                     }
 
                     @Override
                     public void onSuccess(Void result) {
+                        Window.alert("Requisição salva com sucesso");
+
                         eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
                     }
                 });

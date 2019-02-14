@@ -127,4 +127,13 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         return gssDaoInformacaoAdicional.getInformacaoAdicionalByIdSolicitacao(idSolicitacao);
     }
+
+    @Override
+    public void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException {
+        GssDao.InformacaoAdicional gssDaoInformacaoAdicional = new GssDaoInformacaoAdicionalImpl();
+
+        gssDaoInformacaoAdicional.updateInformacaoAdicional(informacaoAdicional);
+
+        logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
+    }
 }
