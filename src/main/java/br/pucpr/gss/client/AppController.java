@@ -3,6 +3,7 @@ package br.pucpr.gss.client;
 import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.presenter.*;
 import br.pucpr.gss.client.view.uibinder.*;
+import br.pucpr.gss.shared.model.InformacaoAdicional;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
@@ -24,12 +25,14 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String CONSULTAR_SOLICITACOES_TOKEN = "consultarSolicitacao";
     public static final String DETALHES_SOLICITACAO_TOKEN = "detalhesSolicitacao";
     public static final String REQUISICAO_INFORMACOES_ADICIONAIS = "requisicaoInformacoesAdicionais";
+    public static final String REGISTRO_INFORMACOES_ADICIONAIS = "registroInformacoesAdicionais";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
 
     private Usuario usuario;
     private Solicitacao solicitacao;
+    private InformacaoAdicional informacaoAdicional;
 
     public AppController(HandlerManager eventBus) {
         this.eventBus = eventBus;
@@ -62,6 +65,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
         eventBus.addHandler(RequisitarInformacoesAdicionaisEvent.TYPE, event ->
                 doCarregarRequisicaoInformacoesAdicionais(event.getSolicitacao()));
+
+        eventBus.addHandler(RegistroInformacoesAdicionaisEvent.TYPE, event ->
+                doCarregarRegistroInformacoesAdicionais(event.getInformacaoAdicional()));
     }
 
     /**
@@ -119,6 +125,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
     private void doCarregarRequisicaoInformacoesAdicionais(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
+    }
+
+    private void doCarregarRegistroInformacoesAdicionais(InformacaoAdicional informacaoAdicional) {
+        this.informacaoAdicional = informacaoAdicional;
     }
 
     @Override
@@ -221,6 +231,16 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     } else {
                         new RequisicaoInformacoesAdicionaisPresenter(eventBus, new RequisicaoInformacoesAdicionaisViewImpl(),
                                 usuario, solicitacao).go(container);
+                    }
+
+                    break;
+                case REGISTRO_INFORMACOES_ADICIONAIS:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new RegistroInformacoesAdicionaisPresenter(eventBus, new RegistroInformacoesAdicionaisViewImpl(),
+                                usuario, informacaoAdicional).go(container);
                     }
 
                     break;

@@ -28,6 +28,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @UiField
     Hyperlink linkRequisitarInformacoesAdicionais;
     @UiField
+    Hyperlink linkRegistrarInformacoesAdicionais;
+    @UiField
     VerticalPanel verticalPanelAtendimento;
     @UiField
     Button buttonIniciarAtendimento;
@@ -73,6 +75,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         if (presenter != null) {
             linkRequisitarInformacoesAdicionais.setTargetHistoryToken(this.presenter
                     .getOnRequisitarInformacoesAdicionaisClickedToken());
+            linkRegistrarInformacoesAdicionais.setTargetHistoryToken(this.presenter
+                    .getOnRegistrarInformacoesAdicionaisClickedToken());
         }
     }
 
@@ -215,6 +219,11 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         linkRequisitarInformacoesAdicionais.setVisible(visivel);
     }
 
+    @Override
+    public void setVisibilidadeRegistrarInformacoesAdicionais(boolean visivel) {
+        linkRegistrarInformacoesAdicionais.setVisible(visivel);
+    }
+
     @UiHandler("buttonIniciarAtendimento")
     void onClickIniciarAtendimento(ClickEvent event) {
         if (presenter != null) {
@@ -233,6 +242,20 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     void onClickContinuarAtendimento(ClickEvent event) {
         if (presenter != null) {
             presenter.onContinuarAtendimentoClicked();
+        }
+    }
+
+    @UiHandler("linkRequisitarInformacoesAdicionais")
+    void onClickRequisitarInformacoesAdicionais(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onRequisitarInformacoesAdicionaisClicked();
+        }
+    }
+
+    @UiHandler("linkRegistrarInformacoesAdicionais")
+    void onClickRegistrarInformacoesAdicionais(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onRegistrarInformacoesAdicionaisClicked();
         }
     }
 }

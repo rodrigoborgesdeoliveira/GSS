@@ -96,7 +96,6 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
                         eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
                     }
                 });
-
             }
         });
     }

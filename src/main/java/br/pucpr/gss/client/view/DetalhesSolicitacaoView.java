@@ -30,6 +30,10 @@ public interface DetalhesSolicitacaoView {
         String getOnRequisitarInformacoesAdicionaisClickedToken();
 
         void onRequisitarInformacoesAdicionaisClicked();
+
+        String getOnRegistrarInformacoesAdicionaisClickedToken();
+
+        void onRegistrarInformacoesAdicionaisClicked();
     }
 
     void setPresenter(Presenter presenter);
@@ -75,4 +79,11 @@ public interface DetalhesSolicitacaoView {
      * @param visivel true, se visível, false, caso contrário.
      */
     void setVisibilidadeRequisitarInformacoesAdicionais(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de registrar informações adicionais.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeRegistrarInformacoesAdicionais(boolean visivel);
 }

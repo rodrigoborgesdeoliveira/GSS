@@ -10,6 +10,9 @@
                 <g:Hyperlink ui:field="linkRequisitarInformacoesAdicionais" visible="false">
                     <ui:msg>Requisitar informações adicionais</ui:msg>
                 </g:Hyperlink>
+                <g:Hyperlink ui:field="linkRegistrarInformacoesAdicionais" visible="false">
+                    <ui:msg>Registrar informações adicionais</ui:msg>
+                </g:Hyperlink>
             </g:HorizontalPanel>
         </g:north>
 

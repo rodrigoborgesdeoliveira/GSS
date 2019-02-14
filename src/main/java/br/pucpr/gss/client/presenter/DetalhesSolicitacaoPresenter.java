@@ -2,6 +2,7 @@ package br.pucpr.gss.client.presenter;
 
 import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.event.DashboardEvent;
+import br.pucpr.gss.client.event.RegistroInformacoesAdicionaisEvent;
 import br.pucpr.gss.client.event.RequisitarInformacoesAdicionaisEvent;
 import br.pucpr.gss.client.event.VoltarEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
@@ -9,6 +10,7 @@ import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.shared.fabrica.Fabrica;
 import br.pucpr.gss.shared.fabrica.FabricaEstado;
 import br.pucpr.gss.shared.fabrica.FabricaPrioridade;
+import br.pucpr.gss.shared.model.InformacaoAdicional;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
@@ -28,6 +30,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     private DetalhesSolicitacaoView view;
     private Usuario usuario;
     private Solicitacao solicitacao;
+    private InformacaoAdicional informacaoAdicional;
     private Setor setor;
     private ArrayList<Setor> setores;
     private Usuario atendente;
@@ -95,6 +98,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         view.setVisibilidadePausarAtendimento(false);
         view.setVisibilidadeContinuarAtendimento(false);
         view.setVisibilidadeRequisitarInformacoesAdicionais(false);
+        view.setVisibilidadeRegistrarInformacoesAdicionais(false);
 
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
@@ -126,10 +130,6 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     view.setVisibilidadeContinuarAtendimento(true);
                     view.setVisibilidadeRequisitarInformacoesAdicionais(true);
                     break;
-                default:
-                    view.setVisibilidadeIniciarAtendimento(false);
-                    view.setVisibilidadePausarAtendimento(false);
-                    view.setVisibilidadeContinuarAtendimento(false);
             }
         } else if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
             // Solicitante
@@ -160,7 +160,6 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     } else {
                         setSolicitanteUI(prioridades);
                     }
-
                 }
             });
         } else if (usuario.getIdFuncionario() == solicitacao.getIdGestor()) {
@@ -207,6 +206,23 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 setor.getNome(), solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
                 atendente != null ? atendente.getNome() : "");
+
+        if (solicitacao.getEstado().getIndice() == FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS) {
+            SolicitacaoService.RPC.getInstance().getInformacaoAdicionalByIdSolicitacao(solicitacao.getId(),
+                    new AsyncCallback<InformacaoAdicional>() {
+                        @Override
+                        public void onFailure(Throwable caught) {
+                            Window.alert("Não foi possível carregar a requisição de informações adicionais");
+                        }
+
+                        @Override
+                        public void onSuccess(InformacaoAdicional result) {
+                            informacaoAdicional = result;
+
+                            view.setVisibilidadeRegistrarInformacoesAdicionais(true);
+                        }
+                    });
+        }
     }
 
     private void setGestorUI(ArrayList<String> prioridades) {
@@ -353,5 +369,15 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     @Override
     public void onRequisitarInformacoesAdicionaisClicked() {
         eventBus.fireEvent(new RequisitarInformacoesAdicionaisEvent(solicitacao));
+    }
+
+    @Override
+    public String getOnRegistrarInformacoesAdicionaisClickedToken() {
+        return AppController.REGISTRO_INFORMACOES_ADICIONAIS;
+    }
+
+    @Override
+    public void onRegistrarInformacoesAdicionaisClicked() {
+        eventBus.fireEvent(new RegistroInformacoesAdicionaisEvent(informacaoAdicional));
     }
 }
