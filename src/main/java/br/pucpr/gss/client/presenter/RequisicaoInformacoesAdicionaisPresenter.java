@@ -78,6 +78,12 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
             informacaoAdicional = new InformacaoAdicional(descricao, null, solicitacao.getId());
         }
 
+        if (!informacaoAdicional.isDescricaoValida()) {
+            Window.alert("A descrição não pode ser vazia");
+
+            return;
+        }
+
         SolicitacaoService.RPC.getInstance().requisitarInformacoesAdicionais(informacaoAdicional, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
