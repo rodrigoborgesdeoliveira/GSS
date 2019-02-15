@@ -56,6 +56,10 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
                         if (informacaoAdicional != null) {
                             // Uma informação adicional já foi requisitada antes, inserir a descrição na tela
                             view.setDescricao(informacaoAdicional.getDescricao());
+
+                            if (informacaoAdicional.getResposta() != null && !informacaoAdicional.getResposta().isEmpty()) {
+                                view.setInformacoesAdicionais(informacaoAdicional.getResposta());
+                            }
                         }
                     }
                 });

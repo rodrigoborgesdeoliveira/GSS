@@ -17,4 +17,6 @@ public interface RequisicaoInformacoesAdicionaisView {
     MenuView getMenuView();
 
     void setDescricao(String descricao);
+
+    void setInformacoesAdicionais(String informacoesAdicionais);
 }

@@ -27,6 +27,8 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     MenuView menu;
     @UiField
     TextArea textAreaDescricao;
+    @UiField
+    TextArea textAreaInformacoesAdicionais;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -41,6 +43,12 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     @Override
     public void setDescricao(String descricao) {
         textAreaDescricao.setText(descricao);
+    }
+
+    @Override
+    public void setInformacoesAdicionais(String informacoesAdicionais) {
+        textAreaInformacoesAdicionais.setText(informacoesAdicionais);
+        textAreaInformacoesAdicionais.setVisible(true);
     }
 
     @UiHandler("buttonCancelar")

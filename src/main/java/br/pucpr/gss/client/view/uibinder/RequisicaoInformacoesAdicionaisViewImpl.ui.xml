@@ -22,6 +22,11 @@
                     <ui:msg>Descrição</ui:msg>
                 </g:Label>
                 <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao"/>
+                <!-- Informações adicionais -->
+                <g:Label>
+                    <ui:msg>Informações adicionais</ui:msg>
+                </g:Label>
+                <g:TextArea width="600px" height="250px" ui:field="textAreaInformacoesAdicionais" enabled="false"/>
                 <!-- Botões inferiores -->
                 <g:HorizontalPanel>
                     <g:Button ui:field="buttonCancelar">
