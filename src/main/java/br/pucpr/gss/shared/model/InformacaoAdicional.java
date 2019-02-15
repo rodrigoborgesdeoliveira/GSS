@@ -56,4 +56,8 @@ public class InformacaoAdicional implements IsSerializable {
     public boolean isDescricaoValida() {
         return descricao != null && !descricao.isEmpty();
     }
+
+    public boolean isRespostaValida() {
+        return resposta != null && !resposta.isEmpty();
+    }
 }

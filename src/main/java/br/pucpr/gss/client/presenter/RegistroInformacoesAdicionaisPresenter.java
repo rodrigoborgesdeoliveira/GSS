@@ -50,6 +50,12 @@ public class RegistroInformacoesAdicionaisPresenter implements Presenter, Regist
     public void onSalvarButtonClicked(String resposta) {
         informacaoAdicional.setResposta(resposta);
 
+        if (!informacaoAdicional.isRespostaValida()) {
+            Window.alert("O campo informações adicionais é obrigatório");
+
+            return;
+        }
+
         SolicitacaoService.RPC.getInstance().registrarInformacoesAdicionais(informacaoAdicional, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
