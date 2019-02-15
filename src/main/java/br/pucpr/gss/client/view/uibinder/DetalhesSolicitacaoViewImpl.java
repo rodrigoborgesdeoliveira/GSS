@@ -92,6 +92,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         labelDataInicial.setText(dataInicial);
         labelEstado.setText(estado);
 
+        listBoxPrioridade.clear();
         for (String p : prioridades) {
             listBoxPrioridade.addItem(p);
         }
@@ -155,11 +156,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         // Definir valor dos elementos
         labelPrazo.setText(prazo);
 
+        listBoxSetorVisaoGestor.clear();
         for (String setor : setores) {
             listBoxSetorVisaoGestor.addItem(setor);
         }
         listBoxSetorVisaoGestor.setSelectedIndex(indiceSetor);
 
+        listBoxAtendenteVisaoGestor.clear();
         for (String atendente : atendentes) {
             listBoxAtendenteVisaoGestor.addItem(atendente);
         }
