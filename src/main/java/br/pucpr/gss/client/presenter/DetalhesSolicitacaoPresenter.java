@@ -98,6 +98,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         view.setVisibilidadePausarAtendimento(false);
         view.setVisibilidadeContinuarAtendimento(false);
         view.setVisibilidadeRequisitarInformacoesAdicionais(false);
+        view.setVisualizarInformacoesAdicionais(false);
         view.setVisibilidadeRegistrarInformacoesAdicionais(false);
 
         ArrayList<String> prioridades = new ArrayList<>();
@@ -125,6 +126,11 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     view.setVisibilidadeRequisitarInformacoesAdicionais(true);
                     break;
                 case FabricaEstado.RESPONDIDA:
+                    view.setVisibilidadePausarAtendimento(true);
+                    view.setVisibilidadeContinuarAtendimento(true);
+                    view.setVisibilidadeRequisitarInformacoesAdicionais(true);
+                    view.setVisualizarInformacoesAdicionais(true);
+                    break;
                 case FabricaEstado.ENCERRAMENTO_REJEITADO:
                     view.setVisibilidadePausarAtendimento(true);
                     view.setVisibilidadeContinuarAtendimento(true);

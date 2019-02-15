@@ -81,6 +81,13 @@ public interface DetalhesSolicitacaoView {
     void setVisibilidadeRequisitarInformacoesAdicionais(boolean visivel);
 
     /**
+     * Altera o texto entre requisitar e visualizar informações adicionais.
+     *
+     * @param isVisualizar true, para exibir visualizar, false, para exibir requisitar.
+     */
+    void setVisualizarInformacoesAdicionais(boolean isVisualizar);
+
+    /**
      * Define a visibilidade da opção de registrar informações adicionais.
      *
      * @param visivel true, se visível, false, caso contrário.

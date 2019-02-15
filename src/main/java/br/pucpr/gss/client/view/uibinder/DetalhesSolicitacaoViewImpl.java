@@ -220,6 +220,15 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     }
 
     @Override
+    public void setVisualizarInformacoesAdicionais(boolean isVisualizar) {
+        if (isVisualizar) {
+            linkRequisitarInformacoesAdicionais.setText("Visualizar informações adicionais");
+        } else {
+            linkRequisitarInformacoesAdicionais.setText("Requisitar informações adicionais");
+        }
+    }
+
+    @Override
     public void setVisibilidadeRegistrarInformacoesAdicionais(boolean visivel) {
         linkRegistrarInformacoesAdicionais.setVisible(visivel);
     }
