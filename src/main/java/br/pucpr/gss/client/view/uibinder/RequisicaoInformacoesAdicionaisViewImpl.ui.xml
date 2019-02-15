@@ -23,10 +23,12 @@
                 </g:Label>
                 <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao"/>
                 <!-- Informações adicionais -->
-                <g:Label>
-                    <ui:msg>Informações adicionais</ui:msg>
-                </g:Label>
-                <g:TextArea width="600px" height="250px" ui:field="textAreaInformacoesAdicionais" enabled="false"/>
+                <g:VerticalPanel ui:field="verticalPanelInformacoesAdicionais" visible="false">
+                    <g:Label>
+                        <ui:msg>Informações adicionais</ui:msg>
+                    </g:Label>
+                    <g:TextArea width="600px" height="250px" ui:field="textAreaInformacoesAdicionais" enabled="false"/>
+                </g:VerticalPanel>
                 <!-- Botões inferiores -->
                 <g:HorizontalPanel>
                     <g:Button ui:field="buttonCancelar">

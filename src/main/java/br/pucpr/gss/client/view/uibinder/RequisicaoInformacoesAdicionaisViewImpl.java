@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implements RequisicaoInformacoesAdicionaisView {
@@ -29,6 +30,8 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     TextArea textAreaDescricao;
     @UiField
     TextArea textAreaInformacoesAdicionais;
+    @UiField
+    VerticalPanel verticalPanelInformacoesAdicionais;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -48,7 +51,7 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     @Override
     public void setInformacoesAdicionais(String informacoesAdicionais) {
         textAreaInformacoesAdicionais.setText(informacoesAdicionais);
-        textAreaInformacoesAdicionais.setVisible(true);
+        verticalPanelInformacoesAdicionais.setVisible(true);
     }
 
     @UiHandler("buttonCancelar")
