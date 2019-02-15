@@ -44,6 +44,8 @@ public interface SolicitacaoService extends RemoteService {
 
     void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException;
 
+    void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
+
     /**
      * Classe para chamar os métodos de SolicitacaoService.
      * Use SolicitacaoService.RPC.getInstance() para acessar uma instância de SolicitacaoServiceAsync

@@ -333,6 +333,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public void onPausarAtendimentoClicked() {
+        boolean isEstadoRespondida = solicitacao.getEstado().getIndice() == FabricaEstado.RESPONDIDA;
+
         solicitacao.setEstado(solicitacao.getEstado().pausarAtendimento());
 
         SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
@@ -345,12 +347,18 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
             public void onSuccess(Void result) {
                 setViewUI();
                 Window.alert("Atendimento pausado");
+
+                if (isEstadoRespondida) {
+                    removerInformacoesAdicionais();
+                }
             }
         });
     }
 
     @Override
     public void onContinuarAtendimentoClicked() {
+        boolean isEstadoRespondida = solicitacao.getEstado().getIndice() == FabricaEstado.RESPONDIDA;
+
         solicitacao.setEstado(solicitacao.getEstado().continuarAtendimento());
 
         SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
@@ -363,8 +371,27 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
             public void onSuccess(Void result) {
                 setViewUI();
                 Window.alert("Atendimento retomado");
+
+                if (isEstadoRespondida) {
+                    removerInformacoesAdicionais();
+                }
             }
         });
+    }
+
+    private void removerInformacoesAdicionais() {
+        SolicitacaoService.RPC.getInstance().removerInformacoesAdicionaisByIdSolicitacao(solicitacao.getId(),
+                new AsyncCallback<Void>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        GWT.log("Não foi possível remover as informações adicionais");
+                    }
+
+                    @Override
+                    public void onSuccess(Void result) {
+                        GWT.log("As informações adicionais foram removidas com sucesso");
+                    }
+                });
     }
 
     @Override

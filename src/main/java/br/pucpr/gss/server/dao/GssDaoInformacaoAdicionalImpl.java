@@ -110,4 +110,31 @@ public class GssDaoInformacaoAdicionalImpl implements GssDao.InformacaoAdicional
 
         return null;
     }
+
+    @Override
+    public void deleteInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException {
+        Connection conexao = Conexao.getInstance().getConexaoGSS();
+
+        // language=MySQL
+        String sql = "DELETE FROM informacao_adicional WHERE solicitacao_id = ?;";
+
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idSolicitacao);
+
+            Conexao.getInstance().executeSQLUpdate(stmt);
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível executar statement", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(conexao, stmt, null);
+        }
+    }
 }

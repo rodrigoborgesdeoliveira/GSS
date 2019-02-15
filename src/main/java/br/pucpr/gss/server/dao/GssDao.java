@@ -30,5 +30,7 @@ public interface GssDao {
         void updateInformacaoAdicional(br.pucpr.gss.shared.model.InformacaoAdicional informacaoAdicional) throws IllegalStateException;
 
         br.pucpr.gss.shared.model.InformacaoAdicional getInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
+
+        void deleteInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
     }
 }

@@ -30,4 +30,6 @@ public interface SolicitacaoServiceAsync {
     void getInformacaoAdicionalByIdSolicitacao(int idSolicitacao, AsyncCallback<InformacaoAdicional> async);
 
     void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, AsyncCallback<Void> async);
+
+    void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao, AsyncCallback<Void> async);
 }
