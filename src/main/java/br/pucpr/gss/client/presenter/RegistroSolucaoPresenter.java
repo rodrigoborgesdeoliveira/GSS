@@ -44,6 +44,13 @@ public class RegistroSolucaoPresenter implements Presenter, RegistroSolucaoView.
     @Override
     public void onSalvarButtonClicked(String solucao) {
         solicitacao.setDescricaoSolucao(solucao);
+
+        if (!solicitacao.isDescricaoSolucaoValida()) {
+            Window.alert("O campo de descrição da solução é obrigatório");
+
+            return;
+        }
+
         solicitacao.setEstado(solicitacao.getEstado().oferecerSolucao());
         SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
             @Override

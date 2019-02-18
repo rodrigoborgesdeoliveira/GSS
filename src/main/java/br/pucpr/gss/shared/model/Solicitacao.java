@@ -129,4 +129,8 @@ public class Solicitacao implements IsSerializable {
     public void setIdGestor(int idGestor) {
         this.idGestor = idGestor;
     }
+
+    public boolean isDescricaoSolucaoValida() {
+        return descricaoSolucao != null && !descricaoSolucao.isEmpty();
+    }
 }
