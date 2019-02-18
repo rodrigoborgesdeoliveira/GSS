@@ -24,8 +24,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String CADASTRAR_SOLICITACAO_TOKEN = "cadastrarSolicitacao";
     public static final String CONSULTAR_SOLICITACOES_TOKEN = "consultarSolicitacao";
     public static final String DETALHES_SOLICITACAO_TOKEN = "detalhesSolicitacao";
-    public static final String REQUISICAO_INFORMACOES_ADICIONAIS = "requisicaoInformacoesAdicionais";
-    public static final String REGISTRO_INFORMACOES_ADICIONAIS = "registroInformacoesAdicionais";
+    public static final String REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN = "requisicaoInformacoesAdicionais";
+    public static final String REGISTRO_INFORMACOES_ADICIONAIS_TOKEN = "registroInformacoesAdicionais";
+    public static final String OFERECER_SOLUCAO_TOKEN = "oferecerSolucao";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -68,6 +69,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
         eventBus.addHandler(RegistroInformacoesAdicionaisEvent.TYPE, event ->
                 doCarregarRegistroInformacoesAdicionais(event.getInformacaoAdicional()));
+
+        eventBus.addHandler(OferecerSolucaoEvent.TYPE, event -> doCarregarOferecerSolucao(event.getSolicitacao()));
     }
 
     /**
@@ -129,6 +132,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
     private void doCarregarRegistroInformacoesAdicionais(InformacaoAdicional informacaoAdicional) {
         this.informacaoAdicional = informacaoAdicional;
+    }
+
+    private void doCarregarOferecerSolucao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
     }
 
     @Override
@@ -224,7 +231,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     }
 
                     break;
-                case REQUISICAO_INFORMACOES_ADICIONAIS:
+                case REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN:
                     if (usuario == null) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
@@ -234,13 +241,22 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     }
 
                     break;
-                case REGISTRO_INFORMACOES_ADICIONAIS:
+                case REGISTRO_INFORMACOES_ADICIONAIS_TOKEN:
                     if (usuario == null) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
                         new RegistroInformacoesAdicionaisPresenter(eventBus, new RegistroInformacoesAdicionaisViewImpl(),
                                 usuario, solicitacao, informacaoAdicional).go(container);
+                    }
+
+                    break;
+                case OFERECER_SOLUCAO_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+
                     }
 
                     break;

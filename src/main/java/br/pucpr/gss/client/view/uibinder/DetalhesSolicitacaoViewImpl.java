@@ -30,6 +30,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @UiField
     Hyperlink linkRegistrarInformacoesAdicionais;
     @UiField
+    Hyperlink linkOferecerSolucao;
+    @UiField
     VerticalPanel verticalPanelAtendimento;
     @UiField
     Button buttonIniciarAtendimento;
@@ -77,6 +79,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
                     .getOnRequisitarInformacoesAdicionaisClickedToken());
             linkRegistrarInformacoesAdicionais.setTargetHistoryToken(this.presenter
                     .getOnRegistrarInformacoesAdicionaisClickedToken());
+            linkOferecerSolucao.setTargetHistoryToken(this.presenter
+                    .getOnOferecerSolucaoClickedToken());
         }
     }
 
@@ -236,6 +240,11 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         linkRegistrarInformacoesAdicionais.setVisible(visivel);
     }
 
+    @Override
+    public void setVisibilidadeOferecerSolucao(boolean visivel) {
+        linkOferecerSolucao.setVisible(visivel);
+    }
+
     @UiHandler("buttonIniciarAtendimento")
     void onClickIniciarAtendimento(ClickEvent event) {
         if (presenter != null) {
@@ -268,6 +277,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     void onClickRegistrarInformacoesAdicionais(ClickEvent event) {
         if (presenter != null) {
             presenter.onRegistrarInformacoesAdicionaisClicked();
+        }
+    }
+
+    @UiHandler("linkOferecerSolucao")
+    void onClickOferecerSolucao(ClickEvent event) {
+        if (presenter != null) {
+            presenter.onOferecerSolucaoClicked();
         }
     }
 }

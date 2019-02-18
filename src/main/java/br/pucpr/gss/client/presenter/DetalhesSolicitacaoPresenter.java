@@ -1,10 +1,7 @@
 package br.pucpr.gss.client.presenter;
 
 import br.pucpr.gss.client.AppController;
-import br.pucpr.gss.client.event.DashboardEvent;
-import br.pucpr.gss.client.event.RegistroInformacoesAdicionaisEvent;
-import br.pucpr.gss.client.event.RequisitarInformacoesAdicionaisEvent;
-import br.pucpr.gss.client.event.VoltarEvent;
+import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.shared.fabrica.Fabrica;
@@ -94,12 +91,14 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setViewUI() {
+        // Iniciar interface com visibilidade padrão
         view.setVisibilidadeIniciarAtendimento(false);
         view.setVisibilidadePausarAtendimento(false);
         view.setVisibilidadeContinuarAtendimento(false);
         view.setVisibilidadeRequisitarInformacoesAdicionais(false);
         view.setVisualizarInformacoesAdicionais(false);
         view.setVisibilidadeRegistrarInformacoesAdicionais(false);
+        view.setVisibilidadeOferecerSolucao(false);
 
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
@@ -120,16 +119,19 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                     break;
                 case FabricaEstado.EM_ANDAMENTO:
                     view.setVisibilidadePausarAtendimento(true);
+                    view.setVisibilidadeOferecerSolucao(true);
                     break;
                 case FabricaEstado.PAUSADA:
                     view.setVisibilidadeContinuarAtendimento(true);
                     view.setVisibilidadeRequisitarInformacoesAdicionais(true);
+                    view.setVisibilidadeOferecerSolucao(true);
                     break;
                 case FabricaEstado.RESPONDIDA:
                     view.setVisibilidadePausarAtendimento(true);
                     view.setVisibilidadeContinuarAtendimento(true);
                     view.setVisibilidadeRequisitarInformacoesAdicionais(true);
                     view.setVisualizarInformacoesAdicionais(true);
+                    view.setVisibilidadeOferecerSolucao(true);
                     break;
                 case FabricaEstado.ENCERRAMENTO_REJEITADO:
                     view.setVisibilidadePausarAtendimento(true);
@@ -396,7 +398,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public String getOnRequisitarInformacoesAdicionaisClickedToken() {
-        return AppController.REQUISICAO_INFORMACOES_ADICIONAIS;
+        return AppController.REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN;
     }
 
     @Override
@@ -406,11 +408,21 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public String getOnRegistrarInformacoesAdicionaisClickedToken() {
-        return AppController.REGISTRO_INFORMACOES_ADICIONAIS;
+        return AppController.REGISTRO_INFORMACOES_ADICIONAIS_TOKEN;
     }
 
     @Override
     public void onRegistrarInformacoesAdicionaisClicked() {
         eventBus.fireEvent(new RegistroInformacoesAdicionaisEvent(informacaoAdicional));
+    }
+
+    @Override
+    public String getOnOferecerSolucaoClickedToken() {
+        return AppController.OFERECER_SOLUCAO_TOKEN;
+    }
+
+    @Override
+    public void onOferecerSolucaoClicked() {
+        eventBus.fireEvent(new OferecerSolucaoEvent(solicitacao));
     }
 }

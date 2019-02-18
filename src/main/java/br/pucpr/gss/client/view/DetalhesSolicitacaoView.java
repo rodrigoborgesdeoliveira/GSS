@@ -34,6 +34,10 @@ public interface DetalhesSolicitacaoView {
         String getOnRegistrarInformacoesAdicionaisClickedToken();
 
         void onRegistrarInformacoesAdicionaisClicked();
+
+        String getOnOferecerSolucaoClickedToken();
+
+        void onOferecerSolucaoClicked();
     }
 
     void setPresenter(Presenter presenter);
@@ -93,4 +97,11 @@ public interface DetalhesSolicitacaoView {
      * @param visivel true, se visível, false, caso contrário.
      */
     void setVisibilidadeRegistrarInformacoesAdicionais(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de oferecer solução.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeOferecerSolucao(boolean visivel);
 }
