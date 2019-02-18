@@ -44,6 +44,7 @@ public class RegistroSolucaoPresenter implements Presenter, RegistroSolucaoView.
     @Override
     public void onSalvarButtonClicked(String solucao) {
         solicitacao.setDescricaoSolucao(solucao);
+        solicitacao.setEstado(solicitacao.getEstado().oferecerSolucao());
         SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
