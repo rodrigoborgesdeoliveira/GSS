@@ -98,6 +98,10 @@ public class Solicitacao implements IsSerializable {
         return descricaoSolucao;
     }
 
+    public void setDescricaoSolucao(String descricaoSolucao) {
+        this.descricaoSolucao = descricaoSolucao;
+    }
+
     public int getIdSetor() {
         return idSetor;
     }
