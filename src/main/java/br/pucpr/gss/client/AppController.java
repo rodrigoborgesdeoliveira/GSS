@@ -256,7 +256,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
                     } else {
-
+                        new RegistroSolucaoPresenter(eventBus, new RegistroSolucaoViewImpl(), usuario, solicitacao)
+                                .go(container);
                     }
 
                     break;
