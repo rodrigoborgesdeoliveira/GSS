@@ -418,7 +418,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public String getOnOferecerSolucaoClickedToken() {
-        return AppController.OFERECER_SOLUCAO_TOKEN;
+        return AppController.REGISTRO_SOLUCAO_TOKEN;
     }
 
     @Override

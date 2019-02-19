@@ -1,0 +1,40 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
+    <g:DockLayoutPanel unit='EM'>
+        <!-- Cabeçalho -->
+        <g:north size="5">
+            <g:HorizontalPanel>
+                <g:Label>Solução</g:Label>
+            </g:HorizontalPanel>
+        </g:north>
+
+        <!-- Menu -->
+        <g:west size='16'>
+            <custom:MenuViewImpl ui:field="menu"/>
+        </g:west>
+
+        <!-- Corpo da página -->
+        <g:center>
+            <g:VerticalPanel>
+                <!-- Descrição -->
+                <g:Label>
+                    <ui:msg>Descrição</ui:msg>
+                </g:Label>
+                <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao" enabled="false"/>
+                <!-- Botões inferiores -->
+                <g:HorizontalPanel>
+                    <g:Button ui:field="buttonCancelar">
+                        <ui:msg>Cancelar</ui:msg>
+                    </g:Button>
+                    <g:Button ui:field="buttonRejeitar">
+                        <ui:msg>Rejeitar</ui:msg>
+                    </g:Button>
+                    <g:Button ui:field="buttonAceitar">
+                        <ui:msg>Aceitar</ui:msg>
+                    </g:Button>
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+        </g:center>
+    </g:DockLayoutPanel>
+</ui:UiBinder>

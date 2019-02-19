@@ -26,7 +26,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String DETALHES_SOLICITACAO_TOKEN = "detalhesSolicitacao";
     public static final String REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN = "requisicaoInformacoesAdicionais";
     public static final String REGISTRO_INFORMACOES_ADICIONAIS_TOKEN = "registroInformacoesAdicionais";
-    public static final String OFERECER_SOLUCAO_TOKEN = "oferecerSolucao";
+    public static final String REGISTRO_SOLUCAO_TOKEN = "registroSolucao";
+    public static final String VISUALIZACAO_SOLUCAO_TOKEN = "visualizacaoSolucao";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -251,7 +252,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     }
 
                     break;
-                case OFERECER_SOLUCAO_TOKEN:
+                case REGISTRO_SOLUCAO_TOKEN:
                     if (usuario == null) {
                         // Usuário não logado
                         History.newItem(LOGIN_TOKEN);
