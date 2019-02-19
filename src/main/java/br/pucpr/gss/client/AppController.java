@@ -68,7 +68,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(RequisitarInformacoesAdicionaisEvent.TYPE, event ->
                 doCarregarRequisicaoInformacoesAdicionais(event.getSolicitacao()));
 
-        eventBus.addHandler(RegistroInformacoesAdicionaisEvent.TYPE, event ->
+        eventBus.addHandler(RegistrarInformacoesAdicionaisEvent.TYPE, event ->
                 doCarregarRegistroInformacoesAdicionais(event.getInformacaoAdicional()));
 
         eventBus.addHandler(OferecerSolucaoEvent.TYPE, event -> doCarregarOferecerSolucao(event.getSolicitacao()));
@@ -258,6 +258,16 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         History.newItem(LOGIN_TOKEN);
                     } else {
                         new RegistroSolucaoPresenter(eventBus, new RegistroSolucaoViewImpl(), usuario, solicitacao)
+                                .go(container);
+                    }
+
+                    break;
+                case VISUALIZACAO_SOLUCAO_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new VisualizacaoSolucaoPresenter(eventBus, new VisualizacaoSolucaoViewImpl(), usuario, solicitacao)
                                 .go(container);
                     }
 

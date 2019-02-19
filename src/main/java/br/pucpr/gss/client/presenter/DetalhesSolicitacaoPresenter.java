@@ -99,6 +99,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         view.setVisualizarInformacoesAdicionais(false);
         view.setVisibilidadeRegistrarInformacoesAdicionais(false);
         view.setVisibilidadeOferecerSolucao(false);
+        view.setVisibilidadeVisualizarSolucao(false);
 
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
@@ -215,21 +216,28 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
                 atendente != null ? atendente.getNome() : "");
 
-        if (solicitacao.getEstado().getIndice() == FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS) {
-            SolicitacaoService.RPC.getInstance().getInformacaoAdicionalByIdSolicitacao(solicitacao.getId(),
-                    new AsyncCallback<InformacaoAdicional>() {
-                        @Override
-                        public void onFailure(Throwable caught) {
-                            Window.alert("Não foi possível carregar a requisição de informações adicionais");
-                        }
+        switch (solicitacao.getEstado().getIndice()) {
+            case FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS:
+                SolicitacaoService.RPC.getInstance().getInformacaoAdicionalByIdSolicitacao(solicitacao.getId(),
+                        new AsyncCallback<InformacaoAdicional>() {
+                            @Override
+                            public void onFailure(Throwable caught) {
+                                Window.alert("Não foi possível carregar a requisição de informações adicionais");
+                            }
 
-                        @Override
-                        public void onSuccess(InformacaoAdicional result) {
-                            informacaoAdicional = result;
+                            @Override
+                            public void onSuccess(InformacaoAdicional result) {
+                                informacaoAdicional = result;
 
-                            view.setVisibilidadeRegistrarInformacoesAdicionais(true);
-                        }
-                    });
+                                view.setVisibilidadeRegistrarInformacoesAdicionais(true);
+                            }
+                        });
+
+                break;
+            case FabricaEstado.ENCERRAMENTO_PROPOSTO:
+                view.setVisibilidadeVisualizarSolucao(true);
+
+                break;
         }
     }
 
@@ -413,7 +421,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public void onRegistrarInformacoesAdicionaisClicked() {
-        eventBus.fireEvent(new RegistroInformacoesAdicionaisEvent(informacaoAdicional));
+        eventBus.fireEvent(new RegistrarInformacoesAdicionaisEvent(informacaoAdicional));
     }
 
     @Override
@@ -424,5 +432,10 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     @Override
     public void onOferecerSolucaoClicked() {
         eventBus.fireEvent(new OferecerSolucaoEvent(solicitacao));
+    }
+
+    @Override
+    public String getOnVisualizarSolucaoClickedToken() {
+        return AppController.VISUALIZACAO_SOLUCAO_TOKEN;
     }
 }

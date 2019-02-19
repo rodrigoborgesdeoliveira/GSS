@@ -16,6 +16,9 @@
                 <g:Hyperlink ui:field="linkOferecerSolucao" visible="false">
                     <ui:msg>Oferecer solução</ui:msg>
                 </g:Hyperlink>
+                <g:Hyperlink ui:field="linkVisualizarSolucao" visible="false">
+                    <ui:msg>Visualizar solução</ui:msg>
+                </g:Hyperlink>
             </g:HorizontalPanel>
         </g:north>
 
