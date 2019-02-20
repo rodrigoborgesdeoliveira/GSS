@@ -33,4 +33,8 @@ public interface GssDao {
 
         void deleteInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
     }
+
+    interface Evento {
+        void insertEvento(br.pucpr.gss.shared.model.Evento evento) throws IllegalStateException;
+    }
 }
