@@ -19,6 +19,8 @@ public interface GssDao {
     interface Solicitacao {
         void insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao) throws IllegalStateException;
 
+        br.pucpr.gss.shared.model.Solicitacao getSolicitacaoById(int idSolicitacao) throws IllegalStateException;
+
         ArrayList<br.pucpr.gss.shared.model.Solicitacao> getSolicitacoesByIdFuncionario(int idFuncionario) throws IllegalStateException;
 
         void updateSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao) throws IllegalStateException;

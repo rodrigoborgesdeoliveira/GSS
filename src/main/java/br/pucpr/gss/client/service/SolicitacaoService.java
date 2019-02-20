@@ -36,7 +36,13 @@ public interface SolicitacaoService extends RemoteService {
      */
     ArrayList<Usuario> getListaAtendentesByIdSetorExcetoGestor(int idSetor, int idGestor) throws IllegalStateException;
 
-    void updateSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
+    /**
+     * Atualiza a solicitação, analisa as alterações e notifica os envolvidos.
+     *
+     * @param solicitacao A solicitação a ser atualizada com as alterações feitas.
+     * @param usuario     O usuário que realizou as alterações.
+     */
+    void updateSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException;
 
     void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException;
 

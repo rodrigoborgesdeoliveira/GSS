@@ -305,7 +305,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
             }
         }
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao atualizar solicitação", caught);
@@ -327,7 +327,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     public void onIniciarAtendimentoClicked() {
         solicitacao.setEstado(solicitacao.getEstado().iniciarAtendimento());
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Não foi possível iniciar o atendimento");
@@ -347,7 +347,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
         solicitacao.setEstado(solicitacao.getEstado().pausarAtendimento());
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Não foi possível pausar o atendimento");
@@ -371,7 +371,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
         solicitacao.setEstado(solicitacao.getEstado().continuarAtendimento());
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Não foi possível retomar o atendimento");

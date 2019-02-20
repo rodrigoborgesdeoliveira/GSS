@@ -53,6 +53,50 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
     }
 
     @Override
+    public Solicitacao getSolicitacaoById(int idSolicitacao) throws IllegalStateException {
+        // language=MySQL
+        String sql = String.format("SELECT * FROM gss.solicitacao WHERE id = %d;", idSolicitacao);
+        ResultSet resultado = null;
+        Solicitacao solicitacao = null;
+
+        try {
+            resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
+            if (resultado != null && resultado.next()) {
+                Fabrica fabricaEstado = new FabricaEstado();
+                Fabrica fabricaPrioriadade = new FabricaPrioridade();
+
+                int id = resultado.getInt("id");
+                String titulo = resultado.getString("titulo");
+                String descricao = resultado.getString("descricao");
+                Prioridade prioridade = fabricaPrioriadade.criarPrioridade(resultado.getInt("prioridade"));
+                Estado estado = fabricaEstado.criarEstado(resultado.getInt("estado"));
+                Date dataCriacao = resultado.getDate("data_criacao");
+                Date prazo = resultado.getDate("prazo");
+                String descricaoSolucao = resultado.getString("descricao_solucao");
+                int idSetor = resultado.getInt("setor_id");
+                int idSolicitante = resultado.getInt("solicitante_id");
+                int idAtendente = resultado.getInt("atendente_id");
+                int idGestor = resultado.getInt("gestor_id");
+
+                solicitacao = new Solicitacao(id, titulo, descricao, prioridade, estado, dataCriacao, prazo,
+                        descricaoSolucao, idSetor, idSolicitante, idAtendente, idGestor);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(null, null, resultado);
+        }
+
+        return solicitacao;
+    }
+
+    @Override
     public ArrayList<Solicitacao> getSolicitacoesByIdFuncionario(int idFuncionario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM gss.solicitacao WHERE " +

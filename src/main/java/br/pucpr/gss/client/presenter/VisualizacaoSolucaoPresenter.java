@@ -47,7 +47,7 @@ public class VisualizacaoSolucaoPresenter implements Presenter, VisualizacaoSolu
     public void onRejeitarButtonClicked() {
         solicitacao.setEstado(solicitacao.getEstado().rejeitarSolucao());
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Falha ao rejeitar a solução");
@@ -66,7 +66,7 @@ public class VisualizacaoSolucaoPresenter implements Presenter, VisualizacaoSolu
     public void onAceitarButtonClicked() {
         solicitacao.setEstado(solicitacao.getEstado().aceitarSolucao());
 
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Falha ao aceitar a solução");

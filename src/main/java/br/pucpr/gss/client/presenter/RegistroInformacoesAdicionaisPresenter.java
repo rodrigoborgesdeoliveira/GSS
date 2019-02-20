@@ -67,7 +67,7 @@ public class RegistroInformacoesAdicionaisPresenter implements Presenter, Regist
                 // Atualizar estado da solicitação no banco de dados
                 solicitacao.setEstado(solicitacao.getEstado().registrarInformacoesAdicionais());
 
-                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
                         Window.alert("Não foi possível atualizar o estado da solicitação");

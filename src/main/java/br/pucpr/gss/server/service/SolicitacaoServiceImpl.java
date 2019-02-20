@@ -3,10 +3,8 @@ package br.pucpr.gss.server.service;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.server.dao.*;
 import br.pucpr.gss.server.model.Funcionario;
-import br.pucpr.gss.shared.model.InformacaoAdicional;
-import br.pucpr.gss.shared.model.Setor;
-import br.pucpr.gss.shared.model.Solicitacao;
-import br.pucpr.gss.shared.model.Usuario;
+import br.pucpr.gss.server.util.Util;
+import br.pucpr.gss.shared.model.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.util.ArrayList;
@@ -92,12 +90,21 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public void updateSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
+    public void updateSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException {
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
+
+        // Antes de atualizar a solicitação, salvá-la para comparação com os novos dados e criação de eventos
+        Solicitacao solicitacaoAntiga = gssDaoSolicitacao.getSolicitacaoById(solicitacao.getId());
 
         gssDaoSolicitacao.updateSolicitacao(solicitacao);
 
         logger.log(Level.INFO, "Solicitação atualizada com sucesso");
+
+        // Criar eventos relativos às alterações realizadas
+        GssDao.Evento gssDaoEvento = new GssDaoEventoImpl();
+        for (Evento evento : Util.compararAlteracoesSolicitacao(solicitacaoAntiga, solicitacao, usuario)) {
+            gssDaoEvento.insertEvento(evento);
+        }
     }
 
     @Override

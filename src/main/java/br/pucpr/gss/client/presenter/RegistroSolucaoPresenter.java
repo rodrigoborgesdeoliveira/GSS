@@ -52,7 +52,7 @@ public class RegistroSolucaoPresenter implements Presenter, RegistroSolucaoView.
         }
 
         solicitacao.setEstado(solicitacao.getEstado().oferecerSolucao());
-        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 Window.alert("Não foi possível registrar a solução");

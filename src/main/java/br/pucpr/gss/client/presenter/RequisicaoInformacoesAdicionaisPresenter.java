@@ -95,7 +95,7 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
                 // Atualizar o estado da solicitação para refletir a requisição de informações adicionais
                 solicitacao.setEstado(solicitacao.getEstado().requisitarInformacoesAdicionais());
 
-                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, new AsyncCallback<Void>() {
+                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
                         Window.alert("Não foi possível atualizar o estado da solicitação");

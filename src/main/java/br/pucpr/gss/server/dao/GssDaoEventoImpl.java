@@ -27,7 +27,7 @@ public class GssDaoEventoImpl implements GssDao.Evento {
             stmt.setString(1, evento.getNome());
             stmt.setDate(2, new Date(evento.getDataOcorrencia().getTime()));
             stmt.setInt(3, evento.getIdSolicitacao());
-            stmt.setInt(3, evento.getIdUsuario());
+            stmt.setInt(4, evento.getIdUsuario());
 
             Conexao.getInstance().executeSQLUpdate(stmt);
         } catch (SQLException e) {

@@ -13,6 +13,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
+    @Nullable
     public Usuario getUsuarioById(int id) {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE id = %d;", id);
@@ -20,6 +21,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     }
 
     @Override
+    @Nullable
     public Usuario getUsuarioByIdFuncionario(int idFuncionario) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id) = ('%s');", idFuncionario);
@@ -27,6 +29,7 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
     }
 
     @Override
+    @Nullable
     public Usuario getUsuarioByIdFuncionarioESenha(int idFuncionario, String senha) throws IllegalStateException {
         // language=MySQL
         String sql = String.format("SELECT * FROM usuario WHERE (funcionario_id, senha) = ('%s', SHA2('%s', 256));",
