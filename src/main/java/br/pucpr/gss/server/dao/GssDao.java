@@ -17,7 +17,13 @@ public interface GssDao {
     }
 
     interface Solicitacao {
-        void insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao) throws IllegalStateException;
+        /**
+         * Insere uma solicitação no banco de dados.
+         *
+         * @param solicitacao Solicitação a ser inserida.
+         * @return ID da solicitação que foi inserida ou 0 se não foi possível obter o ID.
+         */
+        int insertSolicitacao(br.pucpr.gss.shared.model.Solicitacao solicitacao) throws IllegalStateException;
 
         br.pucpr.gss.shared.model.Solicitacao getSolicitacaoById(int idSolicitacao) throws IllegalStateException;
 

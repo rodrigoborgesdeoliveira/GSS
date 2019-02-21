@@ -8,6 +8,7 @@ import br.pucpr.gss.shared.model.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,9 +50,15 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     public void cadastrarSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException {
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
 
-        gssDaoSolicitacao.insertSolicitacao(solicitacao);
+        int idSolicitacao = gssDaoSolicitacao.insertSolicitacao(solicitacao);
 
         logger.log(Level.INFO, "Solicitação criada com sucesso");
+
+        // id da solicitação pode ser zero se o LAST_INSERT_ID() for realizado em uma conexão diferente ou falhar.
+        if (idSolicitacao > 0) {
+            new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s criou a solicitação", usuario.getNome()),
+                    new Date(), idSolicitacao, usuario.getId()));
+        }
     }
 
     @Override

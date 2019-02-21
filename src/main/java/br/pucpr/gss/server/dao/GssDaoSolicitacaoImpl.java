@@ -18,7 +18,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Override
-    public void insertSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
+    public int insertSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
         Connection conexao = Conexao.getInstance().getConexaoGSS();
 
         // language=MySQL
@@ -39,6 +39,17 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
             stmt.setInt(8, solicitacao.getIdGestor());
 
             Conexao.getInstance().executeSQLUpdate(stmt);
+
+            // language=MySQL
+            sql = "SELECT LAST_INSERT_ID();";
+            stmt = conexao.prepareStatement(sql);
+            ResultSet resultSet = Conexao.getInstance().executeSQLQuery(stmt);
+            if (resultSet.next()) {
+                int idSolicitacao = resultSet.getInt("last_insert_id()");
+                logger.log(Level.INFO, "Criada com id: " + idSolicitacao);
+
+                return idSolicitacao;
+            }
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível executar statement", e);
 
@@ -50,6 +61,8 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
         } finally {
             Conexao.getInstance().closeConnection(conexao, stmt, null);
         }
+
+        return 0;
     }
 
     @Override
