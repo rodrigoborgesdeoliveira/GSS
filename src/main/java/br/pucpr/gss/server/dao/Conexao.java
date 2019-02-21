@@ -94,7 +94,7 @@ public class Conexao {
         String sqlEvento = "CREATE TABLE IF NOT EXISTS evento (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
-                "nome VARCHAR(50) NOT NULL, " +
+                "nome VARCHAR(80) NOT NULL, " +
                 "data_ocorrencia DATE NOT NULL, " +
                 "solicitacao_id INT NOT NULL, " +
                 "usuario_id INT NOT NULL, " +

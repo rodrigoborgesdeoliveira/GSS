@@ -25,11 +25,13 @@ public interface SolicitacaoServiceAsync {
 
     void updateSolicitacao(Solicitacao solicitacao, Usuario usuario, AsyncCallback<Void> async);
 
-    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, AsyncCallback<Void> async);
+    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                         Usuario usuario, AsyncCallback<Void> async);
 
     void getInformacaoAdicionalByIdSolicitacao(int idSolicitacao, AsyncCallback<InformacaoAdicional> async);
 
-    void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, AsyncCallback<Void> async);
+    void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                        Usuario usuario, AsyncCallback<Void> async);
 
     void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao, AsyncCallback<Void> async);
 }

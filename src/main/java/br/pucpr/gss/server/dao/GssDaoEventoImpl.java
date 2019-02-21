@@ -30,6 +30,8 @@ public class GssDaoEventoImpl implements GssDao.Evento {
             stmt.setInt(4, evento.getIdUsuario());
 
             Conexao.getInstance().executeSQLUpdate(stmt);
+
+            logger.log(Level.INFO, "Evento: " + evento.getNome());
         } catch (SQLException e) {
             logger.log(Level.WARNING, "Não foi possível executar statement", e);
 

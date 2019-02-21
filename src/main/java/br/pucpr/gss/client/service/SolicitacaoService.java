@@ -44,11 +44,13 @@ public interface SolicitacaoService extends RemoteService {
      */
     void updateSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException;
 
-    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException;
+    void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                         Usuario usuario) throws IllegalStateException;
 
     InformacaoAdicional getInformacaoAdicionalByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
 
-    void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException;
+    void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                        Usuario usuario) throws IllegalStateException;
 
     void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
 

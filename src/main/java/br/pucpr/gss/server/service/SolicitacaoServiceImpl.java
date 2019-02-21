@@ -115,7 +115,8 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException {
+    public void requisitarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                                Usuario usuario) throws IllegalStateException {
         GssDao.InformacaoAdicional gssDaoInformacaoAdicional = new GssDaoInformacaoAdicionalImpl();
 
         // Verificar se já existe uma informação adicional para a solicitação. Então criar ou atualizar a já existente.
@@ -133,6 +134,9 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
             logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
         }
+
+        new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s requisitou informações adicionais",
+                usuario.getNome()), new Date(), solicitacao.getId(), usuario.getId()));
     }
 
     @Override
@@ -143,12 +147,16 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional) throws IllegalStateException {
+    public void registrarInformacoesAdicionais(InformacaoAdicional informacaoAdicional, Solicitacao solicitacao,
+                                               Usuario usuario) throws IllegalStateException {
         GssDao.InformacaoAdicional gssDaoInformacaoAdicional = new GssDaoInformacaoAdicionalImpl();
 
         gssDaoInformacaoAdicional.updateInformacaoAdicional(informacaoAdicional);
 
         logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
+
+        new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s registrou informações adicionais",
+                usuario.getNome()), new Date(), solicitacao.getId(), usuario.getId()));
     }
 
     @Override

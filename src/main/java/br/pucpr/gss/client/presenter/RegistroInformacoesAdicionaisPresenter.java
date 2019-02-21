@@ -56,31 +56,32 @@ public class RegistroInformacoesAdicionaisPresenter implements Presenter, Regist
             return;
         }
 
-        SolicitacaoService.RPC.getInstance().registrarInformacoesAdicionais(informacaoAdicional, new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("Não foi possível registrar as informações adicionais");
-            }
-
-            @Override
-            public void onSuccess(Void result) {
-                // Atualizar estado da solicitação no banco de dados
-                solicitacao.setEstado(solicitacao.getEstado().registrarInformacoesAdicionais());
-
-                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().registrarInformacoesAdicionais(informacaoAdicional, solicitacao, usuario,
+                new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
-                        Window.alert("Não foi possível atualizar o estado da solicitação");
+                        Window.alert("Não foi possível registrar as informações adicionais");
                     }
 
                     @Override
                     public void onSuccess(Void result) {
-                        Window.alert("Informações adicionais registradas com sucesso");
+                        // Atualizar estado da solicitação no banco de dados
+                        solicitacao.setEstado(solicitacao.getEstado().registrarInformacoesAdicionais());
 
-                        eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
+                        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
+                            @Override
+                            public void onFailure(Throwable caught) {
+                                Window.alert("Não foi possível atualizar o estado da solicitação");
+                            }
+
+                            @Override
+                            public void onSuccess(Void result) {
+                                Window.alert("Informações adicionais registradas com sucesso");
+
+                                eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 }

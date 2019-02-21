@@ -84,31 +84,32 @@ public class RequisicaoInformacoesAdicionaisPresenter implements Presenter, Requ
             return;
         }
 
-        SolicitacaoService.RPC.getInstance().requisitarInformacoesAdicionais(informacaoAdicional, new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("Não possível salvar a requisição.");
-            }
-
-            @Override
-            public void onSuccess(Void result) {
-                // Atualizar o estado da solicitação para refletir a requisição de informações adicionais
-                solicitacao.setEstado(solicitacao.getEstado().requisitarInformacoesAdicionais());
-
-                SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
+        SolicitacaoService.RPC.getInstance().requisitarInformacoesAdicionais(informacaoAdicional, solicitacao, usuario,
+                new AsyncCallback<Void>() {
                     @Override
                     public void onFailure(Throwable caught) {
-                        Window.alert("Não foi possível atualizar o estado da solicitação");
+                        Window.alert("Não possível salvar a requisição.");
                     }
 
                     @Override
                     public void onSuccess(Void result) {
-                        Window.alert("Requisição salva com sucesso");
+                        // Atualizar o estado da solicitação para refletir a requisição de informações adicionais
+                        solicitacao.setEstado(solicitacao.getEstado().requisitarInformacoesAdicionais());
 
-                        eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
+                        SolicitacaoService.RPC.getInstance().updateSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
+                            @Override
+                            public void onFailure(Throwable caught) {
+                                Window.alert("Não foi possível atualizar o estado da solicitação");
+                            }
+
+                            @Override
+                            public void onSuccess(Void result) {
+                                Window.alert("Requisição salva com sucesso");
+
+                                eventBus.fireEvent(new DetalhesSolicitacaoEvent(solicitacao));
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 }
