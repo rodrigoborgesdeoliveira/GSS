@@ -130,6 +130,18 @@ public class Solicitacao implements IsSerializable {
         this.idGestor = idGestor;
     }
 
+    public boolean isTituloValido() {
+        return titulo != null && !titulo.isEmpty();
+    }
+
+    public boolean isSetorValido() {
+        return idSetor > -1;
+    }
+
+    public boolean isDescricaoValida() {
+        return descricao != null && !descricao.isEmpty();
+    }
+
     public boolean isDescricaoSolucaoValida() {
         return descricaoSolucao != null && !descricaoSolucao.isEmpty();
     }

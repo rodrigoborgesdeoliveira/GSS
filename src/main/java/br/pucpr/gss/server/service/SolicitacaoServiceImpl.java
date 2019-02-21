@@ -46,7 +46,7 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
     }
 
     @Override
-    public void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException {
+    public void cadastrarSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException {
         GssDao.Solicitacao gssDaoSolicitacao = new GssDaoSolicitacaoImpl();
 
         gssDaoSolicitacao.insertSolicitacao(solicitacao);

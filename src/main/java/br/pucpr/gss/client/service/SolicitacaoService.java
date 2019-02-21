@@ -23,7 +23,7 @@ public interface SolicitacaoService extends RemoteService {
 
     Setor getSetorById(int idSetor) throws IllegalStateException;
 
-    void cadastrarSolicitacao(Solicitacao solicitacao) throws IllegalStateException;
+    void cadastrarSolicitacao(Solicitacao solicitacao, Usuario usuario) throws IllegalStateException;
 
     ArrayList<Solicitacao> consultarSolicitacoes(int idFuncionario) throws IllegalStateException;
 

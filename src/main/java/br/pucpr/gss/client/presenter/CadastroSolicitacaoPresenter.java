@@ -73,7 +73,26 @@ public class CadastroSolicitacaoPresenter implements Presenter, CadastroSolicita
         Setor setorSelecionado = listaSetores.get(indiceSetor);
         Solicitacao solicitacao = new Solicitacao(titulo, descricao, new Date(), setorSelecionado.getId(), usuario.getIdFuncionario(),
                 setorSelecionado.getIdGestor());
-        SolicitacaoService.RPC.getInstance().cadastrarSolicitacao(solicitacao, new AsyncCallback<Void>() {
+
+        if (!solicitacao.isTituloValido()) {
+            Window.alert("O título é um campo obrigatório");
+
+            return;
+        }
+
+        if (!solicitacao.isSetorValido()) {
+            Window.alert("O setor é um campo obrigatório");
+
+            return;
+        }
+
+        if (!solicitacao.isDescricaoValida()) {
+            Window.alert("A descrição é um campo obrigatório");
+
+            return;
+        }
+
+        SolicitacaoService.RPC.getInstance().cadastrarSolicitacao(solicitacao, usuario, new AsyncCallback<Void>() {
             @Override
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao cadastrar solicitação", caught);
