@@ -33,7 +33,7 @@ public class GssDaoSolicitacaoImpl implements GssDao.Solicitacao {
             stmt.setString(2, solicitacao.getDescricao());
             stmt.setInt(3, FabricaPrioridade.NORMAL);
             stmt.setInt(4, FabricaEstado.AGUARDANDO_ATENDIMENTO);
-            stmt.setDate(5, new java.sql.Date(solicitacao.getDataCriacao().getTime()));
+            stmt.setTimestamp(5, new java.sql.Timestamp(solicitacao.getDataCriacao().getTime()));
             stmt.setInt(6, solicitacao.getIdSetor());
             stmt.setInt(7, solicitacao.getIdSolicitante());
             stmt.setInt(8, solicitacao.getIdGestor());

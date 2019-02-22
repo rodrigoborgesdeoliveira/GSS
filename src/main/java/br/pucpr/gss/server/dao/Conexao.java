@@ -79,7 +79,7 @@ public class Conexao {
                 "descricao TEXT, " +
                 "prioridade INT NOT NULL, " +
                 "estado INT NOT NULL, " +
-                "data_criacao DATE NOT NULL, " +
+                "data_criacao TIMESTAMP NOT NULL, " +
                 "prazo DATE, " +
                 "descricao_solucao TEXT, " +
                 "setor_id INT NOT NULL, " +
@@ -95,7 +95,7 @@ public class Conexao {
                 "id INT NOT NULL AUTO_INCREMENT, " +
                 "PRIMARY KEY (id), " +
                 "nome VARCHAR(80) NOT NULL, " +
-                "data_ocorrencia DATE NOT NULL, " +
+                "data_ocorrencia TIMESTAMP NOT NULL, " +
                 "solicitacao_id INT NOT NULL, " +
                 "usuario_id INT NOT NULL, " +
                 "FOREIGN KEY (solicitacao_id) REFERENCES solicitacao(id), " +

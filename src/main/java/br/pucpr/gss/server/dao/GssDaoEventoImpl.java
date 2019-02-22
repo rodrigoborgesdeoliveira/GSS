@@ -2,10 +2,8 @@ package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.shared.model.Evento;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +23,7 @@ public class GssDaoEventoImpl implements GssDao.Evento {
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, evento.getNome());
-            stmt.setDate(2, new Date(evento.getDataOcorrencia().getTime()));
+            stmt.setTimestamp(2, new Timestamp(evento.getDataOcorrencia().getTime()));
             stmt.setInt(3, evento.getIdSolicitacao());
             stmt.setInt(4, evento.getIdUsuario());
 
