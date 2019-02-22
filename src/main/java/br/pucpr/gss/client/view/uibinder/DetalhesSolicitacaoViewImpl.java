@@ -94,7 +94,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     }
 
     private void setUI(String tituloSolicitacao, String descricao, String dataInicial, String estado,
-                       int indicePrioridade, ArrayList<String> prioridades) {
+                       int indicePrioridade, ArrayList<String> prioridades, ArrayList<String> eventos) {
         labelTituloSolicitacao.setText(tituloSolicitacao);
         textAreaDescricao.setText(descricao);
         labelDataInicial.setText(dataInicial);
@@ -105,13 +105,18 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
             listBoxPrioridade.addItem(p);
         }
         listBoxPrioridade.setSelectedIndex(indicePrioridade);
+
+        listBoxHistorico.clear();
+        for (String evento : eventos) {
+            listBoxHistorico.addItem(evento);
+        }
     }
 
     @Override
     public void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
-                               int indicePrioridade, ArrayList<String> prioridades) {
+                               int indicePrioridade, ArrayList<String> prioridades, ArrayList<String> eventos) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades, eventos);
 
         // Definir elementos visíveis da interface
         labelPrazo.setVisible(false);
@@ -124,9 +129,10 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
 
     @Override
     public void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
-                                 String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente) {
+                                 String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente,
+                                 ArrayList<String> eventos) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades, eventos);
 
         // Definir elementos visíveis da interface
         labelPrazo.setVisible(true);
@@ -147,9 +153,9 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @Override
     public void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
                             ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
-                            int indiceAtendente, ArrayList<String> atendentes) {
+                            int indiceAtendente, ArrayList<String> atendentes, ArrayList<String> eventos) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades, eventos);
 
         // Definir elementos visíveis da interface
         labelPrazo.setVisible(true);

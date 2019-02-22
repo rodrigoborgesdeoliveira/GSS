@@ -42,4 +42,48 @@ public class GssDaoEventoImpl implements GssDao.Evento {
             Conexao.getInstance().closeConnection(conexao, stmt, null);
         }
     }
+
+    @Override
+    public ArrayList<Evento> getEventosByIdSolicitacao(int idSolicitacao) throws IllegalStateException {
+        // language=MySQL
+        String sql = "SELECT * FROM evento WHERE solicitacao_id = ?;";
+
+        Connection conexao = Conexao.getInstance().getConexaoGSS();
+
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        ArrayList<Evento> eventos = new ArrayList<>();
+
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idSolicitacao);
+
+            resultado = Conexao.getInstance().executeSQLQuery(stmt);
+            if (resultado != null) {
+                while (resultado.next()) {
+                    int id = resultado.getInt("id");
+                    String nome = resultado.getString("nome");
+                    logger.log(Level.INFO, "Data de ocorrência: " + resultado.getTimestamp("data_ocorrencia"));
+                    java.util.Date dataOcorrencia = resultado.getTimestamp("data_ocorrencia");
+                    int idUsuario = resultado.getInt("usuario_id");
+
+                    logger.log(Level.INFO, id + "; " + nome + "; " + dataOcorrencia.toString() + "; " + idUsuario);
+
+                    eventos.add(new Evento(id, nome, dataOcorrencia, idSolicitacao, idUsuario));
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível executar statement", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(conexao, stmt, resultado);
+        }
+
+        return eventos;
+    }
 }

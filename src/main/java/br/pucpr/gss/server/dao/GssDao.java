@@ -44,5 +44,7 @@ public interface GssDao {
 
     interface Evento {
         void insertEvento(br.pucpr.gss.shared.model.Evento evento) throws IllegalStateException;
+
+        ArrayList<br.pucpr.gss.shared.model.Evento> getEventosByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
     }
 }

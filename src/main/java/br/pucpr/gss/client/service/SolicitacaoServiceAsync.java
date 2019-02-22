@@ -1,9 +1,6 @@
 package br.pucpr.gss.client.service;
 
-import br.pucpr.gss.shared.model.InformacaoAdicional;
-import br.pucpr.gss.shared.model.Setor;
-import br.pucpr.gss.shared.model.Solicitacao;
-import br.pucpr.gss.shared.model.Usuario;
+import br.pucpr.gss.shared.model.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import java.util.ArrayList;
@@ -34,4 +31,6 @@ public interface SolicitacaoServiceAsync {
                                         Usuario usuario, AsyncCallback<Void> async);
 
     void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao, AsyncCallback<Void> async);
+
+    void getEventosSolicitacao(int idSolicitacao, AsyncCallback<ArrayList<Evento>> async);
 }

@@ -167,4 +167,11 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         logger.log(Level.INFO, "Informação adicional removida com sucesso");
     }
+
+    @Override
+    public ArrayList<Evento> getEventosSolicitacao(int idSolicitacao) throws IllegalStateException {
+        GssDao.Evento gssDaoEvento = new GssDaoEventoImpl();
+
+        return gssDaoEvento.getEventosByIdSolicitacao(idSolicitacao);
+    }
 }

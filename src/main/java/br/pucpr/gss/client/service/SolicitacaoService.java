@@ -1,9 +1,6 @@
 package br.pucpr.gss.client.service;
 
-import br.pucpr.gss.shared.model.InformacaoAdicional;
-import br.pucpr.gss.shared.model.Setor;
-import br.pucpr.gss.shared.model.Solicitacao;
-import br.pucpr.gss.shared.model.Usuario;
+import br.pucpr.gss.shared.model.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -53,6 +50,8 @@ public interface SolicitacaoService extends RemoteService {
                                         Usuario usuario) throws IllegalStateException;
 
     void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao) throws IllegalStateException;
+
+    ArrayList<Evento> getEventosSolicitacao(int idSolicitacao) throws IllegalStateException;
 
     /**
      * Classe para chamar os métodos de SolicitacaoService.
