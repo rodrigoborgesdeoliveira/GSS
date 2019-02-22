@@ -46,7 +46,7 @@ public class GssDaoEventoImpl implements GssDao.Evento {
     @Override
     public ArrayList<Evento> getEventosByIdSolicitacao(int idSolicitacao) throws IllegalStateException {
         // language=MySQL
-        String sql = "SELECT * FROM evento WHERE solicitacao_id = ?;";
+        String sql = "SELECT * FROM evento WHERE solicitacao_id = ? ORDER BY data_ocorrencia DESC;";
 
         Connection conexao = Conexao.getInstance().getConexaoGSS();
 
