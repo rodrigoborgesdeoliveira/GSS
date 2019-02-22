@@ -40,6 +40,7 @@ public class Util {
         ArrayList<Evento> eventos = new ArrayList<>();
         Date dataOcorrencia = new Date();
 
+        // Comparar prioridade
         if (solicitacaoAntiga.getPrioridade().getIndice() != solicitacaoNova.getPrioridade().getIndice()) {
             String nomeEvento = String.format("%s alterou a prioridade de %s para %s", usuario.getNome(),
                     solicitacaoAntiga.getPrioridade().getNome(), solicitacaoNova.getPrioridade().getNome());
@@ -47,6 +48,7 @@ public class Util {
                     usuario.getId()));
         }
 
+        // Comparar estado
         if (solicitacaoAntiga.getEstado().getIndice() != solicitacaoNova.getEstado().getIndice()) {
             String nomeEvento = String.format("%s alterou o estado de %s para %s", usuario.getNome(),
                     solicitacaoAntiga.getEstado().getNome(), solicitacaoNova.getEstado().getNome());
@@ -54,6 +56,7 @@ public class Util {
                     usuario.getId()));
         }
 
+        // Comparar prazo
         if (solicitacaoAntiga.getPrazo() != null) {
             if (solicitacaoNova.getPrazo() != null) {
                 if (!solicitacaoAntiga.getPrazo().equals(solicitacaoNova.getPrazo())) {
@@ -79,6 +82,7 @@ public class Util {
             }
         }
 
+        // Comparar solução
         boolean isSolucaoDiferente = false;
         if (solicitacaoAntiga.getDescricaoSolucao() != null) {
             if (solicitacaoNova.getDescricaoSolucao() != null) {
@@ -102,6 +106,7 @@ public class Util {
                     usuario.getId()));
         }
 
+        // Comparar setor
         if (solicitacaoAntiga.getIdSetor() != solicitacaoNova.getIdSetor()) {
             RhDaoSetorImpl rhDaoSetor = new RhDaoSetorImpl();
             Setor setorAntigo = rhDaoSetor.getSetorById(solicitacaoAntiga.getIdSetor());
@@ -114,6 +119,7 @@ public class Util {
                     usuario.getId()));
         }
 
+        // Comparar atendente
         if (solicitacaoAntiga.getIdAtendente() != solicitacaoNova.getIdAtendente()) {
             GssDao.Usuario gssDaoUsuario = new GssDaoUsuarioImpl();
             Usuario atendenteNovo = gssDaoUsuario.getUsuarioByIdFuncionario(solicitacaoNova.getIdAtendente());

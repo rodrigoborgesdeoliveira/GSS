@@ -102,6 +102,12 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.NORMAL).getNome());
 
+        // Se a prioridade tiver sido setada como alta pelo gestor, adicioná-la também à lista para o atendente e
+        // solicitante.
+        if (solicitacao.getPrioridade().getIndice() == FabricaPrioridade.ALTA) {
+            prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.ALTA).getNome());
+        }
+
         SolicitacaoService.RPC.getInstance().getEventosSolicitacao(solicitacao.getId(),
                 new AsyncCallback<ArrayList<Evento>>() {
                     @Override
