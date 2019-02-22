@@ -49,15 +49,16 @@ public interface DetalhesSolicitacaoView {
     MenuView getMenuView();
 
     void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
-                        int indicePrioridade, ArrayList<String> prioridades, ArrayList<String> eventos);
+                        int indicePrioridade, ArrayList<String> prioridades);
 
     void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
-                          String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente,
-                          ArrayList<String> eventos);
+                          String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente);
 
     void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
                      ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
-                     int indiceAtendente, ArrayList<String> atendentes, ArrayList<String> eventos);
+                     int indiceAtendente, ArrayList<String> atendentes);
+
+    void setHistorico(ArrayList<String> historicoEventos);
 
     /**
      * Define a visibilidade da opção de iniciar um atendimento.

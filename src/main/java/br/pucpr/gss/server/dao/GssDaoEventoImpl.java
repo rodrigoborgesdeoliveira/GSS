@@ -1,5 +1,6 @@
 package br.pucpr.gss.server.dao;
 
+import br.pucpr.gss.server.util.Util;
 import br.pucpr.gss.shared.model.Evento;
 
 import java.sql.*;
@@ -63,13 +64,11 @@ public class GssDaoEventoImpl implements GssDao.Evento {
                 while (resultado.next()) {
                     int id = resultado.getInt("id");
                     String nome = resultado.getString("nome");
-                    logger.log(Level.INFO, "Data de ocorrência: " + resultado.getTimestamp("data_ocorrencia"));
                     java.util.Date dataOcorrencia = resultado.getTimestamp("data_ocorrencia");
                     int idUsuario = resultado.getInt("usuario_id");
 
-                    logger.log(Level.INFO, id + "; " + nome + "; " + dataOcorrencia.toString() + "; " + idUsuario);
-
-                    eventos.add(new Evento(id, nome, dataOcorrencia, idSolicitacao, idUsuario));
+                    eventos.add(new Evento(id, nome, dataOcorrencia, Util.stringFromDate(dataOcorrencia), idSolicitacao,
+                            idUsuario));
                 }
             }
         } catch (SQLException e) {

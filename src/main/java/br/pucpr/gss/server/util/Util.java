@@ -8,13 +8,17 @@ import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Classe com métodos para diversos usos. Para usar, utilize-a de forma estática (<code>Util.nomeDoMetodo()</code>).
  */
 public class Util {
+
+    private static Logger logger = Logger.getLogger("Util");
 
     /**
      * Não permitir a instanciação dessa classe. Utilizar sempre como Util.metodo.
@@ -34,17 +38,20 @@ public class Util {
                                                                   Solicitacao solicitacaoNova,
                                                                   Usuario usuario) {
         ArrayList<Evento> eventos = new ArrayList<>();
+        Date dataOcorrencia = new Date();
 
         if (solicitacaoAntiga.getPrioridade().getIndice() != solicitacaoNova.getPrioridade().getIndice()) {
             String nomeEvento = String.format("%s alterou a prioridade de %s para %s", usuario.getNome(),
                     solicitacaoAntiga.getPrioridade().getNome(), solicitacaoNova.getPrioridade().getNome());
-            eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+            eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia), solicitacaoNova.getId(),
+                    usuario.getId()));
         }
 
         if (solicitacaoAntiga.getEstado().getIndice() != solicitacaoNova.getEstado().getIndice()) {
             String nomeEvento = String.format("%s alterou o estado de %s para %s", usuario.getNome(),
                     solicitacaoAntiga.getEstado().getNome(), solicitacaoNova.getEstado().getNome());
-            eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+            eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia), solicitacaoNova.getId(),
+                    usuario.getId()));
         }
 
         if (solicitacaoAntiga.getPrazo() != null) {
@@ -53,19 +60,22 @@ public class Util {
                     // Prazos diferentes
                     String nomeEvento = String.format("%s alterou o prazo de %s para %s", usuario.getNome(),
                             solicitacaoAntiga.getPrazo().toString(), solicitacaoNova.getPrazo().toString());
-                    eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+                    eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia),
+                            solicitacaoNova.getId(), usuario.getId()));
                 }
             } else {
                 // Prazos diferentes
                 String nomeEvento = String.format("%s removeu o prazo", usuario.getNome());
-                eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+                eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia),
+                        solicitacaoNova.getId(), usuario.getId()));
             }
         } else {
             if (solicitacaoNova.getPrazo() != null) {
                 // Prazos diferentes
                 String nomeEvento = String.format("%s alterou o prazo para %s", usuario.getNome(),
                         solicitacaoNova.getPrazo().toString());
-                eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+                eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia),
+                        solicitacaoNova.getId(), usuario.getId()));
             }
         }
 
@@ -80,7 +90,7 @@ public class Util {
                 // Soluções diferentes
                 isSolucaoDiferente = true;
             }
-        }else {
+        } else {
             if (solicitacaoNova.getDescricaoSolucao() != null) {
                 // Soluções diferentes
                 isSolucaoDiferente = true;
@@ -88,7 +98,8 @@ public class Util {
         }
         if (isSolucaoDiferente) {
             String nomeEvento = String.format("%s alterou a solução", usuario.getNome());
-            eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+            eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia), solicitacaoNova.getId(),
+                    usuario.getId()));
         }
 
         if (solicitacaoAntiga.getIdSetor() != solicitacaoNova.getIdSetor()) {
@@ -99,7 +110,8 @@ public class Util {
             String setorAntigoEvento = setorAntigo != null ? " de " + setorAntigo.getNome() : "";
             String setorNovoEvento = setorNovo != null ? " para " + setorNovo.getNome() : "";
             String nomeEvento = usuario.getNome() + " alterou o setor" + setorAntigoEvento + setorNovoEvento;
-            eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+            eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia), solicitacaoNova.getId(),
+                    usuario.getId()));
         }
 
         if (solicitacaoAntiga.getIdAtendente() != solicitacaoNova.getIdAtendente()) {
@@ -124,9 +136,22 @@ public class Util {
                 }
             }
 
-            eventos.add(new Evento(nomeEvento, new Date(), solicitacaoNova.getId(), usuario.getId()));
+            eventos.add(new Evento(nomeEvento, dataOcorrencia, stringFromDate(dataOcorrencia), solicitacaoNova.getId(),
+                    usuario.getId()));
         }
 
         return eventos;
+    }
+
+    /**
+     * Converte uma data em uma equivalente string já formatada em dia/mês/ano HH:mm.
+     *
+     * @param date A data para ser convertida.
+     * @return {@link String} convertida da data.
+     */
+    public static String stringFromDate(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        return format.format(date);
     }
 }

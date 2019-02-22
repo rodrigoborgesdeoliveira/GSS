@@ -56,8 +56,9 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         // id da solicitação pode ser zero se o LAST_INSERT_ID() for realizado em uma conexão diferente ou falhar.
         if (idSolicitacao > 0) {
+            Date dataOcorrencia = new Date();
             new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s criou a solicitação", usuario.getNome()),
-                    new Date(), idSolicitacao, usuario.getId()));
+                    dataOcorrencia, Util.stringFromDate(dataOcorrencia), idSolicitacao, usuario.getId()));
         }
     }
 
@@ -135,8 +136,10 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
             logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
         }
 
+        Date dataOcorrencia = new Date();
         new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s requisitou informações adicionais",
-                usuario.getNome()), new Date(), solicitacao.getId(), usuario.getId()));
+                usuario.getNome()), dataOcorrencia, Util.stringFromDate(dataOcorrencia), solicitacao.getId(),
+                usuario.getId()));
     }
 
     @Override
@@ -155,8 +158,10 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
 
+        Date dataOcorrencia = new Date();
         new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s registrou informações adicionais",
-                usuario.getNome()), new Date(), solicitacao.getId(), usuario.getId()));
+                usuario.getNome()), dataOcorrencia, Util.stringFromDate(dataOcorrencia), solicitacao.getId(),
+                usuario.getId()));
     }
 
     @Override
