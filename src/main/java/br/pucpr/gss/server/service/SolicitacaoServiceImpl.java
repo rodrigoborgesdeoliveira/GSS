@@ -58,7 +58,7 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         if (idSolicitacao > 0) {
             Date dataOcorrencia = new Date();
             new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s criou a solicitação", usuario.getNome()),
-                    dataOcorrencia, Util.stringFromDate(dataOcorrencia), idSolicitacao, usuario.getId()));
+                    dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), idSolicitacao, usuario.getId()));
         }
     }
 
@@ -138,7 +138,7 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         Date dataOcorrencia = new Date();
         new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s requisitou informações adicionais",
-                usuario.getNome()), dataOcorrencia, Util.stringFromDate(dataOcorrencia), solicitacao.getId(),
+                usuario.getNome()), dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), solicitacao.getId(),
                 usuario.getId()));
     }
 
@@ -160,7 +160,7 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         Date dataOcorrencia = new Date();
         new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s registrou informações adicionais",
-                usuario.getNome()), dataOcorrencia, Util.stringFromDate(dataOcorrencia), solicitacao.getId(),
+                usuario.getNome()), dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), solicitacao.getId(),
                 usuario.getId()));
     }
 

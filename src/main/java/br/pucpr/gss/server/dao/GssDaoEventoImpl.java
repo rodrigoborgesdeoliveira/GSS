@@ -67,7 +67,7 @@ public class GssDaoEventoImpl implements GssDao.Evento {
                     java.util.Date dataOcorrencia = resultado.getTimestamp("data_ocorrencia");
                     int idUsuario = resultado.getInt("usuario_id");
 
-                    eventos.add(new Evento(id, nome, dataOcorrencia, Util.stringFromDate(dataOcorrencia), idSolicitacao,
+                    eventos.add(new Evento(id, nome, dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), idSolicitacao,
                             idUsuario));
                 }
             }
