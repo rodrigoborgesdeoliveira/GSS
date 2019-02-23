@@ -1,5 +1,7 @@
 package br.pucpr.gss.server.dao;
 
+import br.pucpr.gss.server.util.Keys;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,10 +14,10 @@ public class Conexao {
     private final String DB_GSS = "gss";
     private final String DB_RH = "rh";
     private final String DB_OPCOES = "?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo";
-    private final String USUARIO_GSS = "root";
-    private final String SENHA_GSS = "password";
-    private final String USUARIO_RH = "root";
-    private final String SENHA_RH = "password";
+    private final String USUARIO_GSS = Keys.DB_USUARIO;
+    private final String SENHA_GSS = Keys.DB_SENHA;
+    private final String USUARIO_RH = Keys.DB_USUARIO;
+    private final String SENHA_RH = Keys.DB_SENHA;
 
     private static Logger logger = Logger.getLogger("Conexao");
 

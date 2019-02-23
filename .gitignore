@@ -43,3 +43,6 @@ target/classes/META-INF/GSS.kotlin_module
 
 # Gradle
 .gradle/
+
+# Chaves que não devem ser enviadas ao repositório
+Keys.java

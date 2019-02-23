@@ -22,7 +22,7 @@ public class Notificador {
         Content conteudo = new Content("text/plain", notificacao.getDescricao());
 
         Mail email = new Mail(remetente, notificacao.getAssunto(), destinatario, conteudo);
-        SendGrid sendgrid = new SendGrid("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");
+        SendGrid sendgrid = new SendGrid(Keys.SENDGRID_API_KEY);
         Request request = new Request();
 
         request.setMethod(Method.POST);
