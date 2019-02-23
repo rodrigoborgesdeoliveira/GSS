@@ -5,9 +5,12 @@ import java.util.ArrayList;
 public interface RhDao {
 
     interface Funcionario {
+
         br.pucpr.gss.server.model.Funcionario getFuncionarioByEmail(String email) throws IllegalStateException;
 
         ArrayList<br.pucpr.gss.server.model.Funcionario> getFuncionariosByIdSetor(int idSetor) throws IllegalStateException;
+
+        String getEmailByIdFuncionario(int idFuncionario) throws IllegalStateException;
     }
 
     interface Setor {

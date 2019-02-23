@@ -1,8 +1,7 @@
 package br.pucpr.gss.server.util;
 
-import br.pucpr.gss.server.dao.GssDao;
-import br.pucpr.gss.server.dao.GssDaoUsuarioImpl;
-import br.pucpr.gss.server.dao.RhDaoSetorImpl;
+import br.pucpr.gss.server.dao.*;
+import br.pucpr.gss.server.model.Notificacao;
 import br.pucpr.gss.shared.model.Evento;
 import br.pucpr.gss.shared.model.Setor;
 import br.pucpr.gss.shared.model.Solicitacao;
@@ -171,5 +170,44 @@ public class Util {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         return format.format(date);
+    }
+
+    /**
+     * Gera as notificações para que sejam enviadas pelo {@link Notificador}.
+     *
+     * @param solicitacao Solicitação da notificação.
+     * @param usuario     Usuário que realizou os eventos da notificação. Este usuário não será notificado.
+     * @param eventos     Eventos ocorridos.
+     * @return Lista de notificações.
+     */
+    public static ArrayList<Notificacao> gerarNotificacoes(Solicitacao solicitacao, Usuario usuario,
+                                                           ArrayList<Evento> eventos) throws IllegalStateException {
+        RhDao.Funcionario rhDaoFuncionario = new RhDaoFuncionarioImpl();
+        ArrayList<Notificacao> notificacoes = new ArrayList<>();
+
+        String assunto = "Atualização em uma solicitação que você está envolvido";
+        StringBuilder conteudo = new StringBuilder("Ocorreram os seguintes eventos na solicitação \"" +
+                solicitacao.getTitulo() + "\".\n");
+
+        for (Evento evento : eventos) {
+            conteudo.append("\n\t").append(evento.getNome());
+        }
+
+        String emailUsuario = rhDaoFuncionario.getEmailByIdFuncionario(usuario.getIdFuncionario());
+
+        if (solicitacao.getIdAtendente() > 0 && usuario.getIdFuncionario() != solicitacao.getIdAtendente()) {
+            String emailAtendente = rhDaoFuncionario.getEmailByIdFuncionario(solicitacao.getIdAtendente());
+            notificacoes.add(new Notificacao(emailUsuario, emailAtendente, assunto, conteudo.toString()));
+        }
+        if (usuario.getIdFuncionario() != solicitacao.getIdSolicitante()) {
+            String emailSolicitante = rhDaoFuncionario.getEmailByIdFuncionario(solicitacao.getIdSolicitante());
+            notificacoes.add(new Notificacao(emailUsuario, emailSolicitante, assunto, conteudo.toString()));
+        }
+        if (usuario.getIdFuncionario() != solicitacao.getIdGestor()) {
+            String emailGestor = rhDaoFuncionario.getEmailByIdFuncionario(solicitacao.getIdGestor());
+            notificacoes.add(new Notificacao(emailUsuario, emailGestor, assunto, conteudo.toString()));
+        }
+
+        return notificacoes;
     }
 }

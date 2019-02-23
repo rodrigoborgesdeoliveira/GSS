@@ -1,6 +1,7 @@
 package br.pucpr.gss.server.dao;
 
 import br.pucpr.gss.server.model.Funcionario;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,5 +76,33 @@ public class RhDaoFuncionarioImpl implements RhDao.Funcionario {
         }
 
         return funcionarios;
+    }
+
+    @Override
+    @Nullable
+    public String getEmailByIdFuncionario(int idFuncionario) throws IllegalStateException {
+        // language=MySQL
+        String sql = String.format("SELECT email FROM funcionario WHERE (id) = ('%d');", idFuncionario);
+
+        ResultSet resultado = null;
+
+        try {
+            resultado = Conexao.getInstance().executeSQLQueryRH(sql);
+            if (resultado != null && resultado.next()) {
+                return resultado.getString("email");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(null, null, resultado);
+        }
+
+        return null;
     }
 }

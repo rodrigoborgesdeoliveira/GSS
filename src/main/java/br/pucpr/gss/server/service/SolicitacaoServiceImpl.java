@@ -3,11 +3,14 @@ package br.pucpr.gss.server.service;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.server.dao.*;
 import br.pucpr.gss.server.model.Funcionario;
+import br.pucpr.gss.server.model.Notificacao;
+import br.pucpr.gss.server.util.Notificador;
 import br.pucpr.gss.server.util.Util;
 import br.pucpr.gss.shared.model.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +18,22 @@ import java.util.logging.Logger;
 public class SolicitacaoServiceImpl extends RemoteServiceServlet implements SolicitacaoService {
 
     private Logger logger = Logger.getLogger(getClass().getName());
+
+    /**
+     * Insere um evento no banco de dados e envia um email aos envolvidos.
+     *
+     * @param solicitacao Solicitação em que o evento ocorreu.
+     * @param usuario     Usuário que realizou o evento.
+     * @param evento      Evento ocorrido.
+     */
+    private void insertEvento(Solicitacao solicitacao, Usuario usuario, Evento evento) {
+        new GssDaoEventoImpl().insertEvento(evento);
+
+        for (Notificacao notificacao : Util.gerarNotificacoes(solicitacao, usuario,
+                new ArrayList<>(Collections.singletonList(evento)))) {
+            Notificador.getInstance().enviarNotificacao(notificacao);
+        }
+    }
 
     @Override
     public ArrayList<Setor> getListaSetores() throws IllegalStateException {
@@ -57,8 +76,9 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         // id da solicitação pode ser zero se o LAST_INSERT_ID() for realizado em uma conexão diferente ou falhar.
         if (idSolicitacao > 0) {
             Date dataOcorrencia = new Date();
-            new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s criou a solicitação", usuario.getNome()),
-                    dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), idSolicitacao, usuario.getId()));
+            Evento evento = new Evento(String.format("%s criou a solicitação", usuario.getNome()),
+                    dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), idSolicitacao, usuario.getId());
+            insertEvento(solicitacao, usuario, evento);
         }
     }
 
@@ -110,8 +130,13 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         // Criar eventos relativos às alterações realizadas
         GssDao.Evento gssDaoEvento = new GssDaoEventoImpl();
-        for (Evento evento : Util.compararAlteracoesSolicitacao(solicitacaoAntiga, solicitacao, usuario)) {
+        ArrayList<Evento> eventos = Util.compararAlteracoesSolicitacao(solicitacaoAntiga, solicitacao, usuario);
+        for (Evento evento : eventos) {
             gssDaoEvento.insertEvento(evento);
+        }
+
+        for (Notificacao notificacao : Util.gerarNotificacoes(solicitacao, usuario, eventos)) {
+            Notificador.getInstance().enviarNotificacao(notificacao);
         }
     }
 
@@ -137,9 +162,10 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         }
 
         Date dataOcorrencia = new Date();
-        new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s requisitou informações adicionais",
+        Evento evento = new Evento(String.format("%s requisitou informações adicionais",
                 usuario.getNome()), dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), solicitacao.getId(),
-                usuario.getId()));
+                usuario.getId());
+        insertEvento(solicitacao, usuario, evento);
     }
 
     @Override
@@ -159,9 +185,10 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
 
         Date dataOcorrencia = new Date();
-        new GssDaoEventoImpl().insertEvento(new Evento(String.format("%s registrou informações adicionais",
+        Evento evento = new Evento(String.format("%s registrou informações adicionais",
                 usuario.getNome()), dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), solicitacao.getId(),
-                usuario.getId()));
+                usuario.getId());
+        insertEvento(solicitacao, usuario, evento);
     }
 
     @Override
