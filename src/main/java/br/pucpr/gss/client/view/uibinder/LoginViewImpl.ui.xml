@@ -8,7 +8,7 @@
                     <m:MaterialTextBox ui:field="textBoxEmail" type="EMAIL" label="Email" fieldType="OUTLINED"
                                        focus="true"/>
                     <m:MaterialTextBox ui:field="textBoxSenha" type="PASSWORD" label="Senha" fieldType="OUTLINED"/>
-                    <m:MaterialRow>
+                    <m:MaterialRow marginTop="16">
                         <m:MaterialLink ui:field="linkCadastrar" text="Cadastrar"/>
                         <m:MaterialButton ui:field="buttonLogin" text="Entrar" type="OUTLINED"
                                           backgroundColor="GREY_LIGHTEN_3" marginLeft="65"/>
