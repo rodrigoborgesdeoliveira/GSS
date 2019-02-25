@@ -2,7 +2,7 @@
              xmlns:m="urn:import:gwt.material.design.client.ui">
     <m:MaterialContainer addStyleNames="valign-wrapper">
         <m:MaterialRow width="300" addStyleNames="valign center">
-            <m:MaterialCard>
+            <m:MaterialCard textAlign="LEFT">
                 <m:MaterialCardContent>
                     <m:MaterialLabel text="LOGIN" textAlign="CENTER" fontWeight="BOLD"/>
                     <m:MaterialTextBox ui:field="textBoxEmail" type="EMAIL" label="Email" fieldType="OUTLINED"
