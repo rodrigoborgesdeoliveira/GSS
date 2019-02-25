@@ -6,7 +6,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialTextBox;
 
 public class CadastroViewImpl extends Composite implements CadastroView {
 
@@ -16,22 +19,22 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     private static CadastroViewUiBinder uiBinder = GWT.create(CadastroViewUiBinder.class);
 
     @UiField
-    TextBox email;
+    MaterialTextBox textBoxEmail, textBoxSenha, textBoxConfirmarSenha;
     @UiField
-    PasswordTextBox senha;
-    @UiField
-    PasswordTextBox confirmarSenha;
-    @UiField
-    Label labelErro;
-    @UiField
-    Button cadastrar;
-    @UiField
-    Button cancelar;
+    MaterialButton buttonCadastrar, buttonCancelar;
 
     private Presenter presenter;
 
     public CadastroViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
+
+        // Fazer com que o label seja animado ao ganhar e perder foco
+        textBoxEmail.addFocusHandler(event -> textBoxEmail.setFocus(true));
+        textBoxEmail.addBlurHandler(event -> textBoxEmail.setFocus(false));
+        textBoxSenha.addFocusHandler(event -> textBoxSenha.setFocus(true));
+        textBoxSenha.addBlurHandler(event -> textBoxSenha.setFocus(false));
+        textBoxConfirmarSenha.addFocusHandler(event -> textBoxConfirmarSenha.setFocus(true));
+        textBoxConfirmarSenha.addBlurHandler(event -> textBoxConfirmarSenha.setFocus(false));
     }
 
     @Override
@@ -39,14 +42,14 @@ public class CadastroViewImpl extends Composite implements CadastroView {
         this.presenter = presenter;
     }
 
-    @UiHandler("cadastrar")
+    @UiHandler("buttonCadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
-            presenter.onCadastrarButtonClicked(email.getText(), senha.getText(), confirmarSenha.getText());
+            presenter.onCadastrarButtonClicked(textBoxEmail.getText(), textBoxSenha.getText(), textBoxConfirmarSenha.getText());
         }
     }
 
-    @UiHandler("cancelar")
+    @UiHandler("buttonCancelar")
     void onClickVoltar(ClickEvent event) {
         if (presenter != null) {
             presenter.onCancelarButtonClicked();
@@ -54,38 +57,39 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     }
 
     /**
-     * Exibe uma mensagem de erro indicando que o email é inválido.
+     * Exibe uma mensagem de erro indicando que o Email é inválido.
      */
     @Override
     public void setEmailInvalido() {
-        setErro("Email inválido");
+        textBoxEmail.setErrorText("Email inválido");
+        textBoxEmail.setFocus(true);
     }
 
     /**
-     * Exibe uma mensagem de erro indicando que a senha é inválida.
+     * Exibe uma mensagem de erro indicando que a Senha é inválida.
      */
     @Override
     public void setSenhaInvalida() {
-        setErro("Senha inválida");
+        textBoxSenha.setErrorText("Senha inválida");
+        textBoxSenha.setFocus(true);
     }
 
     /**
-     * Exibe uma mensagem de erro indicando que a confirmação de senha é inválida.
+     * Exibe uma mensagem de erro indicando que a Confirmação de Senha é inválida.
      */
     @Override
     public void setConfirmarSenhaInvalida() {
-        setErro("Confirmação de senha inválida");
+        textBoxConfirmarSenha.setErrorText("Confirmação de senha inválida");
+        textBoxConfirmarSenha.setFocus(true);
     }
 
     @Override
     public void ocultarLabelErro() {
-        labelErro.setVisible(false);
-        labelErro.setText("");
-    }
-
-    @Override
-    public void setErro(String mensagemErro) {
-        labelErro.setVisible(true);
-        labelErro.setText(mensagemErro);
+        textBoxEmail.clearErrorText();
+        textBoxEmail.removeErrorModifiers();
+        textBoxSenha.clearErrorText();
+        textBoxSenha.removeErrorModifiers();
+        textBoxConfirmarSenha.clearErrorText();
+        textBoxConfirmarSenha.removeErrorModifiers();
     }
 }

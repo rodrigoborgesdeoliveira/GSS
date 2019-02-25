@@ -1,33 +1,27 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <g:HTMLPanel>
-        <div align="center">
-            <g:VerticalPanel>
-                <g:Label horizontalAlignment="center">
-                    <ui:msg>CADASTRO</ui:msg>
-                </g:Label>
-                <g:Label>
-                    <ui:msg>Email</ui:msg>
-                </g:Label>
-                <g:TextBox ui:field="email"/>
-                <g:Label>
-                    <ui:msg>Senha</ui:msg>
-                </g:Label>
-                <g:PasswordTextBox ui:field="senha"/>
-                <g:Label>
-                    <ui:msg>Confirmar senha</ui:msg>
-                </g:Label>
-                <g:PasswordTextBox ui:field="confirmarSenha"/>
-                <g:Label ui:field="labelErro" visible="false"/>
-                <g:HorizontalPanel>
-                    <g:Button ui:field="cancelar">
-                        <ui:msg>Cancelar</ui:msg>
-                    </g:Button>
-                    <g:Button ui:field="cadastrar">
-                        <ui:msg>Cadastrar</ui:msg>
-                    </g:Button>
-                </g:HorizontalPanel>
-            </g:VerticalPanel>
-        </div>
-    </g:HTMLPanel>
+             xmlns:m="urn:import:gwt.material.design.client.ui">
+    <m:MaterialContainer addStyleNames="valign-wrapper">
+        <m:MaterialRow width="400" addStyleNames="valign center">
+            <m:MaterialCard textAlign="LEFT">
+                <m:MaterialCardContent>
+                    <m:MaterialLabel text="CADASTRO" textAlign="CENTER" fontWeight="BOLD"/>
+                    <m:MaterialTextBox ui:field="textBoxEmail" label="Email" type="EMAIL" fieldType="OUTLINED"
+                                       focus="true"/>
+                    <m:MaterialTextBox ui:field="textBoxSenha" label="Senha" type="PASSWORD" fieldType="OUTLINED"/>
+                    <m:MaterialTextBox ui:field="textBoxConfirmarSenha" label="Confirmar senha" type="PASSWORD"
+                                       fieldType="OUTLINED"/>
+                    <m:MaterialRow textAlign="RIGHT">
+                        <m:MaterialColumn>
+                            <m:MaterialButton ui:field="buttonCancelar" text="Cancelar" type="OUTLINED"
+                                              backgroundColor="GREY_LIGHTEN_3" marginRight="8"/>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn>
+                            <m:MaterialButton ui:field="buttonCadastrar" text="Cadastrar" type="OUTLINED"
+                                              backgroundColor="GREY_LIGHTEN_3"/>
+                        </m:MaterialColumn>
+                    </m:MaterialRow>
+                </m:MaterialCardContent>
+            </m:MaterialCard>
+        </m:MaterialRow>
+    </m:MaterialContainer>
 </ui:UiBinder>

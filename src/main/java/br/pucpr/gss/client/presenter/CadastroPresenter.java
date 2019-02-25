@@ -64,7 +64,7 @@ public class CadastroPresenter implements Presenter, CadastroView.Presenter {
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao cadastrar usuário", caught);
 
-                view.setErro(caught.getLocalizedMessage());
+                Window.alert(caught.getLocalizedMessage());
             }
 
             @Override

@@ -21,6 +21,4 @@ public interface CadastroView {
     void setConfirmarSenhaInvalida();
 
     void ocultarLabelErro();
-
-    void setErro(String mensagemErro);
 }
