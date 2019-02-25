@@ -6,7 +6,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialLink;
+import gwt.material.design.client.ui.MaterialTextBox;
 
 public class LoginViewImpl extends Composite implements LoginView {
 
@@ -16,20 +19,20 @@ public class LoginViewImpl extends Composite implements LoginView {
     private static LoginViewUiBinder uiBinder = GWT.create(LoginViewUiBinder.class);
 
     @UiField
-    TextBox textBoxEmail;
+    MaterialTextBox textBoxEmail, textBoxSenha;
     @UiField
-    TextBox textBoxSenha;
-    @UiField
-    Button buttonLogin;
-    @UiField
-    Hyperlink linkCadastrar;
-    @UiField
-    Label labelErro;
+    MaterialLink linkCadastrar;
 
     private Presenter presenter;
 
     public LoginViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
+
+        // Fazer com que o label seja animado ao ganhar e perder foco
+        textBoxEmail.addFocusHandler(event -> textBoxEmail.setFocus(true));
+        textBoxEmail.addBlurHandler(event -> textBoxEmail.setFocus(false));
+        textBoxSenha.addFocusHandler(event -> textBoxSenha.setFocus(true));
+        textBoxSenha.addBlurHandler(event -> textBoxSenha.setFocus(false));
     }
 
     @Override
@@ -51,23 +54,21 @@ public class LoginViewImpl extends Composite implements LoginView {
 
     @Override
     public void setEmailInvalido() {
-        setErro("Email é obrigatório");
+        textBoxEmail.setErrorText("Email é obrigatório");
+        textBoxEmail.setFocus(true);
     }
 
     @Override
     public void setSenhaInvalida() {
-        setErro("Senha é obrigatória");
+        textBoxSenha.setErrorText("Senha é obrigatória");
+        textBoxSenha.setFocus(true);
     }
 
     @Override
     public void ocultarLabelErro() {
-        labelErro.setVisible(false);
-        labelErro.setText("");
-    }
-
-    @Override
-    public void setErro(String mensagemErro) {
-        labelErro.setVisible(true);
-        labelErro.setText(mensagemErro);
+        textBoxEmail.clearErrorText();
+        textBoxEmail.removeErrorModifiers();
+        textBoxSenha.clearErrorText();
+        textBoxSenha.removeErrorModifiers();
     }
 }

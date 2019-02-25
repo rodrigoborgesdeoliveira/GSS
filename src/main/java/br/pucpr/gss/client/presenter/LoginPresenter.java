@@ -8,6 +8,7 @@ import br.pucpr.gss.shared.model.Usuario;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -54,7 +55,7 @@ public class LoginPresenter implements Presenter, LoginView.Presenter {
             public void onFailure(Throwable caught) {
                 GWT.log("Erro ao fazer login", caught);
 
-                view.setErro(caught.getLocalizedMessage());
+                Window.alert(caught.getLocalizedMessage());
             }
 
             @Override

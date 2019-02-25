@@ -19,6 +19,4 @@ public interface LoginView {
     void setSenhaInvalida();
 
     void ocultarLabelErro();
-
-    void setErro(String mensagemErro);
 }

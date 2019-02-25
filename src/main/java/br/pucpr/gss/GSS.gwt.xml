@@ -5,6 +5,8 @@
     <!-- Inherit the core Web Toolkit stuff.                  -->
     <inherits name='com.google.gwt.user.User'/>
 
+    <inherits name="gwt.material.design.GwtMaterialWithJQuery" />
+
     <!-- Specify the app entry point class.                   -->
     <entry-point class='br.pucpr.gss.client.GSS'/>
 
