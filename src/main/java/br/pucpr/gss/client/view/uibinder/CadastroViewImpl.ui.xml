@@ -10,7 +10,7 @@
                     <m:MaterialTextBox ui:field="textBoxSenha" label="Senha" type="PASSWORD" fieldType="OUTLINED"/>
                     <m:MaterialTextBox ui:field="textBoxConfirmarSenha" label="Confirmar senha" type="PASSWORD"
                                        fieldType="OUTLINED"/>
-                    <m:MaterialRow textAlign="RIGHT">
+                    <m:MaterialRow marginTop="16">
                         <m:MaterialColumn>
                             <m:MaterialButton ui:field="buttonCancelar" text="Cancelar" type="OUTLINED"
                                               backgroundColor="GREY_LIGHTEN_3" marginRight="8"/>
