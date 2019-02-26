@@ -7,9 +7,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialLink;
+import gwt.material.design.client.ui.MaterialRow;
 
 public class MenuViewImpl extends Composite implements MenuView {
 
@@ -21,19 +21,9 @@ public class MenuViewImpl extends Composite implements MenuView {
     private Presenter presenter;
 
     @UiField
-    Hyperlink dashboard;
+    MaterialLink dashboard, cadastrarSolicitacao, consultarSolicitacoes, gerarIndicadores, gerenciarCadastros, sair;
     @UiField
-    Hyperlink cadastrarSolicitacao;
-    @UiField
-    Hyperlink consultarSolicitacoes;
-    @UiField
-    Hyperlink gerarIndicadores;
-    @UiField
-    Hyperlink gerenciarCadastros;
-    @UiField
-    Hyperlink sair;
-    @UiField
-    VerticalPanel grupoCadastros;
+    MaterialRow grupoCadastros;
 
     public MenuViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));

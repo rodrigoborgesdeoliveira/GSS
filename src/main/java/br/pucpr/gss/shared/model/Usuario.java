@@ -68,4 +68,9 @@ public class Usuario implements IsSerializable {
         // Sobrescrever esse método para ver dois usuários com o mesmo id de funcionário como sendo o mesmo
         return obj instanceof Usuario && this.idFuncionario == ((Usuario) obj).idFuncionario;
     }
+
+    @Override
+    public String toString() {
+        return "id: " + id + ", nome: " + nome + ", isAdmin: " + isAdmin + ", idFuncionario: " + idFuncionario;
+    }
 }
