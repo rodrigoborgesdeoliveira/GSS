@@ -3,44 +3,44 @@
     <m:MaterialPanel width="180" textAlign="CENTER" backgroundColor="GREY_LIGHTEN_2">
         <!-- DASHBOARD -->
         <m:MaterialRow marginTop="16">
-            <m:MaterialLink ui:field="dashboard" text="Dashboard"/>
+            <m:MaterialLink ui:field="dashboard" text="Dashboard" fontSize="14px"/>
         </m:MaterialRow>
         <!-- SOLICITAÇÕES -->
         <m:MaterialRow ui:field="grupoSolicitacoes" marginBottom="2">
             <m:MaterialDivider backgroundColor="GREY_DARKEN_1" marginBottom="8" marginLeft="8" marginRight="8"/>
             <m:MaterialRow>
-                <m:MaterialLabel text="Solicitações" fontWeight="BOLD"/>
+                <m:MaterialLabel text="Solicitações" fontWeight="BOLD" fontSize="16px"/>
             </m:MaterialRow>
             <m:MaterialRow marginBottom="0">
-                <m:MaterialLink ui:field="cadastrarSolicitacao" text="Cadastrar solicitação"/>
+                <m:MaterialLink ui:field="cadastrarSolicitacao" text="Cadastrar solicitação" fontSize="14px"/>
             </m:MaterialRow>
             <m:MaterialRow>
-                <m:MaterialLink ui:field="consultarSolicitacoes" text="Consultar solicitações"/>
+                <m:MaterialLink ui:field="consultarSolicitacoes" text="Consultar solicitações" fontSize="14px"/>
             </m:MaterialRow>
         </m:MaterialRow>
         <!-- INDICADORES -->
         <m:MaterialRow ui:field="grupoIndicadores" marginBottom="2">
             <m:MaterialDivider backgroundColor="GREY_DARKEN_1" marginBottom="8" marginLeft="8" marginRight="8"/>
             <m:MaterialRow>
-                <m:MaterialLabel text="Indicadores" fontWeight="BOLD"/>
+                <m:MaterialLabel text="Indicadores" fontWeight="BOLD" fontSize="16px"/>
             </m:MaterialRow>
             <m:MaterialRow>
-                <m:MaterialLink ui:field="gerarIndicadores" text="Gerar indicadores"/>
+                <m:MaterialLink ui:field="gerarIndicadores" text="Gerar indicadores" fontSize="14px"/>
             </m:MaterialRow>
         </m:MaterialRow>
         <!-- CADASTROS -->
         <m:MaterialRow ui:field="grupoCadastros" visible="false" marginBottom="2">
             <m:MaterialDivider backgroundColor="GREY_DARKEN_1" marginBottom="8" marginLeft="8" marginRight="8"/>
             <m:MaterialRow>
-                <m:MaterialLabel text="Cadastros" fontWeight="BOLD"/>
+                <m:MaterialLabel text="Cadastros" fontWeight="BOLD" fontSize="16px"/>
             </m:MaterialRow>
             <m:MaterialRow>
-                <m:MaterialLink ui:field="gerenciarCadastros" text="Gerenciar cadastros"/>
+                <m:MaterialLink ui:field="gerenciarCadastros" text="Gerenciar cadastros" fontSize="14px"/>
             </m:MaterialRow>
         </m:MaterialRow>
         <!-- SAIR -->
         <m:MaterialRow>
-            <m:MaterialLink ui:field="sair" text="Sair"/>
+            <m:MaterialLink ui:field="sair" text="Sair" fontSize="14px"/>
         </m:MaterialRow>
     </m:MaterialPanel>
 </ui:UiBinder>

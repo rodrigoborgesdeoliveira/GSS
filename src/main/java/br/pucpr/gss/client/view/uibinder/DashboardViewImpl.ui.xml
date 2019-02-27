@@ -5,7 +5,7 @@
     <g:DockLayoutPanel unit='EM'>
         <g:north size="4">
             <m:MaterialRow backgroundColor="GREY_LIGHTEN_4" marginBottom="2" shadow="1" addStyleNames="valign-wrapper">
-                <m:MaterialLabel text="Dashboard" marginLeft="42" fontSize="18px" fontWeight="BOLD"
+                <m:MaterialLabel text="Dashboard" marginLeft="42" fontSize="20px" fontWeight="BOLD"
                                  addStyleNames="valign center"/>
             </m:MaterialRow>
         </g:north>
