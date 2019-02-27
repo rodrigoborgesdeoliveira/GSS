@@ -1,20 +1,22 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'
              xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
     <g:DockLayoutPanel unit='EM'>
-        <g:north size="5">
-            <g:HorizontalPanel>
-                <g:Label>DASHBOARD</g:Label>
-            </g:HorizontalPanel>
+        <g:north size="4">
+            <m:MaterialRow backgroundColor="GREY_LIGHTEN_4" marginBottom="2" shadow="1" addStyleNames="valign-wrapper">
+                <m:MaterialLabel text="Dashboard" marginLeft="42" fontSize="18px" fontWeight="BOLD"
+                                 addStyleNames="valign center"/>
+            </m:MaterialRow>
         </g:north>
         <g:west size='16'>
             <custom:MenuViewImpl ui:field="menu"/>
         </g:west>
 
         <g:center>
-            <g:ScrollPanel>
-                <g:Label>Indicadores...</g:Label>
-            </g:ScrollPanel>
+            <m:MaterialContainer>
+                <m:MaterialLabel text="Indicadores..."/>
+            </m:MaterialContainer>
         </g:center>
     </g:DockLayoutPanel>
 </ui:UiBinder>
