@@ -7,7 +7,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialTextArea;
+import gwt.material.design.client.ui.MaterialTextBox;
 
 import java.util.ArrayList;
 
@@ -26,15 +30,11 @@ public class CadastroSolicitacaoViewImpl extends Composite implements CadastroSo
     @UiField
     MenuView menu;
     @UiField
-    ListBox setor;
+    MaterialTextBox textBoxTitulo;
     @UiField
-    TextBox titulo;
+    MaterialListBox listBoxSetor;
     @UiField
-    TextArea descricao;
-    @UiField
-    Button cadastrar;
-    @UiField
-    Button cancelar;
+    MaterialTextArea textAreaDescricao;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -49,14 +49,15 @@ public class CadastroSolicitacaoViewImpl extends Composite implements CadastroSo
     @Override
     public void carregarListaSetores(ArrayList<String> setores) {
         for (String setor : setores) {
-            this.setor.addItem(setor);
+            this.listBoxSetor.addItem(setor);
         }
     }
 
     @UiHandler("cadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
-            presenter.onCadastrarButtonClicked(titulo.getText(), setor.getSelectedIndex(), descricao.getText());
+            presenter.onCadastrarButtonClicked(textBoxTitulo.getText(), listBoxSetor.getSelectedIndex(),
+                    textAreaDescricao.getText());
         }
     }
 
