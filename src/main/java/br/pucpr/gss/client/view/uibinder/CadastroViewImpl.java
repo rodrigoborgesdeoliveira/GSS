@@ -3,6 +3,8 @@ package br.pucpr.gss.client.view.uibinder;
 import br.pucpr.gss.client.view.CadastroView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -35,6 +37,16 @@ public class CadastroViewImpl extends Composite implements CadastroView {
         textBoxSenha.addBlurHandler(event -> textBoxSenha.setFocus(false));
         textBoxConfirmarSenha.addFocusHandler(event -> textBoxConfirmarSenha.setFocus(true));
         textBoxConfirmarSenha.addBlurHandler(event -> textBoxConfirmarSenha.setFocus(false));
+
+        KeyDownHandler enterKeyCadastrar = event -> {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                onClickCadastrar(null);
+            }
+        };
+
+        textBoxEmail.addKeyDownHandler(enterKeyCadastrar);
+        textBoxSenha.addKeyDownHandler(enterKeyCadastrar);
+        textBoxConfirmarSenha.addKeyDownHandler(enterKeyCadastrar);
     }
 
     @Override
@@ -45,7 +57,8 @@ public class CadastroViewImpl extends Composite implements CadastroView {
     @UiHandler("buttonCadastrar")
     void onClickCadastrar(ClickEvent event) {
         if (presenter != null) {
-            presenter.onCadastrarButtonClicked(textBoxEmail.getText(), textBoxSenha.getText(), textBoxConfirmarSenha.getText());
+            presenter.onCadastrarButtonClicked(textBoxEmail.getText(), textBoxSenha.getText(),
+                    textBoxConfirmarSenha.getText());
         }
     }
 
