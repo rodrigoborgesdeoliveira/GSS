@@ -8,8 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialListBox;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     @UiField
     MenuView menu;
     @UiField
-    ListBox listaSolicitacoes;
+    MaterialListBox listaSolicitacoes;
 
     public ConsultaSolicitacoesViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));

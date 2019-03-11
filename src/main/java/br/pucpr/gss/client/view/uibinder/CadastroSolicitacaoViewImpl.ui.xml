@@ -20,8 +20,7 @@
                 <m:MaterialPanel padding="16">
                     <m:MaterialRow>
                         <m:MaterialTextBox grid="s6" ui:field="textBoxTitulo" label="Título da solicitação"
-                                           fieldType="OUTLINED"
-                                           focus="true"/>
+                                           fieldType="OUTLINED" focus="true"/>
                         <m:MaterialListBox grid="s6" ui:field="listBoxSetor" placeholder="Setor responsável"
                                            fieldType="OUTLINED"/>
                     </m:MaterialRow>
