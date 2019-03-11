@@ -11,14 +11,52 @@
                              addStyleNames="valign center"/>
         </m:MaterialRow>
 
-        <m:MaterialRow margin="0">
-            <m:MaterialColumn margin="0" height="92%">
+        <m:MaterialRow>
+            <m:MaterialColumn grid="s2" marginLeft="-11" height="92%">
                 <custom:MenuViewImpl ui:field="menu"/>
             </m:MaterialColumn>
 
-            <m:MaterialColumn margin="0" layoutPosition="ABSOLUTE" marginLeft="180" width="100%" height="92%"
+            <m:MaterialColumn grid="s10" offset="s2" layoutPosition="ABSOLUTE" height="92%"
                               overflow="AUTO">
                 <m:MaterialPanel padding="16">
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialLabel text="Indicadores..."/>
                     <m:MaterialLabel text="Indicadores..."/>
                 </m:MaterialPanel>
             </m:MaterialColumn>

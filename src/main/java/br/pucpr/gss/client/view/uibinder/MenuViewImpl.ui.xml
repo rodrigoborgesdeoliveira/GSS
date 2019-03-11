@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:m='urn:import:gwt.material.design.client.ui'>
-    <m:MaterialPanel margin="0" marginTop="3" marginLeft="-11" width="180" height="100%" textAlign="CENTER"
+    <m:MaterialPanel margin="0" marginTop="3" paddingLeft="8" height="100%" textAlign="CENTER"
                      backgroundColor="GREY_LIGHTEN_2" overflow="AUTO">
         <!-- DASHBOARD -->
         <m:MaterialRow marginTop="3" paddingTop="16">
