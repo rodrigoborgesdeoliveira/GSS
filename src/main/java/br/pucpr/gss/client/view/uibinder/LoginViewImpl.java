@@ -3,6 +3,8 @@ package br.pucpr.gss.client.view.uibinder;
 import br.pucpr.gss.client.view.LoginView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -33,6 +35,15 @@ public class LoginViewImpl extends Composite implements LoginView {
         textBoxEmail.addBlurHandler(event -> textBoxEmail.setFocus(false));
         textBoxSenha.addFocusHandler(event -> textBoxSenha.setFocus(true));
         textBoxSenha.addBlurHandler(event -> textBoxSenha.setFocus(false));
+
+        KeyDownHandler enterKeyLogin = event -> {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                onClickLogin(null);
+            }
+        };
+
+        textBoxEmail.addKeyDownHandler(enterKeyLogin);
+        textBoxSenha.addKeyDownHandler(enterKeyLogin);
     }
 
     @Override
