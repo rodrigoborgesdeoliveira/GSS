@@ -6,6 +6,7 @@
     <inherits name='com.google.gwt.user.User'/>
 
     <inherits name="gwt.material.design.GwtMaterialWithJQuery" />
+    <inherits name="gwt.material.design.GwtMaterialTable" />
 
     <!-- Specify the app entry point class.                   -->
     <entry-point class='br.pucpr.gss.client.GSS'/>

@@ -1,6 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:m='urn:import:gwt.material.design.client.ui'
+             xmlns:m.table='urn:import:gwt.material.design.client.ui.table'
              xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
 
     <g:HTMLPanel>
@@ -30,10 +31,14 @@
                                           backgroundColor="GREY_LIGHTEN_3"/>
                     </m:MaterialRow>
                     <m:MaterialRow>
-                        <m:MaterialListBox grid="s12" height="60%" ui:field="listaSolicitacoes" visibleItemCount="25"
-                                           placeholder="Lista de solicitações" fieldType="OUTLINED"/>
+                        <m.table:MaterialDataTable ui:field="tableSolicitacoes"
+                                                   height="40%"
+                                                   useStickyHeader="true"
+                                                   useCategories="false"
+                                                   useRowExpansion="false"
+                                                   selectionType="SINGLE"/>
                     </m:MaterialRow>
-                    <m:MaterialRow offset="s8">
+                    <m:MaterialRow offset="s8" marginTop="-200">
                         <m:MaterialButton grid="s2" marginRight="3" ui:field="cancelar" text="Cancelar" type="OUTLINED"
                                           backgroundColor="GREY_LIGHTEN_3"/>
                         <m:MaterialButton grid="s2" ui:field="consultar" text="Consultar" type="OUTLINED"
