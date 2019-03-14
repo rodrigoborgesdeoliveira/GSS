@@ -65,6 +65,8 @@ em branco
 1. Desmarque **Show this page**
 1. Desmarque **Activate tool window**
 
+Crie um arquivo `Keys.java` em `src/main/java/br/pucpr/gss/server/util/` tomando o `KeysExample.java` como exemplo.
+
 # Criar um banco de dados do RH para simulação
 Execute os seguintes comados SQL
 ```sql
@@ -87,5 +89,3 @@ ALTER TABLE setor ADD (
   gestor_id INT NULL, 
   FOREIGN KEY(gestor_id) REFERENCES funcionario(id));
 ```
-
-Crie um arquivo `Keys.java` em `src/main/java/br/pucpr/gss/server/util/` tomando o `KeysExample.java` como exemplo.
