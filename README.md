@@ -87,3 +87,5 @@ ALTER TABLE setor ADD (
   gestor_id INT NULL, 
   FOREIGN KEY(gestor_id) REFERENCES funcionario(id));
 ```
+
+Crie um arquivo `Keys.java` em `src/main/java/br/pucpr/gss/server/util/` tomando o `KeysExample.java` como exemplo.
