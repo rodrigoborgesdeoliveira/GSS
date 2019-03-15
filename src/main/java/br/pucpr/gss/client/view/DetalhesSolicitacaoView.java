@@ -27,19 +27,13 @@ public interface DetalhesSolicitacaoView {
 
         void onContinuarAtendimentoClicked();
 
-        String getOnRequisitarInformacoesAdicionaisClickedToken();
-
         void onRequisitarInformacoesAdicionaisClicked();
-
-        String getOnRegistrarInformacoesAdicionaisClickedToken();
 
         void onRegistrarInformacoesAdicionaisClicked();
 
-        String getOnOferecerSolucaoClickedToken();
-
         void onOferecerSolucaoClicked();
 
-        String getOnVisualizarSolucaoClickedToken();
+        void onVisualizarSolucaoClicked();
     }
 
     void setPresenter(Presenter presenter);
@@ -48,17 +42,17 @@ public interface DetalhesSolicitacaoView {
 
     MenuView getMenuView();
 
-    void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
+    void setAtendenteUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, String estado,
                         int indicePrioridade, ArrayList<String> prioridades);
 
-    void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
+    void setSolicitanteUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, String setor,
                           String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente);
 
-    void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
+    void setGestorUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, int indiceSetor,
                      ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
                      int indiceAtendente, ArrayList<String> atendentes);
 
-    void setHistorico(ArrayList<String> historicoEventos);
+    void setHistorico(ArrayList<String> dataOcorrencia, ArrayList<String> historicoEventos);
 
     /**
      * Define a visibilidade da opção de iniciar um atendimento.

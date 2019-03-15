@@ -72,6 +72,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                 doCarregarRegistroInformacoesAdicionais(event.getInformacaoAdicional()));
 
         eventBus.addHandler(OferecerSolucaoEvent.TYPE, event -> doCarregarOferecerSolucao(event.getSolicitacao()));
+
+        eventBus.addHandler(VisualizarSolucaoEvent.TYPE, event -> doCarregarVisualizarSolucao(event.getSolicitacao()));
     }
 
     /**
@@ -129,14 +131,26 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
     private void doCarregarRequisicaoInformacoesAdicionais(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
+
+        History.newItem(REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN);
     }
 
     private void doCarregarRegistroInformacoesAdicionais(InformacaoAdicional informacaoAdicional) {
         this.informacaoAdicional = informacaoAdicional;
+
+        History.newItem(REGISTRO_INFORMACOES_ADICIONAIS_TOKEN);
     }
 
     private void doCarregarOferecerSolucao(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
+
+        History.newItem(REGISTRO_SOLUCAO_TOKEN);
+    }
+
+    private void doCarregarVisualizarSolucao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+
+        History.newItem(VISUALIZACAO_SOLUCAO_TOKEN);
     }
 
     @Override

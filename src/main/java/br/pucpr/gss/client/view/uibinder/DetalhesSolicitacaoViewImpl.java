@@ -4,88 +4,81 @@ import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
 import br.pucpr.gss.client.view.MenuView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
-import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.data.factory.RowComponentFactory;
+import gwt.material.design.client.ui.MaterialDatePicker;
+import gwt.material.design.client.ui.MaterialListBox;
+import gwt.material.design.client.ui.MaterialTextArea;
+import gwt.material.design.client.ui.MaterialTextBox;
+import gwt.material.design.client.ui.table.MaterialDataTable;
+import gwt.material.design.client.ui.table.cell.TextColumn;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
-public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSolicitacaoView {
+public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSolicitacaoView, ValueChangeHandler<String> {
+
+    private final String ACAO_REQUISITAR_INFORMACOES_ADICIONAIS = "Requisitar informações adicionais";
+    private final String ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS = "Visualizar informações adicionais";
+    private final String ACAO_REGISTRAR_INFORMACOES_ADICIONAIS = "Registrar informações adicionais";
+    private final String ACAO_OFERECER_SOLUCAO = "Oferecer solução";
+    private final String ACAO_VISUALIZAR_SOLUCAO = "Visualizar solução";
+    private final String ACAO_INICIAR = "Iniciar";
+    private final String ACAO_PAUSAR = "Pausar";
+    private final String ACAO_CONTINUAR = "Continuar";
+
     interface DetalhesSolicitacaoViewImplUiBinder extends UiBinder<Widget, DetalhesSolicitacaoViewImpl> {
     }
 
     private static DetalhesSolicitacaoViewImplUiBinder uiBinder = GWT.create(DetalhesSolicitacaoViewImplUiBinder.class);
 
-    public DetalhesSolicitacaoViewImpl() {
-        initWidget(uiBinder.createAndBindUi(this));
-    }
-
     private Presenter presenter;
 
     @UiField
-    Hyperlink linkRequisitarInformacoesAdicionais;
-    @UiField
-    Hyperlink linkRegistrarInformacoesAdicionais;
-    @UiField
-    Hyperlink linkOferecerSolucao;
-    @UiField
-    Hyperlink linkVisualizarSolucao;
-    @UiField
-    VerticalPanel verticalPanelAtendimento;
-    @UiField
-    Button buttonIniciarAtendimento;
-    @UiField
-    Button buttonPausarAtendimento;
-    @UiField
-    Button buttonContinuarAtendimento;
-    @UiField
     MenuView menu;
     @UiField
-    Label labelTituloSolicitacao;
+    MaterialTextBox textBoxTituloSolicitacao, textBoxEstado;
     @UiField
-    Label labelDataInicial;
+    MaterialDatePicker datePickerDataInicial, datePickerPrazo;
     @UiField
-    Label labelPrazo;
+    MaterialListBox listBoxAcoes, listBoxSetor, listBoxPrioridade, listBoxAtendente, listBoxAtendimento;
     @UiField
-    DateBox dateBoxPrazoVisaoAtendente;
+    MaterialTextArea textAreaDescricao;
     @UiField
-    VerticalPanel verticalPanelSetor;
-    @UiField
-    ListBox listBoxSetorVisaoGestor;
-    @UiField
-    Label labelSetorVisaoSolicitante;
-    @UiField
-    Label labelEstado;
-    @UiField
-    ListBox listBoxPrioridade;
-    @UiField
-    VerticalPanel verticalPanelAtendente;
-    @UiField
-    Label labelAtendenteVisaoSolicitante;
-    @UiField
-    ListBox listBoxAtendenteVisaoGestor;
-    @UiField
-    TextArea textAreaDescricao;
-    @UiField
-    ListBox listBoxHistorico;
+    MaterialDataTable<HistoricoView> tableHistorico;
+
+    public DetalhesSolicitacaoViewImpl() {
+        initWidget(uiBinder.createAndBindUi(this));
+
+        listBoxAcoes.addValueChangeHandler(this);
+        listBoxAtendimento.addValueChangeHandler(this);
+
+        tableHistorico.setRowFactory(new RowComponentFactory<>());
+        tableHistorico.setUseStickyHeader(true);
+        tableHistorico.addColumn(new TextColumn<HistoricoView>() {
+            @Override
+            public String getValue(HistoricoView historicoView) {
+                return historicoView.getColunaDataOcorrencia();
+            }
+        }, "Data");
+        tableHistorico.addColumn(new TextColumn<HistoricoView>() {
+            @Override
+            public String getValue(HistoricoView historicoView) {
+                return historicoView.getColunaEvento();
+            }
+        }, "Evento");
+    }
 
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
-
-        if (presenter != null) {
-            linkRequisitarInformacoesAdicionais.setTargetHistoryToken(this.presenter
-                    .getOnRequisitarInformacoesAdicionaisClickedToken());
-            linkRegistrarInformacoesAdicionais.setTargetHistoryToken(this.presenter
-                    .getOnRegistrarInformacoesAdicionaisClickedToken());
-            linkOferecerSolucao.setTargetHistoryToken(this.presenter
-                    .getOnOferecerSolucaoClickedToken());
-            linkVisualizarSolucao.setTargetHistoryToken(this.presenter
-                    .getOnVisualizarSolucaoClickedToken());
-        }
     }
 
     @Override
@@ -93,12 +86,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         return menu;
     }
 
-    private void setUI(String tituloSolicitacao, String descricao, String dataInicial, String estado,
+    private void setUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, String estado,
                        int indicePrioridade, ArrayList<String> prioridades) {
-        labelTituloSolicitacao.setText(tituloSolicitacao);
+        textBoxTituloSolicitacao.setText(tituloSolicitacao);
+        datePickerDataInicial.setDate(dataInicial);
+        datePickerPrazo.setDate(prazo);
+        textBoxEstado.setText(estado);
         textAreaDescricao.setText(descricao);
-        labelDataInicial.setText(dataInicial);
-        labelEstado.setText(estado);
 
         listBoxPrioridade.clear();
         for (String p : prioridades) {
@@ -108,81 +102,71 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     }
 
     @Override
-    public void setAtendenteUI(String tituloSolicitacao, String descricao, String dataInicial, Date prazo, String estado,
+    public void setAtendenteUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, String estado,
                                int indicePrioridade, ArrayList<String> prioridades) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, prazo, estado, indicePrioridade, prioridades);
 
         // Definir elementos visíveis da interface
-        labelPrazo.setVisible(false);
-        dateBoxPrazoVisaoAtendente.setVisible(true);
-        verticalPanelSetor.setVisible(false);
-        verticalPanelAtendente.setVisible(false);
-
-        dateBoxPrazoVisaoAtendente.setValue(prazo);
+        datePickerPrazo.setReadOnly(false);
+        listBoxSetor.setVisible(false);
+        listBoxAtendente.setVisible(false);
     }
 
     @Override
-    public void setSolicitanteUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, String setor,
+    public void setSolicitanteUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, String setor,
                                  String estado, int indicePrioridade, ArrayList<String> prioridades, String nomeAtendente) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, prazo, estado, indicePrioridade, prioridades);
 
         // Definir elementos visíveis da interface
-        labelPrazo.setVisible(true);
-        dateBoxPrazoVisaoAtendente.setVisible(false);
-        verticalPanelSetor.setVisible(true);
-        listBoxSetorVisaoGestor.setVisible(false);
-        labelSetorVisaoSolicitante.setVisible(true);
-        verticalPanelAtendente.setVisible(true);
-        labelAtendenteVisaoSolicitante.setVisible(true);
-        listBoxAtendenteVisaoGestor.setVisible(false);
+        datePickerPrazo.setReadOnly(true);
+        listBoxSetor.setVisible(true);
+        listBoxSetor.setReadOnly(true);
+        listBoxAtendente.setVisible(true);
+        listBoxAtendente.setReadOnly(true);
 
         // Definir valor dos elementos
-        labelPrazo.setText(prazo);
-        labelSetorVisaoSolicitante.setText(setor);
-        labelAtendenteVisaoSolicitante.setText(nomeAtendente);
+        listBoxSetor.addItem(setor);
+        listBoxAtendente.addItem(nomeAtendente);
     }
 
     @Override
-    public void setGestorUI(String tituloSolicitacao, String descricao, String dataInicial, String prazo, int indiceSetor,
+    public void setGestorUI(String tituloSolicitacao, String descricao, Date dataInicial, Date prazo, int indiceSetor,
                             ArrayList<String> setores, String estado, int indicePrioridade, ArrayList<String> prioridades,
                             int indiceAtendente, ArrayList<String> atendentes) {
 
-        setUI(tituloSolicitacao, descricao, dataInicial, estado, indicePrioridade, prioridades);
+        setUI(tituloSolicitacao, descricao, dataInicial, prazo, estado, indicePrioridade, prioridades);
 
         // Definir elementos visíveis da interface
-        labelPrazo.setVisible(true);
-        dateBoxPrazoVisaoAtendente.setVisible(false);
-        verticalPanelSetor.setVisible(true);
-        listBoxSetorVisaoGestor.setVisible(true);
-        labelSetorVisaoSolicitante.setVisible(false);
-        verticalPanelAtendente.setVisible(true);
-        labelAtendenteVisaoSolicitante.setVisible(false);
-        listBoxAtendenteVisaoGestor.setVisible(true);
+        datePickerPrazo.setReadOnly(true);
+        listBoxSetor.setVisible(true);
+        listBoxSetor.setReadOnly(false);
+        listBoxAtendente.setVisible(true);
+        listBoxAtendente.setReadOnly(false);
 
         // Definir valor dos elementos
-        labelPrazo.setText(prazo);
-
-        listBoxSetorVisaoGestor.clear();
+        listBoxSetor.clear();
         for (String setor : setores) {
-            listBoxSetorVisaoGestor.addItem(setor);
+            listBoxSetor.addItem(setor);
         }
-        listBoxSetorVisaoGestor.setSelectedIndex(indiceSetor);
+        listBoxSetor.setSelectedIndex(indiceSetor);
 
-        listBoxAtendenteVisaoGestor.clear();
+        listBoxAtendente.clear();
         for (String atendente : atendentes) {
-            listBoxAtendenteVisaoGestor.addItem(atendente);
+            listBoxAtendente.addItem(atendente);
         }
-        listBoxAtendenteVisaoGestor.setSelectedIndex(indiceAtendente);
+        listBoxAtendente.setSelectedIndex(indiceAtendente);
     }
 
     @Override
-    public void setHistorico(ArrayList<String> historicoEventos) {
-        listBoxHistorico.clear();
-        for (String evento : historicoEventos) {
-            listBoxHistorico.addItem(evento);
+    public void setHistorico(ArrayList<String> dataOcorrencia, ArrayList<String> historicoEventos) {
+        ArrayList<HistoricoView> historico = new ArrayList<>();
+        for (int i = 0; i < dataOcorrencia.size(); i++) {
+            historico.add(new HistoricoView(dataOcorrencia.get(i), historicoEventos.get(i)));
         }
+
+        tableHistorico.setRowData(0, historico);
     }
 
     @UiHandler("buttonCancelar")
@@ -195,112 +179,183 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @UiHandler("buttonSalvar")
     void onClickSalvar(ClickEvent event) {
         if (presenter != null) {
-            presenter.onSalvarButtonClicked(dateBoxPrazoVisaoAtendente.getValue(),
-                    listBoxSetorVisaoGestor.isVisible() ? listBoxSetorVisaoGestor.getSelectedIndex() : -1,
+            presenter.onSalvarButtonClicked(datePickerPrazo.getValue(),
+                    listBoxSetor.isVisible() && !listBoxSetor.isReadOnly() ? listBoxSetor.getSelectedIndex() : -1,
                     listBoxPrioridade.getSelectedIndex(),
-                    listBoxAtendenteVisaoGestor.isVisible() ? listBoxAtendenteVisaoGestor.getSelectedIndex() : -1);
+                    listBoxAtendente.isVisible() && !listBoxAtendente.isReadOnly() ? listBoxAtendente.getSelectedIndex() : -1);
         }
     }
 
     /**
-     * Exibe ou esconde o painel de atendimento considerando a visbilidade dos botões de inicar, pausar e retomar o
+     * Exibe ou esconde o painel de atendimento considerando a visibilidade das ações de inicar, pausar e retomar o
      * atendimento.
      */
     private void showHidePanelAtendimento() {
-        if (buttonIniciarAtendimento.isVisible() || buttonPausarAtendimento.isVisible() ||
-                buttonContinuarAtendimento.isVisible()) {
-            verticalPanelAtendimento.setVisible(true);
+        if (listBoxAtendimento.getItemCount() > 1) { // 1 é o empty placeholder
+            listBoxAtendimento.setVisible(true);
         } else {
-            verticalPanelAtendimento.setVisible(false);
+            listBoxAtendimento.setVisible(false);
         }
     }
 
     @Override
     public void setVisibilidadeIniciarAtendimento(boolean visivel) {
-        buttonIniciarAtendimento.setVisible(visivel);
+        addRemoveItemLista(listBoxAtendimento, ACAO_INICIAR, visivel);
         showHidePanelAtendimento();
     }
 
     @Override
     public void setVisibilidadePausarAtendimento(boolean visivel) {
-        buttonPausarAtendimento.setVisible(visivel);
+        addRemoveItemLista(listBoxAtendimento, ACAO_PAUSAR, visivel);
         showHidePanelAtendimento();
     }
 
     @Override
     public void setVisibilidadeContinuarAtendimento(boolean visivel) {
-        buttonContinuarAtendimento.setVisible(visivel);
+        addRemoveItemLista(listBoxAtendimento, ACAO_CONTINUAR, visivel);
         showHidePanelAtendimento();
     }
 
     @Override
     public void setVisibilidadeRequisitarInformacoesAdicionais(boolean visivel) {
-        linkRequisitarInformacoesAdicionais.setVisible(visivel);
+        addRemoveItemLista(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS, visivel);
     }
 
     @Override
     public void setVisualizarInformacoesAdicionais(boolean isVisualizar) {
-        if (isVisualizar) {
-            linkRequisitarInformacoesAdicionais.setText("Visualizar informações adicionais");
-        } else {
-            linkRequisitarInformacoesAdicionais.setText("Requisitar informações adicionais");
-        }
+        addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS, isVisualizar);
+        addRemoveItemLista(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS, !isVisualizar);
     }
 
     @Override
     public void setVisibilidadeRegistrarInformacoesAdicionais(boolean visivel) {
-        linkRegistrarInformacoesAdicionais.setVisible(visivel);
+        addRemoveItemLista(listBoxAcoes, ACAO_REGISTRAR_INFORMACOES_ADICIONAIS, visivel);
     }
 
     @Override
     public void setVisibilidadeOferecerSolucao(boolean visivel) {
-        linkOferecerSolucao.setVisible(visivel);
+        addRemoveItemLista(listBoxAcoes, ACAO_OFERECER_SOLUCAO, visivel);
     }
 
     @Override
     public void setVisibilidadeVisualizarSolucao(boolean visivel) {
-        linkVisualizarSolucao.setVisible(visivel);
+        addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_SOLUCAO, visivel);
     }
 
-    @UiHandler("buttonIniciarAtendimento")
-    void onClickIniciarAtendimento(ClickEvent event) {
+    /**
+     * Adiciona ou remove um item à ou da lista.
+     *
+     * @param item      Item para ser adicionado ou removido.
+     * @param adicionar true, para adicionar, ou false, para remover.
+     */
+    private void addRemoveItemLista(MaterialListBox listBox, String item, boolean adicionar) {
+        if (adicionar) {
+            listBox.addItem(item);
+        } else {
+            int indice = getIndex(listBox, item) + 1; // Soma 1, porque o empty placeholder da
+            // lista não é considerado na hora de pegar o índice, mas é na hora de remover um item. Então o getIndex
+            // pode retornar 0 para o primeiro item da lista, mas ao tentar remover 0, irá remover o item anterior ao
+            // que queremos, nesse caso, o empty placeholder da lista.
+
+            // Índice -1 para itens não encontrados e 0 para o empty placeholder da lista
+            if (indice > 0) {
+                listBox.removeItem(indice);
+            }
+        }
+    }
+
+    /**
+     * Reescreve o método {@link MaterialListBox#getIndex(Object)}, pois ele está caindo em um IndexOutOfBoundsException
+     * quando a lista tem um empty placeholder.
+     *
+     * @param value O valor do item a ser encontrado.
+     * @return O índice do item encontrado ou -1 se nenhum foi encontrado.
+     */
+    private int getIndex(MaterialListBox listBox, String value) {
+        int count = listBox.getItemCount() - 1; // Substraindo 1 por causa do empty placeholder
+
+        for (int i = 0; i < count; i++) {
+            if (Objects.equals(listBox.getValue(i), value)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    @Override
+    public void onValueChange(ValueChangeEvent<String> event) {
+        // Ação selecionada no listBoxAcoes, ir para a página apropriada
+        if (presenter != null) {
+            switch (event.getValue()) {
+                case ACAO_REQUISITAR_INFORMACOES_ADICIONAIS:
+                    presenter.onRequisitarInformacoesAdicionaisClicked();
+                    break;
+                case ACAO_REGISTRAR_INFORMACOES_ADICIONAIS:
+                    presenter.onRegistrarInformacoesAdicionaisClicked();
+                    break;
+                case ACAO_OFERECER_SOLUCAO:
+                    presenter.onOferecerSolucaoClicked();
+                    break;
+                case ACAO_VISUALIZAR_SOLUCAO:
+                    presenter.onVisualizarSolucaoClicked();
+                    break;
+                case ACAO_INICIAR:
+                    onClickIniciarAtendimento();
+                    break;
+                case ACAO_CONTINUAR:
+                    onClickContinuarAtendimento();
+                    break;
+                case ACAO_PAUSAR:
+                    onClickPausarAtendimento();
+                    break;
+            }
+        }
+    }
+
+    private void onClickIniciarAtendimento() {
         if (presenter != null) {
             presenter.onIniciarAtendimentoClicked();
+            listBoxAtendimento.setSelectedValue(listBoxAtendimento.getEmptyPlaceHolder());
+            listBoxAtendimento.reload();
         }
     }
 
-    @UiHandler("buttonPausarAtendimento")
-    void onClickPausarAtendimento(ClickEvent event) {
+    private void onClickPausarAtendimento() {
         if (presenter != null) {
             presenter.onPausarAtendimentoClicked();
+            listBoxAtendimento.setSelectedValue(listBoxAtendimento.getEmptyPlaceHolder());
+            listBoxAtendimento.reload();
         }
     }
 
-    @UiHandler("buttonContinuarAtendimento")
-    void onClickContinuarAtendimento(ClickEvent event) {
+    private void onClickContinuarAtendimento() {
         if (presenter != null) {
             presenter.onContinuarAtendimentoClicked();
+            listBoxAtendimento.setSelectedValue(listBoxAtendimento.getEmptyPlaceHolder());
+            listBoxAtendimento.reload();
         }
     }
 
-    @UiHandler("linkRequisitarInformacoesAdicionais")
-    void onClickRequisitarInformacoesAdicionais(ClickEvent event) {
-        if (presenter != null) {
-            presenter.onRequisitarInformacoesAdicionaisClicked();
-        }
-    }
+    /**
+     * Classe para exibir o histórico na tabela com diferentes colunas.
+     */
+    private class HistoricoView {
 
-    @UiHandler("linkRegistrarInformacoesAdicionais")
-    void onClickRegistrarInformacoesAdicionais(ClickEvent event) {
-        if (presenter != null) {
-            presenter.onRegistrarInformacoesAdicionaisClicked();
-        }
-    }
+        private String colunaDataOcorrencia;
+        private String colunaEvento;
 
-    @UiHandler("linkOferecerSolucao")
-    void onClickOferecerSolucao(ClickEvent event) {
-        if (presenter != null) {
-            presenter.onOferecerSolucaoClicked();
+        HistoricoView(String colunaDataOcorrencia, String colunaEvento) {
+            this.colunaDataOcorrencia = colunaDataOcorrencia;
+            this.colunaEvento = colunaEvento;
+        }
+
+        String getColunaDataOcorrencia() {
+            return colunaDataOcorrencia;
+        }
+
+        String getColunaEvento() {
+            return colunaEvento;
         }
     }
 }

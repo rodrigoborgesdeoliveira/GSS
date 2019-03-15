@@ -1,128 +1,71 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
+             xmlns:m='urn:import:gwt.material.design.client.ui'
+             xmlns:m.table='urn:import:gwt.material.design.client.ui.table'
              xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
-    <g:DockLayoutPanel unit='EM'>
+
+    <g:HTMLPanel>
         <!-- Cabeçalho -->
-        <g:north size="5">
-            <g:HorizontalPanel>
-                <g:Label>DETALHES DA SOLICITAÇÃO</g:Label>
-                <g:Hyperlink ui:field="linkRequisitarInformacoesAdicionais" visible="false">
-                    <ui:msg>Requisitar informações adicionais</ui:msg>
-                </g:Hyperlink>
-                <g:Hyperlink ui:field="linkRegistrarInformacoesAdicionais" visible="false">
-                    <ui:msg>Registrar informações adicionais</ui:msg>
-                </g:Hyperlink>
-                <g:Hyperlink ui:field="linkOferecerSolucao" visible="false">
-                    <ui:msg>Oferecer solução</ui:msg>
-                </g:Hyperlink>
-                <g:Hyperlink ui:field="linkVisualizarSolucao" visible="false">
-                    <ui:msg>Visualizar solução</ui:msg>
-                </g:Hyperlink>
-            </g:HorizontalPanel>
-        </g:north>
+        <m:MaterialRow margin="0" width="100%" height="8%" backgroundColor="GREY_LIGHTEN_4" shadow="1"
+                       addStyleNames="valign-wrapper">
+            <m:MaterialLabel text="Detalhes da solicitação" marginLeft="42" fontSize="20px" fontWeight="BOLD"
+                             addStyleNames="valign center"/>
+            <m:MaterialListBox marginLeft="100" ui:field="listBoxAcoes" emptyPlaceHolder="Selecione uma ação"
+                               fieldType="OUTLINED"
+                               addStyleNames="valign center"/>
+        </m:MaterialRow>
 
-        <!-- Menu -->
-        <g:west size='16'>
-            <custom:MenuViewImpl ui:field="menu"/>
-        </g:west>
+        <m:MaterialRow margin="0">
+            <!-- Menu -->
+            <m:MaterialColumn grid="s2" marginLeft="-11" height="92%">
+                <custom:MenuViewImpl ui:field="menu"/>
+            </m:MaterialColumn>
 
-        <!-- Corpo da página -->
-        <g:center>
-            <g:VerticalPanel>
-                <g:HorizontalPanel>
-                    <!-- Título da solicitação -->
-                    <g:VerticalPanel>
-                        <g:Label>
-                            <ui:msg>Título da solicitação</ui:msg>
-                        </g:Label>
-                        <g:Label ui:field="labelTituloSolicitacao"/>
-                    </g:VerticalPanel>
-                    <!-- Data inicial -->
-                    <g:VerticalPanel>
-                        <g:Label>
-                            <ui:msg>Data inicial</ui:msg>
-                        </g:Label>
-                        <g:Label ui:field="labelDataInicial"/>
-                    </g:VerticalPanel>
-                    <!-- Prazo -->
-                    <g:VerticalPanel>
-                        <g:Label>
-                            <ui:msg>Prazo</ui:msg>
-                        </g:Label>
-                        <g:Label ui:field="labelPrazo"/>
-                        <dp:DateBox ui:field="dateBoxPrazoVisaoAtendente" visible="false"/>
-                    </g:VerticalPanel>
-                    <!-- Setor responsável -->
-                    <g:VerticalPanel ui:field="verticalPanelSetor">
-                        <g:Label>
-                            <ui:msg>Setor responsável</ui:msg>
-                        </g:Label>
-                        <g:ListBox ui:field="listBoxSetorVisaoGestor" visible="false"/>
-                        <g:Label ui:field="labelSetorVisaoSolicitante" visible="false"/>
-                    </g:VerticalPanel>
-                </g:HorizontalPanel>
-                <g:HorizontalPanel>
-                    <!-- Estado -->
-                    <g:VerticalPanel>
-                        <g:Label>
-                            <ui:msg>Estado</ui:msg>
-                        </g:Label>
-                        <g:Label ui:field="labelEstado"/>
-                    </g:VerticalPanel>
-                    <!-- Prioridade -->
-                    <g:VerticalPanel>
-                        <g:Label>
-                            <ui:msg>Prioridade</ui:msg>
-                        </g:Label>
-                        <g:ListBox ui:field="listBoxPrioridade"/>
-                    </g:VerticalPanel>
-                    <!-- Atendente -->
-                    <g:VerticalPanel ui:field="verticalPanelAtendente">
-                        <g:Label>
-                            <ui:msg>Atendente</ui:msg>
-                        </g:Label>
-                        <g:Label ui:field="labelAtendenteVisaoSolicitante" visible="false"/>
-                        <g:ListBox ui:field="listBoxAtendenteVisaoGestor" visible="false"/>
-                    </g:VerticalPanel>
-                    <!-- Atendimento -->
-                    <g:VerticalPanel ui:field="verticalPanelAtendimento" visible="false">
-                        <g:Label>
-                            <ui:msg>Atendimento</ui:msg>
-                        </g:Label>
-                        <g:HorizontalPanel>
-                            <g:Button ui:field="buttonIniciarAtendimento" visible="false">
-                                <ui:msg>Iniciar</ui:msg>
-                            </g:Button>
-                            <g:Button ui:field="buttonPausarAtendimento" visible="false">
-                                <ui:msg>Pausar</ui:msg>
-                            </g:Button>
-                            <g:Button ui:field="buttonContinuarAtendimento" visible="false">
-                                <ui:msg>Retomar</ui:msg>
-                            </g:Button>
-                        </g:HorizontalPanel>
-                    </g:VerticalPanel>
-                </g:HorizontalPanel>
-                <!-- Descrição -->
-                <g:Label>
-                    <ui:msg>Descrição</ui:msg>
-                </g:Label>
-                <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao" enabled="false"/>
-                <!-- Histórico -->
-                <g:Label>
-                    <ui:msg>Histórico</ui:msg>
-                </g:Label>
-                <g:ListBox width="600px" ui:field="listBoxHistorico" visibleItemCount="10"/>
-                <!-- Botões inferiores -->
-                <g:HorizontalPanel>
-                    <g:Button ui:field="buttonCancelar">
-                        <ui:msg>Cancelar</ui:msg>
-                    </g:Button>
-                    <g:Button ui:field="buttonSalvar">
-                        <ui:msg>Salvar</ui:msg>
-                    </g:Button>
-                </g:HorizontalPanel>
-            </g:VerticalPanel>
-        </g:center>
-    </g:DockLayoutPanel>
+            <!-- Corpo da página -->
+            <m:MaterialColumn grid="s10" offset="s2" layoutPosition="ABSOLUTE" height="92%"
+                              overflow="AUTO">
+                <m:MaterialPanel padding="16">
+                    <m:MaterialRow>
+                        <m:MaterialTextBox grid="s3" ui:field="textBoxTituloSolicitacao" label="Título da solicitação"
+                                           fieldType="OUTLINED" readOnly="true"/>
+                        <m:MaterialDatePicker grid="s3" ui:field="datePickerDataInicial" placeholder="Data inicial"
+                                              fieldType="OUTLINED" readOnly="true" format="dd/mm/yyyy"/>
+                        <m:MaterialDatePicker grid="s3" ui:field="datePickerPrazo" placeholder="Prazo"
+                                              fieldType="OUTLINED" autoClose="true" format="dd/mm/yyyy"/>
+                        <m:MaterialListBox grid="s3" ui:field="listBoxSetor" fieldType="OUTLINED"
+                                           placeholder="Setor responsável"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow>
+                        <m:MaterialTextBox grid="s3" ui:field="textBoxEstado" label="Estado"
+                                           fieldType="OUTLINED" readOnly="true"/>
+                        <m:MaterialListBox grid="s3" ui:field="listBoxPrioridade" placeholder="Prioridade"
+                                           fieldType="OUTLINED"/>
+                        <m:MaterialListBox grid="s3" ui:field="listBoxAtendente" fieldType="OUTLINED"
+                                           placeholder="Atendente"/>
+                        <m:MaterialListBox grid="s3" ui:field="listBoxAtendimento" emptyPlaceHolder="Selecione uma ação"
+                                           placeholder="Atendimento" fieldType="OUTLINED" visible="false"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow>
+                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição"
+                                            fieldType="OUTLINED" readOnly="true"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow>
+                        <m.table:MaterialDataTable ui:field="tableHistorico"
+                                                   height="40%"
+                                                   useStickyHeader="true"
+                                                   useCategories="false"
+                                                   useRowExpansion="false"
+                                                   selectionType="NONE"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow offset="s8" marginTop="-200">
+                        <m:MaterialButton grid="s2" marginRight="3" ui:field="buttonCancelar" text="Cancelar"
+                                          type="OUTLINED"
+                                          backgroundColor="GREY_LIGHTEN_3"/>
+                        <m:MaterialButton grid="s2" ui:field="buttonSalvar" text="Salvar" type="OUTLINED"
+                                          backgroundColor="GREY_LIGHTEN_3"/>
+                    </m:MaterialRow>
+                </m:MaterialPanel>
+            </m:MaterialColumn>
+        </m:MaterialRow>
+    </g:HTMLPanel>
 </ui:UiBinder>

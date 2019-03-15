@@ -1,6 +1,5 @@
 package br.pucpr.gss.client.presenter;
 
-import br.pucpr.gss.client.AppController;
 import br.pucpr.gss.client.event.*;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.DetalhesSolicitacaoView;
@@ -117,11 +116,13 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
                     @Override
                     public void onSuccess(ArrayList<Evento> result) {
+                        ArrayList<String> dataOcorrencia = new ArrayList<>();
                         ArrayList<String> historicoEventos = new ArrayList<>();
                         for (Evento evento : result) {
-                            historicoEventos.add(evento.getDataOcorrenciaString() + " - " + evento.getNome());
+                            dataOcorrencia.add(evento.getDataOcorrenciaString());
+                            historicoEventos.add(evento.getNome());
                         }
-                        view.setHistorico(historicoEventos);
+                        view.setHistorico(dataOcorrencia, historicoEventos);
                     }
                 });
 
@@ -129,7 +130,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         if (usuario.getIdFuncionario() == solicitacao.getIdAtendente()) {
             // Atendente
             this.view.setAtendenteUI(solicitacao.getTitulo(), solicitacao.getDescricao(),
-                    solicitacao.getDataCriacao().toString(),
+                    solicitacao.getDataCriacao(),
                     solicitacao.getPrazo(), solicitacao.getEstado().getNome(),
                     prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades);
 
@@ -229,9 +230,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setSolicitanteUI(ArrayList<String> prioridades) {
-        String prazo = solicitacao.getPrazo() != null ? solicitacao.getPrazo().toString() : "";
         view.setSolicitanteUI(solicitacao.getTitulo(), solicitacao.getDescricao(),
-                solicitacao.getDataCriacao().toString(), prazo,
+                solicitacao.getDataCriacao(), solicitacao.getPrazo(),
                 setor.getNome(), solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
                 atendente != null ? atendente.getNome() : "");
@@ -262,8 +262,6 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     private void setGestorUI(ArrayList<String> prioridades) {
-        String prazo = solicitacao.getPrazo() != null ? solicitacao.getPrazo().toString() : "";
-
         ArrayList<String> nomesSetores = new ArrayList<>();
         for (Setor s : setores) {
             nomesSetores.add(s.getNome());
@@ -274,8 +272,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
             nomesAtendentes.add(a.getNome());
         }
 
-        this.view.setGestorUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao().toString(),
-                prazo, indiceSetor, nomesSetores, solicitacao.getEstado().getNome(),
+        this.view.setGestorUI(solicitacao.getTitulo(), solicitacao.getDescricao(), solicitacao.getDataCriacao(),
+                solicitacao.getPrazo(), indiceSetor, nomesSetores, solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades, indiceAtendente, nomesAtendentes);
     }
 
@@ -425,18 +423,8 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     @Override
-    public String getOnRequisitarInformacoesAdicionaisClickedToken() {
-        return AppController.REQUISICAO_INFORMACOES_ADICIONAIS_TOKEN;
-    }
-
-    @Override
     public void onRequisitarInformacoesAdicionaisClicked() {
         eventBus.fireEvent(new RequisitarInformacoesAdicionaisEvent(solicitacao));
-    }
-
-    @Override
-    public String getOnRegistrarInformacoesAdicionaisClickedToken() {
-        return AppController.REGISTRO_INFORMACOES_ADICIONAIS_TOKEN;
     }
 
     @Override
@@ -445,17 +433,12 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     }
 
     @Override
-    public String getOnOferecerSolucaoClickedToken() {
-        return AppController.REGISTRO_SOLUCAO_TOKEN;
-    }
-
-    @Override
     public void onOferecerSolucaoClicked() {
         eventBus.fireEvent(new OferecerSolucaoEvent(solicitacao));
     }
 
     @Override
-    public String getOnVisualizarSolucaoClickedToken() {
-        return AppController.VISUALIZACAO_SOLUCAO_TOKEN;
+    public void onVisualizarSolucaoClicked() {
+        eventBus.fireEvent(new VisualizarSolucaoEvent(solicitacao));
     }
 }

@@ -30,8 +30,6 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
 
     @UiField
     MenuView menu;
-    //@UiField
-//    MaterialListBox listaSolicitacoes;
     @UiField
     MaterialDatePicker datePickerDataInicial, datePickerDataFinal;
     @UiField
