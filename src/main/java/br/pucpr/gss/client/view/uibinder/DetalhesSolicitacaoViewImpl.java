@@ -289,6 +289,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         if (presenter != null) {
             switch (event.getValue()) {
                 case ACAO_REQUISITAR_INFORMACOES_ADICIONAIS:
+                case ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS:
                     presenter.onRequisitarInformacoesAdicionaisClicked();
                     break;
                 case ACAO_REGISTRAR_INFORMACOES_ADICIONAIS:
