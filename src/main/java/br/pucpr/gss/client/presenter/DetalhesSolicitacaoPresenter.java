@@ -103,7 +103,9 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
         // Se a prioridade tiver sido setada como alta pelo gestor, adicioná-la também à lista para o atendente e
         // solicitante.
-        if (solicitacao.getPrioridade().getIndice() == FabricaPrioridade.ALTA) {
+        if (solicitacao.getPrioridade().getIndice() == FabricaPrioridade.ALTA &&
+                (usuario.getIdFuncionario() == solicitacao.getIdAtendente() ||
+                        usuario.getIdFuncionario() == solicitacao.getIdSolicitante())) {
             prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.ALTA).getNome());
         }
 
