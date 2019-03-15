@@ -8,9 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialTextArea;
 
 public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implements RequisicaoInformacoesAdicionaisView {
     interface RequisicaoInformacoesAdicionaisUiBinder extends UiBinder<Widget, RequisicaoInformacoesAdicionaisViewImpl> {
@@ -27,11 +26,7 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     @UiField
     MenuView menu;
     @UiField
-    TextArea textAreaDescricao;
-    @UiField
-    TextArea textAreaInformacoesAdicionais;
-    @UiField
-    VerticalPanel verticalPanelInformacoesAdicionais;
+    MaterialTextArea textAreaDescricao, textAreaInformacoesAdicionais;
 
     @Override
     public void setPresenter(Presenter presenter) {
@@ -51,7 +46,7 @@ public class RequisicaoInformacoesAdicionaisViewImpl extends Composite implement
     @Override
     public void setInformacoesAdicionais(String informacoesAdicionais) {
         textAreaInformacoesAdicionais.setText(informacoesAdicionais);
-        verticalPanelInformacoesAdicionais.setVisible(true);
+        textAreaInformacoesAdicionais.setVisible(true);
     }
 
     @UiHandler("buttonCancelar")
