@@ -23,18 +23,17 @@
                               overflow="AUTO">
                 <m:MaterialPanel padding="16">
                     <m:MaterialRow>
-                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição" height="250px"
+                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição" height="36%"
                                             fieldType="OUTLINED"/>
                     </m:MaterialRow>
                     <m:MaterialRow>
                         <m:MaterialTextArea grid="s12" ui:field="textAreaInformacoesAdicionais" visible="false"
                                             enabled="false" readOnly="true" label="Informações adicionais"
-                                            height="250px" fieldType="OUTLINED"/>
+                                            height="36%" fieldType="OUTLINED"/>
                     </m:MaterialRow>
                     <m:MaterialRow offset="s8">
                         <m:MaterialButton grid="s2" marginRight="3" ui:field="buttonCancelar" text="Cancelar"
-                                          type="OUTLINED"
-                                          backgroundColor="GREY_LIGHTEN_3"/>
+                                          type="OUTLINED" backgroundColor="GREY_LIGHTEN_3"/>
                         <m:MaterialButton grid="s2" ui:field="buttonSalvar" text="Salvar" type="OUTLINED"
                                           backgroundColor="GREY_LIGHTEN_3"/>
                     </m:MaterialRow>

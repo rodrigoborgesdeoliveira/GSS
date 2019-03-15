@@ -22,12 +22,12 @@
                               overflow="AUTO">
                 <m:MaterialPanel padding="16">
                     <m:MaterialRow>
-                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição" height="250px"
+                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição" height="36%"
                                             fieldType="OUTLINED" readOnly="true"/>
                     </m:MaterialRow>
                     <m:MaterialRow>
                         <m:MaterialTextArea grid="s12" ui:field="textAreaInformacoesAdicionais"
-                                            label="Informações adicionais" height="250px" fieldType="OUTLINED"/>
+                                            label="Informações adicionais" height="36%" fieldType="OUTLINED"/>
                     </m:MaterialRow>
                     <m:MaterialRow offset="s8">
                         <m:MaterialButton grid="s2" marginRight="3" ui:field="buttonCancelar" text="Cancelar"
