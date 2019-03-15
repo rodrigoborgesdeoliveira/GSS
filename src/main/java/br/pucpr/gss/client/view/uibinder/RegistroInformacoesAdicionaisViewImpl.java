@@ -8,8 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialTextArea;
 
 public class RegistroInformacoesAdicionaisViewImpl extends Composite implements RegistroInformacoesAdicionaisView {
     interface RegistroInformacoesAdicionaisUiBinder extends UiBinder<Widget, RegistroInformacoesAdicionaisViewImpl> {
@@ -27,9 +27,7 @@ public class RegistroInformacoesAdicionaisViewImpl extends Composite implements 
     MenuView menu;
 
     @UiField
-    TextArea textAreaDescricao;
-    @UiField
-    TextArea textAreaInformacoesAdicionais;
+    MaterialTextArea textAreaDescricao, textAreaInformacoesAdicionais;
 
     @Override
     public void setPresenter(Presenter presenter) {

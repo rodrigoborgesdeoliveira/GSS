@@ -1,42 +1,43 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m='urn:import:gwt.material.design.client.ui'
              xmlns:custom="urn:import:br.pucpr.gss.client.view.uibinder">
-    <g:DockLayoutPanel unit='EM'>
+
+    <g:HTMLPanel>
         <!-- Cabeçalho -->
-        <g:north size="5">
-            <g:HorizontalPanel>
-                <g:Label>Registro de informações adicionais</g:Label>
-            </g:HorizontalPanel>
-        </g:north>
+        <m:MaterialRow margin="0" width="100%" height="8%" backgroundColor="GREY_LIGHTEN_4" shadow="1"
+                       addStyleNames="valign-wrapper">
+            <m:MaterialLabel text="Registro de informações adicionais" marginLeft="42" fontSize="20px" fontWeight="BOLD"
+                             addStyleNames="valign center"/>
+        </m:MaterialRow>
 
-        <!-- Menu -->
-        <g:west size='16'>
-            <custom:MenuViewImpl ui:field="menu"/>
-        </g:west>
+        <m:MaterialRow margin="0">
+            <!-- Menu -->
+            <m:MaterialColumn grid="s2" marginLeft="-11" height="92%">
+                <custom:MenuViewImpl ui:field="menu"/>
+            </m:MaterialColumn>
 
-        <!-- Corpo da página -->
-        <g:center>
-            <g:VerticalPanel>
-                <!-- Descrição -->
-                <g:Label>
-                    <ui:msg>Descrição</ui:msg>
-                </g:Label>
-                <g:TextArea width="600px" height="250px" ui:field="textAreaDescricao" enabled="false"/>
-                <!-- Informações adicionais -->
-                <g:Label>
-                    <ui:msg>Informações adicionais</ui:msg>
-                </g:Label>
-                <g:TextArea width="600px" height="250px" ui:field="textAreaInformacoesAdicionais"/>
-                <!-- Botões inferiores -->
-                <g:HorizontalPanel>
-                    <g:Button ui:field="buttonCancelar">
-                        <ui:msg>Cancelar</ui:msg>
-                    </g:Button>
-                    <g:Button ui:field="buttonSalvar">
-                        <ui:msg>Salvar</ui:msg>
-                    </g:Button>
-                </g:HorizontalPanel>
-            </g:VerticalPanel>
-        </g:center>
-    </g:DockLayoutPanel>
+            <!-- Corpo da página -->
+            <m:MaterialColumn grid="s10" offset="s2" layoutPosition="ABSOLUTE" height="92%"
+                              overflow="AUTO">
+                <m:MaterialPanel padding="16">
+                    <m:MaterialRow>
+                        <m:MaterialTextArea grid="s12" ui:field="textAreaDescricao" label="Descrição" height="250px"
+                                            fieldType="OUTLINED" readOnly="true"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow>
+                        <m:MaterialTextArea grid="s12" ui:field="textAreaInformacoesAdicionais"
+                                            label="Informações adicionais" height="250px" fieldType="OUTLINED"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow offset="s8">
+                        <m:MaterialButton grid="s2" marginRight="3" ui:field="buttonCancelar" text="Cancelar"
+                                          type="OUTLINED"
+                                          backgroundColor="GREY_LIGHTEN_3"/>
+                        <m:MaterialButton grid="s2" ui:field="buttonSalvar" text="Salvar" type="OUTLINED"
+                                          backgroundColor="GREY_LIGHTEN_3"/>
+                    </m:MaterialRow>
+                </m:MaterialPanel>
+            </m:MaterialColumn>
+        </m:MaterialRow>
+    </g:HTMLPanel>
 </ui:UiBinder>
