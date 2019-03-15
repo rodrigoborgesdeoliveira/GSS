@@ -8,8 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialTextArea;
 
 public class RegistroSolucaoViewImpl extends Composite implements RegistroSolucaoView {
     interface RegistroSolucaoUiBinder extends UiBinder<Widget, RegistroSolucaoViewImpl> {
@@ -21,7 +21,7 @@ public class RegistroSolucaoViewImpl extends Composite implements RegistroSoluca
     @UiField
     MenuView menu;
     @UiField
-    TextArea textAreaDescricao;
+    MaterialTextArea textAreaDescricao;
 
     public RegistroSolucaoViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
