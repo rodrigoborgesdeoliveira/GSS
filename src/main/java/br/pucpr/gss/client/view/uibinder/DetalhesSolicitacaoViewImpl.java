@@ -223,8 +223,13 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
 
     @Override
     public void setVisualizarInformacoesAdicionais(boolean isVisualizar) {
-        addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS, isVisualizar);
-        addRemoveItemLista(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS, !isVisualizar);
+        int indiceRequisitarInformacoes = getIndex(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS);
+        int indiceVisualizarInformacoes = getIndex(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS);
+        // Só realizar a troca de opção se alguma das opções já foi adicionada à lista
+        if (indiceRequisitarInformacoes > 0 || indiceVisualizarInformacoes  > 0) {
+            addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS, isVisualizar);
+            addRemoveItemLista(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS, !isVisualizar);
+        }
     }
 
     @Override
@@ -249,13 +254,12 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
      * @param adicionar true, para adicionar, ou false, para remover.
      */
     private void addRemoveItemLista(MaterialListBox listBox, String item, boolean adicionar) {
+        GWT.log("Visibilidade de " + item + " = " + adicionar);
+
         if (adicionar) {
             listBox.addItem(item);
         } else {
-            int indice = getIndex(listBox, item) + 1; // Soma 1, porque o empty placeholder da
-            // lista não é considerado na hora de pegar o índice, mas é na hora de remover um item. Então o getIndex
-            // pode retornar 0 para o primeiro item da lista, mas ao tentar remover 0, irá remover o item anterior ao
-            // que queremos, nesse caso, o empty placeholder da lista.
+            int indice = getIndex(listBox, item);
 
             // Índice -1 para itens não encontrados e 0 para o empty placeholder da lista
             if (indice > 0) {
@@ -269,14 +273,17 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
      * quando a lista tem um empty placeholder.
      *
      * @param value O valor do item a ser encontrado.
-     * @return O índice do item encontrado ou -1 se nenhum foi encontrado.
+     * @return O índice do item encontrado a partir de 1 (0 é o empty placeholder) ou -1 se nenhum foi encontrado.
      */
     private int getIndex(MaterialListBox listBox, String value) {
         int count = listBox.getItemCount() - 1; // Substraindo 1 por causa do empty placeholder
 
         for (int i = 0; i < count; i++) {
             if (Objects.equals(listBox.getValue(i), value)) {
-                return i;
+                return i + 1; // Soma 1, porque o empty placeholder da
+                // lista não é considerado na hora de pegar o índice, mas é na hora de remover um item. Então o getIndex
+                // pode retornar 0 para o primeiro item da lista, mas ao tentar remover 0, irá remover o item anterior ao
+                // que queremos, nesse caso, o empty placeholder da lista.
             }
         }
 
