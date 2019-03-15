@@ -249,6 +249,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
 
     /**
      * Adiciona ou remove um item à ou da lista.
+     * Se a lista não possuir nenhum item após a adição/remoção do item, ela será escondida.
      *
      * @param item      Item para ser adicionado ou removido.
      * @param adicionar true, para adicionar, ou false, para remover.
@@ -265,6 +266,12 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
             if (indice > 0) {
                 listBox.removeItem(indice);
             }
+        }
+
+        if (listBox.getItemCount() - 1 == 0) { // Subtraindo 1 por causa do empty placeholder
+            listBox.setVisible(false);
+        } else {
+            listBox.setVisible(true);
         }
     }
 
