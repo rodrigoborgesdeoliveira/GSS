@@ -8,8 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
+import gwt.material.design.client.ui.MaterialTextArea;
 
 public class VisualizacaoSolucaoViewImpl extends Composite implements VisualizacaoSolucaoView {
     interface VisualizacaoSolucaoViewImplUiBinder extends UiBinder<Widget, VisualizacaoSolucaoViewImpl> {
@@ -22,7 +22,7 @@ public class VisualizacaoSolucaoViewImpl extends Composite implements Visualizac
     @UiField
     MenuView menu;
     @UiField
-    TextArea textAreaDescricao;
+    MaterialTextArea textAreaDescricao;
 
     public VisualizacaoSolucaoViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
