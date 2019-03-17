@@ -3,6 +3,7 @@ package br.pucpr.gss.client.view;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface ConsultaSolicitacoesView {
 
@@ -19,6 +20,8 @@ public interface ConsultaSolicitacoesView {
          * @param showGestor      true, se deseja exibir solicitações em que o usuário é gestor.
          */
         void filtrarPapel(boolean showSolicitante, boolean showAtendente, boolean showGestor);
+
+        void filtrarTituloEData(String filtroTitulo, Date filtroDataInicial, Date filtroDataFinal);
     }
 
     void setPresenter(Presenter presenter);

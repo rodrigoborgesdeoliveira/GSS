@@ -51,6 +51,11 @@ public class FiltroSolicitacao implements IsSerializable {
         this.showGestor = showGestor;
     }
 
+    /**
+     * Filtra a lista de solicitações com base nos parâmetros que foram previamente setados pelos setters.
+     *
+     * @return Lista de solicitações filtradas.
+     */
     public List<Solicitacao> filtrar() {
         List<Solicitacao> solicitacoesFiltradas = new ArrayList<>();
 
@@ -75,6 +80,21 @@ public class FiltroSolicitacao implements IsSerializable {
                 continue;
             }
 
+            // Texto de pesquisa não corresponde ao título
+            if (filtroTitulo != null && !solicitacao.getTitulo().toLowerCase().replaceAll(" ", "")
+                    .contains(filtroTitulo.toLowerCase().replaceAll(" ", ""))) {
+                continue;
+            }
+
+            // Data de criação antes da data inicial do filtro
+            if (filtroDataInicial != null && solicitacao.getDataCriacao().before(filtroDataInicial)) {
+                continue;
+            }
+
+            // Data de criação depois da data final do filtro
+            if (filtroDataFinal != null && solicitacao.getDataCriacao().after(filtroDataFinal)) {
+                continue;
+            }
 
             solicitacoesFiltradas.add(solicitacao);
         }

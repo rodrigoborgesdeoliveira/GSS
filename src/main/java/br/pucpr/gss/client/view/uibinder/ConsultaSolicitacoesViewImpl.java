@@ -5,6 +5,7 @@ import br.pucpr.gss.client.view.MenuView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.TableRowElement;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -14,6 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.data.factory.RowComponentFactory;
 import gwt.material.design.client.ui.MaterialCheckBox;
 import gwt.material.design.client.ui.MaterialDatePicker;
+import gwt.material.design.client.ui.MaterialTextBox;
 import gwt.material.design.client.ui.table.MaterialDataTable;
 import gwt.material.design.client.ui.table.cell.TextColumn;
 
@@ -29,6 +31,8 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
 
     @UiField
     MenuView menu;
+    @UiField
+    MaterialTextBox textBoxTitulo;
     @UiField
     MaterialDatePicker datePickerDataInicial, datePickerDataFinal;
     @UiField
@@ -83,6 +87,13 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
         checkBoxAtendente.addClickHandler(event -> papelAlterado());
         checkBoxGestor.addClickHandler(event -> papelAlterado());
 
+        // Pesquisar ao pressionar "enter" quando a caixa de "Título da solicitação" possuir foco
+        textBoxTitulo.addKeyDownHandler(event -> {
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                onClickPesquisar(null);
+            }
+        });
+
         // TODO: 12/03/2019 Implementar um listener nas datas para limitar a data máxima da data inicial e a mínima da
         //  data final
     }
@@ -123,6 +134,14 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
             } else {
                 Window.alert("Nenhuma solicitação selecionada");
             }
+        }
+    }
+
+    @UiHandler("buttonPesquisar")
+    void onClickPesquisar(ClickEvent event) {
+        if (presenter != null) {
+            presenter.filtrarTituloEData(textBoxTitulo.getText(), datePickerDataInicial.getDate(),
+                    datePickerDataFinal.getDate());
         }
     }
 

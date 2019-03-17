@@ -14,6 +14,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ConsultaSolicitacoesPresenter implements Presenter, ConsultaSolicitacoesView.Presenter {
@@ -106,6 +107,18 @@ public class ConsultaSolicitacoesPresenter implements Presenter, ConsultaSolicit
             filtroSolicitacao.setShowSolicitante(showSolicitante);
             filtroSolicitacao.setShowAtendente(showAtendente);
             filtroSolicitacao.setShowGestor(showGestor);
+
+            setListaSolicitacoes(filtroSolicitacao.filtrar());
+        }
+    }
+
+    @Override
+    public void filtrarTituloEData(String filtroTitulo, Date filtroDataInicial, Date filtroDataFinal) {
+        if (filtroSolicitacao != null) {
+            com.google.gwt.core.shared.GWT.log("Data inicial: " + filtroDataInicial);
+            filtroSolicitacao.setFiltroTitulo(filtroTitulo);
+            filtroSolicitacao.setFiltroDataInicial(filtroDataInicial);
+            filtroSolicitacao.setFiltroDataFinal(filtroDataFinal);
 
             setListaSolicitacoes(filtroSolicitacao.filtrar());
         }
