@@ -33,7 +33,7 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     @UiField
     MaterialDatePicker datePickerDataInicial, datePickerDataFinal;
     @UiField
-    MaterialDataTable<String> tableSolicitacoes;
+    MaterialDataTable<SolicitacaoView> tableSolicitacoes;
 
     private int solicitacaoSelecionadaIndice = -1; // < 0 representa que nenhuma está selecionada
 
@@ -41,18 +41,38 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
         initWidget(uiBinder.createAndBindUi(this));
 
         tableSolicitacoes.setRowFactory(new RowComponentFactory<>());
-        tableSolicitacoes.addColumn(new TextColumn<String>() {
+        tableSolicitacoes.setUseStickyHeader(true);
+        tableSolicitacoes.addColumn(new TextColumn<SolicitacaoView>() {
             @Override
-            public String getValue(String s) {
-                return s;
+            public String getValue(SolicitacaoView solicitacaoView) {
+                return solicitacaoView.getColunaTitulo();
             }
         }, "Título");
-        tableSolicitacoes.addRowSelectHandler(new RowSelectHandler<String>() {
+        tableSolicitacoes.addColumn(new TextColumn<SolicitacaoView>() {
             @Override
-            public void onRowSelect(RowSelectEvent<String> rowSelectEvent) {
+            public String getValue(SolicitacaoView solicitacaoView) {
+                return solicitacaoView.getColunaPapelUsuario();
+            }
+        }, "Papel");
+        tableSolicitacoes.addColumn(new TextColumn<SolicitacaoView>() {
+            @Override
+            public String getValue(SolicitacaoView solicitacaoView) {
+                return solicitacaoView.getColunaEstado();
+            }
+        }, "Estado");
+        tableSolicitacoes.addColumn(new TextColumn<SolicitacaoView>() {
+            @Override
+            public String getValue(SolicitacaoView solicitacaoView) {
+                return solicitacaoView.getColunaPrioridade();
+            }
+        }, "Prioridade");
+        tableSolicitacoes.addRowSelectHandler(new RowSelectHandler<SolicitacaoView>() {
+            @Override
+            public void onRowSelect(RowSelectEvent<SolicitacaoView> rowSelectEvent) {
                 if (rowSelectEvent.isSelected()) {
                     // Solicitação selecionada
-                    solicitacaoSelecionadaIndice = tableSolicitacoes.getRowValueIndex(TableRowElement.as(rowSelectEvent.getRow()));
+                    solicitacaoSelecionadaIndice = tableSolicitacoes.getRowValueIndex(TableRowElement
+                            .as(rowSelectEvent.getRow()));
                 } else {
                     solicitacaoSelecionadaIndice = -1;
                 }
@@ -73,8 +93,14 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     }
 
     @Override
-    public void carregarListaSolicitacoes(ArrayList<String> solicitacoes) {
-        tableSolicitacoes.setRowData(0, solicitacoes);
+    public void carregarListaSolicitacoes(ArrayList<String> solicitacoes, ArrayList<String> papelUsuario,
+                                          ArrayList<String> estado, ArrayList<String> prioridade) {
+        ArrayList<SolicitacaoView> solicitacoesView = new ArrayList<>();
+        for (int i = 0; i < solicitacoes.size(); i++) {
+            solicitacoesView.add(new SolicitacaoView(solicitacoes.get(i), papelUsuario.get(i), estado.get(i),
+                    prioridade.get(i)));
+        }
+        tableSolicitacoes.setRowData(0, solicitacoesView);
     }
 
     @UiHandler("cancelar")
@@ -92,6 +118,34 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
             } else {
                 Window.alert("Nenhuma solicitação selecionada");
             }
+        }
+    }
+
+    private class SolicitacaoView {
+        private String colunaTitulo, colunaPapelUsuario, colunaEstado, colunaPrioridade;
+
+        public SolicitacaoView(String colunaTitulo, String colunaPapelUsuario, String colunaEstado,
+                               String colunaPrioridade) {
+            this.colunaTitulo = colunaTitulo;
+            this.colunaPapelUsuario = colunaPapelUsuario;
+            this.colunaEstado = colunaEstado;
+            this.colunaPrioridade = colunaPrioridade;
+        }
+
+        public String getColunaTitulo() {
+            return colunaTitulo;
+        }
+
+        public String getColunaPapelUsuario() {
+            return colunaPapelUsuario;
+        }
+
+        public String getColunaEstado() {
+            return colunaEstado;
+        }
+
+        public String getColunaPrioridade() {
+            return colunaPrioridade;
         }
     }
 }

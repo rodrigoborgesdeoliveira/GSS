@@ -18,5 +18,6 @@ public interface ConsultaSolicitacoesView {
 
     MenuView getMenuView();
 
-    void carregarListaSolicitacoes(ArrayList<String> solicitacoes);
+    void carregarListaSolicitacoes(ArrayList<String> solicitacoes, ArrayList<String> papelUsuario,
+                                   ArrayList<String> estado, ArrayList<String> prioridade);
 }

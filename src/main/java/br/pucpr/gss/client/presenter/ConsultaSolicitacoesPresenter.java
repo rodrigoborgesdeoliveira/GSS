@@ -52,12 +52,29 @@ public class ConsultaSolicitacoesPresenter implements Presenter, ConsultaSolicit
                     public void onSuccess(ArrayList<Solicitacao> result) {
                         listaSolicitacoes = result;
                         ArrayList<String> solicitacoesNome = new ArrayList<>();
+                        ArrayList<String> solicitacoesPapel = new ArrayList<>();
+                        ArrayList<String> solicitacoesEstado = new ArrayList<>();
+                        ArrayList<String> solicitacoesPrioridade = new ArrayList<>();
 
                         for (Solicitacao solicitacao : listaSolicitacoes) {
                             solicitacoesNome.add(solicitacao.getTitulo());
+
+                            String papel;
+                            if (usuario.getIdFuncionario() == solicitacao.getIdSolicitante()) {
+                                papel = "Solicitante";
+                            } else if (usuario.getIdFuncionario() == solicitacao.getIdAtendente()) {
+                                papel = "Atendente";
+                            } else {
+                                papel = "Gestor";
+                            }
+                            solicitacoesPapel.add(papel);
+
+                            solicitacoesEstado.add(solicitacao.getEstado().getNome());
+                            solicitacoesPrioridade.add(solicitacao.getPrioridade().getNome());
                         }
 
-                        view.carregarListaSolicitacoes(solicitacoesNome);
+                        view.carregarListaSolicitacoes(solicitacoesNome, solicitacoesPapel, solicitacoesEstado,
+                                solicitacoesPrioridade);
                     }
                 });
     }
