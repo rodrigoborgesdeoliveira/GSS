@@ -11,9 +11,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import gwt.material.design.client.data.events.RowSelectEvent;
-import gwt.material.design.client.data.events.RowSelectHandler;
 import gwt.material.design.client.data.factory.RowComponentFactory;
+import gwt.material.design.client.ui.MaterialCheckBox;
 import gwt.material.design.client.ui.MaterialDatePicker;
 import gwt.material.design.client.ui.table.MaterialDataTable;
 import gwt.material.design.client.ui.table.cell.TextColumn;
@@ -34,12 +33,15 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
     MaterialDatePicker datePickerDataInicial, datePickerDataFinal;
     @UiField
     MaterialDataTable<SolicitacaoView> tableSolicitacoes;
+    @UiField
+    MaterialCheckBox checkBoxSolicitante, checkBoxAtendente, checkBoxGestor;
 
     private int solicitacaoSelecionadaIndice = -1; // < 0 representa que nenhuma está selecionada
 
     public ConsultaSolicitacoesViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
+        // Configurar as colunas da tabela de solicitações
         tableSolicitacoes.setRowFactory(new RowComponentFactory<>());
         tableSolicitacoes.setUseStickyHeader(true);
         tableSolicitacoes.addColumn(new TextColumn<SolicitacaoView>() {
@@ -66,18 +68,21 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
                 return solicitacaoView.getColunaPrioridade();
             }
         }, "Prioridade");
-        tableSolicitacoes.addRowSelectHandler(new RowSelectHandler<SolicitacaoView>() {
-            @Override
-            public void onRowSelect(RowSelectEvent<SolicitacaoView> rowSelectEvent) {
-                if (rowSelectEvent.isSelected()) {
-                    // Solicitação selecionada
-                    solicitacaoSelecionadaIndice = tableSolicitacoes.getRowValueIndex(TableRowElement
-                            .as(rowSelectEvent.getRow()));
-                } else {
-                    solicitacaoSelecionadaIndice = -1;
-                }
+        tableSolicitacoes.addRowSelectHandler(rowSelectEvent -> {
+            if (rowSelectEvent.isSelected()) {
+                // Solicitação selecionada
+                solicitacaoSelecionadaIndice = tableSolicitacoes.getRowValueIndex(TableRowElement
+                        .as(rowSelectEvent.getRow()));
+            } else {
+                solicitacaoSelecionadaIndice = -1;
             }
         });
+
+        // Listeners para os check boxes
+        checkBoxSolicitante.addClickHandler(event -> papelAlterado());
+        checkBoxAtendente.addClickHandler(event -> papelAlterado());
+        checkBoxGestor.addClickHandler(event -> papelAlterado());
+
         // TODO: 12/03/2019 Implementar um listener nas datas para limitar a data máxima da data inicial e a mínima da
         //  data final
     }
@@ -118,6 +123,13 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
             } else {
                 Window.alert("Nenhuma solicitação selecionada");
             }
+        }
+    }
+
+    private void papelAlterado() {
+        if (presenter != null) {
+            presenter.filtrarPapel(checkBoxSolicitante.getValue(), checkBoxAtendente.getValue(),
+                    checkBoxGestor.getValue());
         }
     }
 

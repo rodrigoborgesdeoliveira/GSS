@@ -31,6 +31,11 @@
                                           backgroundColor="GREY_LIGHTEN_3"/>
                     </m:MaterialRow>
                     <m:MaterialRow>
+                        <m:MaterialCheckBox grid="s2" ui:field="checkBoxSolicitante" text="Solicitante" type="FILLED" value="true"/>
+                        <m:MaterialCheckBox grid="s2" ui:field="checkBoxAtendente" text="Atendente" type="FILLED" value="true"/>
+                        <m:MaterialCheckBox grid="s2" ui:field="checkBoxGestor" text="Gestor" type="FILLED" value="true"/>
+                    </m:MaterialRow>
+                    <m:MaterialRow>
                         <m.table:MaterialDataTable ui:field="tableSolicitacoes"
                                                    height="40%"
                                                    useStickyHeader="true"
@@ -38,7 +43,7 @@
                                                    useRowExpansion="false"
                                                    selectionType="SINGLE"/>
                     </m:MaterialRow>
-                    <m:MaterialRow offset="s8" marginTop="-200">
+                    <m:MaterialRow offset="s8" marginTop="-250">
                         <m:MaterialButton grid="s2" marginRight="3" ui:field="cancelar" text="Cancelar" type="OUTLINED"
                                           backgroundColor="GREY_LIGHTEN_3"/>
                         <m:MaterialButton grid="s2" ui:field="consultar" text="Consultar" type="OUTLINED"

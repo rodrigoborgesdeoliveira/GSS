@@ -10,6 +10,15 @@ public interface ConsultaSolicitacoesView {
         void onCancelarButtonClicked();
 
         void onConsultarButtonClicked(int indiceSolicitacao);
+
+        /**
+         * Filtra a lista de solicitações por papel.
+         *
+         * @param showSolicitante true, se deseja exibir solicitações em que o usuário é solicitante.
+         * @param showAtendente   true, se deseja exibir solicitações em que o usuário é atendente.
+         * @param showGestor      true, se deseja exibir solicitações em que o usuário é gestor.
+         */
+        void filtrarPapel(boolean showSolicitante, boolean showAtendente, boolean showGestor);
     }
 
     void setPresenter(Presenter presenter);
