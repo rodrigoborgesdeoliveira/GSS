@@ -19,45 +19,152 @@
             <m:MaterialColumn grid="s10" offset="s2" layoutPosition="ABSOLUTE" height="92%"
                               overflow="AUTO">
                 <m:MaterialPanel padding="16">
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
-                    <m:MaterialLabel text="Indicadores..."/>
+                    <m:MaterialRow>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Total de Solicitações" textAlign="CENTER"
+                                                         fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeTotal" fontSize="24px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Solicitações Abertas" textAlign="CENTER"
+                                                         fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertas" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoAguardandoAtendimento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoEmAndamento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoPausada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoEncerramentoProposto"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoEncerramentoRejeitado"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoRespondida"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasEstadoAguardandoInformacoesAdicionais"
+                                                     fontSize="14px"/>
+                                    <m:MaterialDivider marginTop="8" marginBottom="8"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasPrioridadeBaixa"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasPrioridadeNormal"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAbertasPrioridadeAlta"
+                                                     fontSize="14px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Solicitações Encerradas" textAlign="CENTER"
+                                                         fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeEncerradas" fontSize="24px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                    </m:MaterialRow>
+
+                    <m:MaterialRow>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Solicitadas" textAlign="CENTER" fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadas" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoAguardandoAtendimento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoEmAndamento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoPausada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoEncerramentoProposto"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoEncerramentoRejeitado"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoRespondida"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoAguardandoInformacoesAdicionais"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoEncerrada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialDivider marginTop="8" marginBottom="8"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasPrioridadeBaixa"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasPrioridadeNormal"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeSolicitadasPrioridadeAlta"
+                                                     fontSize="14px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Atendidas" textAlign="CENTER" fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidas" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoAguardandoAtendimento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoEmAndamento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoPausada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoEncerramentoProposto"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoEncerramentoRejeitado"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoRespondida"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoAguardandoInformacoesAdicionais"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasEstadoEncerrada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialDivider marginTop="8" marginBottom="8"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasPrioridadeBaixa"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasPrioridadeNormal"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeAtendidasPrioridadeAlta"
+                                                     fontSize="14px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                        <m:MaterialColumn grid="s4">
+                            <m:MaterialCard>
+                                <m:MaterialCardContent>
+                                    <m:MaterialCardTitle text="Gerenciadas" textAlign="CENTER" fontWeight="BOLD"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadas" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoAguardandoAtendimento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoEmAndamento"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoPausada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoEncerramentoProposto"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoEncerramentoRejeitado"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoRespondida"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoAguardandoInformacoesAdicionais"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoEncerrada"
+                                                     fontSize="14px"/>
+                                    <m:MaterialDivider marginTop="8" marginBottom="8"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasPrioridadeBaixa"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasPrioridadeNormal"
+                                                     fontSize="14px"/>
+                                    <m:MaterialLabel ui:field="quantidadeGerenciadasPrioridadeAlta"
+                                                     fontSize="14px"/>
+                                </m:MaterialCardContent>
+                            </m:MaterialCard>
+                        </m:MaterialColumn>
+                    </m:MaterialRow>
                 </m:MaterialPanel>
             </m:MaterialColumn>
         </m:MaterialRow>
