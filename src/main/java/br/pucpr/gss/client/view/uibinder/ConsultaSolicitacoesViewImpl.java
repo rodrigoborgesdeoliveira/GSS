@@ -20,6 +20,7 @@ import gwt.material.design.client.ui.table.MaterialDataTable;
 import gwt.material.design.client.ui.table.cell.TextColumn;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaSolicitacoesView {
     interface ConsultaSolicitacaoUiBinder extends UiBinder<Widget, ConsultaSolicitacoesViewImpl> {
@@ -94,8 +95,19 @@ public class ConsultaSolicitacoesViewImpl extends Composite implements ConsultaS
             }
         });
 
-        // TODO: 12/03/2019 Implementar um listener nas datas para limitar a data máxima da data inicial e a mínima da
-        //  data final
+        // A data inicial e final não pode ser no futuro devido à data de criação
+        datePickerDataInicial.setDateMax(new Date());
+        datePickerDataFinal.setDateMax(new Date());
+
+        // Não permitir que a data final seja menor que a inicial
+        datePickerDataInicial.addCloseHandler(event -> {
+            datePickerDataFinal.setDateMin(datePickerDataInicial.getDate()!=null?datePickerDataInicial.getDate():
+                    new Date(0L));
+        });
+        datePickerDataFinal.addCloseHandler(event -> {
+            datePickerDataInicial.setDateMax(datePickerDataFinal.getDate() != null ? datePickerDataFinal.getDate() :
+                    new Date());
+        });
     }
 
     @Override
