@@ -21,11 +21,12 @@
                 <m:MaterialPanel padding="16">
                     <m:MaterialRow>
                         <m:MaterialColumn grid="s4">
-                            <m:MaterialCard>
+                            <m:MaterialCard height="350">
                                 <m:MaterialCardContent>
                                     <m:MaterialCardTitle text="Total de Solicitações" textAlign="CENTER"
                                                          fontWeight="BOLD"/>
-                                    <m:MaterialLabel ui:field="quantidadeTotal" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeTotal" fontSize="100px" textAlign="CENTER"
+                                                     marginTop="50" marginBottom="50"/>
                                 </m:MaterialCardContent>
                             </m:MaterialCard>
                         </m:MaterialColumn>
@@ -60,11 +61,12 @@
                             </m:MaterialCard>
                         </m:MaterialColumn>
                         <m:MaterialColumn grid="s4">
-                            <m:MaterialCard>
+                            <m:MaterialCard height="350">
                                 <m:MaterialCardContent>
                                     <m:MaterialCardTitle text="Solicitações Encerradas" textAlign="CENTER"
                                                          fontWeight="BOLD"/>
-                                    <m:MaterialLabel ui:field="quantidadeEncerradas" fontSize="24px"/>
+                                    <m:MaterialLabel ui:field="quantidadeEncerradas" fontSize="100px" textAlign="CENTER"
+                                                     marginTop="50" marginBottom="50"/>
                                 </m:MaterialCardContent>
                             </m:MaterialCard>
                         </m:MaterialColumn>
@@ -88,8 +90,9 @@
                                                      fontSize="14px"/>
                                     <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoRespondida"
                                                      fontSize="14px"/>
-                                    <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoAguardandoInformacoesAdicionais"
-                                                     fontSize="14px"/>
+                                    <m:MaterialLabel
+                                            ui:field="quantidadeSolicitadasEstadoAguardandoInformacoesAdicionais"
+                                            fontSize="14px"/>
                                     <m:MaterialLabel ui:field="quantidadeSolicitadasEstadoEncerrada"
                                                      fontSize="14px"/>
                                     <m:MaterialDivider marginTop="8" marginBottom="8"/>
@@ -150,8 +153,9 @@
                                                      fontSize="14px"/>
                                     <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoRespondida"
                                                      fontSize="14px"/>
-                                    <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoAguardandoInformacoesAdicionais"
-                                                     fontSize="14px"/>
+                                    <m:MaterialLabel
+                                            ui:field="quantidadeGerenciadasEstadoAguardandoInformacoesAdicionais"
+                                            fontSize="14px"/>
                                     <m:MaterialLabel ui:field="quantidadeGerenciadasEstadoEncerrada"
                                                      fontSize="14px"/>
                                     <m:MaterialDivider marginTop="8" marginBottom="8"/>
