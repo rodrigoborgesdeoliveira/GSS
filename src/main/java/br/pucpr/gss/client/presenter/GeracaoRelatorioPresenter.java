@@ -1,8 +1,10 @@
 package br.pucpr.gss.client.presenter;
 
+import br.pucpr.gss.client.event.RelatorioEvent;
 import br.pucpr.gss.client.service.SolicitacaoService;
 import br.pucpr.gss.client.view.GeracaoRelatorioView;
 import br.pucpr.gss.shared.model.FiltroSolicitacao;
+import br.pucpr.gss.shared.model.Relatorio;
 import br.pucpr.gss.shared.model.Solicitacao;
 import br.pucpr.gss.shared.model.Usuario;
 import com.google.gwt.core.client.GWT;
@@ -10,6 +12,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,9 +43,23 @@ public class GeracaoRelatorioPresenter implements Presenter, GeracaoRelatorioVie
     }
 
     @Override
+    @Nullable
     public String gerarRelatorio(Date filtroDataInicial, Date filtroDataFinal, boolean showSolicitante,
                                  boolean showAtendente, boolean showGestor) {
-        return null;
+        if (listaSolicitacoes != null && filtroSolicitacao != null) {
+            filtroSolicitacao.setFiltroDataInicial(filtroDataInicial);
+            filtroSolicitacao.setFiltroDataFinal(filtroDataFinal);
+            filtroSolicitacao.setShowSolicitante(showSolicitante);
+            filtroSolicitacao.setShowAtendente(showAtendente);
+            filtroSolicitacao.setShowGestor(showGestor);
+
+            return new Relatorio(usuario, filtroSolicitacao.filtrar()).toString();
+        } else return null;
+    }
+
+    @Override
+    public void onGerarRelatorioClicked(String htmlRelatorio) {
+        eventBus.fireEvent(new RelatorioEvent(htmlRelatorio));
     }
 
     private void fetchSolicitacoes() {

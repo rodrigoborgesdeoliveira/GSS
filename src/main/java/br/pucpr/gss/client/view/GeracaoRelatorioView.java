@@ -19,6 +19,8 @@ public interface GeracaoRelatorioView {
          */
         String gerarRelatorio(Date filtroDataInicial, Date filtroDataFinal, boolean showSolicitante, boolean showAtendente,
                               boolean showGestor);
+
+        void onGerarRelatorioClicked(String htmlRelatorio);
     }
 
     void setPresenter(Presenter presenter);

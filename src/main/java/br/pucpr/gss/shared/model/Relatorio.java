@@ -3,6 +3,7 @@ package br.pucpr.gss.shared.model;
 import br.pucpr.gss.shared.fabrica.FabricaEstado;
 import br.pucpr.gss.shared.fabrica.FabricaPrioridade;
 import com.google.gwt.user.client.rpc.IsSerializable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Relatorio implements IsSerializable {
     public Relatorio() {
     }
 
-    public Relatorio(Usuario usuario, List<Solicitacao> listaSolicitacoes) {
+    public Relatorio(Usuario usuario, @NotNull List<Solicitacao> listaSolicitacoes) {
         this.usuario = usuario;
         this.listaSolicitacoes = listaSolicitacoes;
 
@@ -310,8 +311,77 @@ public class Relatorio implements IsSerializable {
         return ((CountPapelSolicitacao) prioridadeAlta).countGestor;
     }
 
+    @Override
+    public String toString() {
+        // Retornar em forma de HTML
+        return "<h1 style=\"color: #5e9ca0;\"><span style=\"color: #000000;\">Relat&oacute;rio</span></h1>\n" +
+                "<p>&nbsp;</p>\n" +
+                "<h2 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Geral</span></h2>\n" +
+                "<p style=\"padding-left: 30px;\"><span style=\"color: #000000;\"><b>Total de Solicita&ccedil;&otilde;es:&nbsp;" + getIndicadorTotalSolicitacoes() + "</b></span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">" + (getIndicadorSolicitacoesAbertas() / getIndicadorTotalSolicitacoes() * 100) + "% abertas</span></p>\n" +
+                "<p style=\"padding-left: 60px;\">" + (getIndicadorSolicitacoesEstadoEncerrada() / getIndicadorTotalSolicitacoes() * 100) + "% encerradas</p>\n" +
+                "<p>&nbsp;&nbsp;</p>\n" +
+                "<p style=\"padding-left: 30px;\"><span style=\"color: #000000;\"><b>Solicita&ccedil;&otilde;es abertas:&nbsp;" + getIndicadorSolicitacoesAbertas() + "</b></span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando atendimento:&nbsp;" + getIndicadorSolicitacoesEstadoAguardandoAtendimento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Em andamento:&nbsp;" + getIndicadorSolicitacoesEstadoEmAndamento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Pausada:&nbsp;" + getIndicadorSolicitacoesEstadoPausada() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento proposto:&nbsp;" + getIndicadorSolicitacoesEstadoEncerramentoProposto() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento rejeitado:&nbsp;" + getIndicadorSolicitacoesEstadoEncerramentoRejeitado() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Respondida:&nbsp;" + getIndicadorSolicitacoesEstadoRespondida() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando informa&ccedil;&otilde;es adicionais:&nbsp;" + getIndicadorSolicitacoesEstadoAguardandoInformacoesAdicionais() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">_____________________________</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade baixa:&nbsp;" + getIndicadorSolicitacoesAbertasPrioridadeBaixa() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade normal:&nbsp;" + getIndicadorSolicitacoesAbertasPrioridadeNormal() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade alta:&nbsp;" + getIndicadorSolicitacoesAbertasPrioridadeAlta() + "</span></p>\n" +
+                "<p style=\"padding-left: 30px;\">&nbsp;</p>\n" +
+                "<p style=\"padding-left: 30px;\"><b><span style=\"color: #000000;\">Solicita&ccedil;&otilde;es encerradas:&nbsp;" + getIndicadorSolicitacoesEstadoEncerrada() + "</span></b></p>\n" +
+                "<p style=\"padding-left: 30px;\">&nbsp;</p>\n" +
+                "<h2 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Por papel</span></h2>\n" +
+                "<p style=\"padding-left: 30px;\"><b>Solicitante:&nbsp;" + getIndicadorSolicitacoesPapelSolicitante() + "</b></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando atendimento:&nbsp;" + getIndicadorSolicitanteEstadoAguardandoAtendimento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Em andamento:&nbsp;" + getIndicadorSolicitanteEstadoEmAndamento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Pausada:&nbsp;" + getIndicadorSolicitanteEstadoPausada() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento proposto:&nbsp;" + getIndicadorSolicitanteEstadoEncerramentoProposto() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento rejeitado:&nbsp;" + getIndicadorSolicitanteEstadoEncerramentoRejeitado() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Respondida:&nbsp;" + getIndicadorSolicitanteEstadoRespondida() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando informa&ccedil;&otilde;es adicionais:&nbsp;" + getIndicadorSolicitanteEstadoAguardandoInformacoesAdicionais() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerrada:&nbsp;" + getIndicadorSolicitanteEstadoEncerrada() + "</span></p>" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">_____________________________</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade baixa:&nbsp;" + getIndicadorSolicitantePrioridadeBaixa() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade normal:&nbsp;" + getIndicadorSolicitantePrioridadeNormal() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade alta:&nbsp;" + getIndicadorSolicitantePrioridadeAlta() + "</span></p>\n" +
+                "<p style=\"padding-left: 30px;\"><b>Atendente:&nbsp;" + getIndicadorSolicitacoesPapelAtendente() + "</b></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando atendimento:&nbsp;" + getIndicadorAtendenteEstadoAguardandoAtendimento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Em andamento:&nbsp;" + getIndicadorAtendenteEstadoEmAndamento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Pausada:&nbsp;" + getIndicadorAtendenteEstadoPausada() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento proposto:&nbsp;" + getIndicadorAtendenteEstadoEncerramentoProposto() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento rejeitado:&nbsp;" + getIndicadorAtendenteEstadoEncerramentoRejeitado() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Respondida:&nbsp;" + getIndicadorAtendenteEstadoRespondida() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando informa&ccedil;&otilde;es adicionais:&nbsp;" + getIndicadorAtendenteEstadoAguardandoInformacoesAdicionais() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerrada:&nbsp;" + getIndicadorAtendenteEstadoEncerrada() + "</span></p>" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">_____________________________</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade baixa:&nbsp;" + getIndicadorAtendentePrioridadeBaixa() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade normal:&nbsp;" + getIndicadorAtendentePrioridadeNormal() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade alta:&nbsp;" + getIndicadorAtendentePrioridadeAlta() + "</span></p>\n" +
+                "<p style=\"padding-left: 30px;\"><b>Gestor:&nbsp;" + getIndicadorSolicitacoesPapelGestor() + "</b></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando atendimento:&nbsp;" + getIndicadorGestorEstadoAguardandoAtendimento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Em andamento:&nbsp;" + getIndicadorGestorEstadoEmAndamento() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Pausada:&nbsp;" + getIndicadorGestorEstadoPausada() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento proposto:&nbsp;" + getIndicadorGestorEstadoEncerramentoProposto() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerramento rejeitado:&nbsp;" + getIndicadorGestorEstadoEncerramentoRejeitado() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Respondida:&nbsp;" + getIndicadorGestorEstadoRespondida() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando informa&ccedil;&otilde;es adicionais:&nbsp;" + getIndicadorGestorEstadoAguardandoInformacoesAdicionais() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Encerrada:&nbsp;" + getIndicadorGestorEstadoEncerrada() + "</span></p>" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">_____________________________</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade baixa:&nbsp;" + getIndicadorGestorPrioridadeBaixa() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade normal:&nbsp;" + getIndicadorGestorPrioridadeNormal() + "</span></p>\n" +
+                "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Prioridade alta:&nbsp;" + getIndicadorGestorPrioridadeAlta() + "</span></p>" +
+                "<p style=\"padding-left: 30px;\">&nbsp;</p>\n" +
+                "<p style=\"padding-left: 30px;\">&nbsp;</p>\n";
+    }
+
     /**
-     * Classe para categorizar os itens da lista por papel (Solicitante, atendente ou gestor).
+     * Classe para quantificar os itens da lista por papel (Solicitante, atendente ou gestor), estado e prioridade.
      *
      * @param <I> Tipo do item na lista.
      */

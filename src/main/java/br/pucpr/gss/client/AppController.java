@@ -29,6 +29,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String REGISTRO_SOLUCAO_TOKEN = "registroSolucao";
     public static final String VISUALIZACAO_SOLUCAO_TOKEN = "visualizacaoSolucao";
     public static final String GERAR_INDICADORES_TOKEN = "gerarRelatorio";
+    public static final String RELATORIO_TOKEN = "relatorio";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -36,6 +37,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     private Usuario usuario;
     private Solicitacao solicitacao;
     private InformacaoAdicional informacaoAdicional;
+    private String htmlRelatorio;
 
     public AppController(HandlerManager eventBus) {
         this.eventBus = eventBus;
@@ -75,6 +77,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(OferecerSolucaoEvent.TYPE, event -> doCarregarOferecerSolucao(event.getSolicitacao()));
 
         eventBus.addHandler(VisualizarSolucaoEvent.TYPE, event -> doCarregarVisualizarSolucao(event.getSolicitacao()));
+
+        eventBus.addHandler(GerarRelatorioEvent.TYPE, event -> doCarregarGerarIndicadores());
+
+        eventBus.addHandler(RelatorioEvent.TYPE, event -> doCarregarRelatorio(event.getHtmlRelatorio()));
     }
 
     /**
@@ -152,6 +158,16 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         this.solicitacao = solicitacao;
 
         History.newItem(VISUALIZACAO_SOLUCAO_TOKEN);
+    }
+
+    private void doCarregarGerarIndicadores() {
+        History.newItem(GERAR_INDICADORES_TOKEN);
+    }
+
+    private void doCarregarRelatorio(String htmlRelatorio) {
+        this.htmlRelatorio = htmlRelatorio;
+
+        History.newItem(RELATORIO_TOKEN);
     }
 
     @Override
@@ -287,6 +303,31 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                     }
 
                     break;
+                case GERAR_INDICADORES_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        new GeracaoRelatorioPresenter(eventBus, new GeracaoRelatorioViewImpl(), usuario)
+                                .go(container);
+                    }
+
+                    break;
+                case RELATORIO_TOKEN:
+                    if (htmlRelatorio != null) {
+                        new RelatorioPresenter(eventBus, new RelatorioViewImpl(), htmlRelatorio).go(container);
+                    } else {
+                        History.newItem(DASHBOARD_TOKEN);
+                    }
+
+                    break;
+                default:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else {
+                        History.newItem(DASHBOARD_TOKEN);
+                    }
             }
         }
     }

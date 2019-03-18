@@ -38,7 +38,7 @@ public class MenuPresenter implements MenuView.Presenter {
 
     @Override
     public String getOnGerarIndicadoresClickedToken() {
-        return "";
+        return AppController.GERAR_INDICADORES_TOKEN;
     }
 
     @Override
