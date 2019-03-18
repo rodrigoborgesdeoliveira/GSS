@@ -53,7 +53,7 @@ public class DashboardPresenter implements Presenter, DashboardView.Presenter {
 
                         view.setIndicadores(relatorio.getIndicadorTotalSolicitacoes(),
                                 relatorio.getIndicadorSolicitacoesAbertas(),
-                                relatorio.getIndicadorSolicitacoesEncerradas(),
+                                relatorio.getIndicadorSolicitacoesEstadoEncerrada(),
                                 relatorio.getIndicadorSolicitacoesPrioridadeBaixa(),
                                 relatorio.getIndicadorSolicitacoesPrioridadeNormal(),
                                 relatorio.getIndicadorSolicitacoesPrioridadeAlta(),
@@ -75,50 +75,50 @@ public class DashboardPresenter implements Presenter, DashboardView.Presenter {
                                 relatorio.getIndicadorSolicitacoesAbertasPrioridadeNormal(),
                                 relatorio.getIndicadorSolicitacoesAbertasPrioridadeAlta());
 
-//                        view.setIndicadoresEstadoSolicitacoesSolicitante(
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoAtendimento).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEmAndamento).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoPausada).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoProposto).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoRejeitado).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoRespondida).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoInformacoesAdicionais).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerrada).getCountSolicitante());
-//
-//                        view.setIndicadoresPrioridadeSolicitante(
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeBaixa).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeNormal).getCountSolicitante(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeAlta).getCountSolicitante());
-//
-//                        view.setIndicadoresEstadoSolicitacoesAtendente(
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoAtendimento).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEmAndamento).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoPausada).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoProposto).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoRejeitado).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoRespondida).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoInformacoesAdicionais).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerrada).getCountAtendente());
-//
-//                        view.setIndicadoresPrioridadeAtendente(
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeBaixa).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeNormal).getCountAtendente(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeAlta).getCountAtendente());
-//
-//                        view.setIndicadoresEstadoSolicitacoesGestor(
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoAtendimento).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEmAndamento).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoPausada).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoProposto).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerramentoRejeitado).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoRespondida).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoAguardandoInformacoesAdicionais).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) estadoEncerrada).getCountGestor());
-//
-//                        view.setIndicadoresPrioridadeGestor(
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeBaixa).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeNormal).getCountGestor(),
-//                                ((CountPapelSolicitacao<Solicitacao>) prioridadeAlta).getCountGestor());
+                        view.setIndicadoresEstadoSolicitacoesSolicitante(
+                                relatorio.getIndicadorSolicitanteEstadoAguardandoAtendimento(),
+                                relatorio.getIndicadorSolicitanteEstadoEmAndamento(),
+                                relatorio.getIndicadorSolicitanteEstadoPausada(),
+                                relatorio.getIndicadorSolicitanteEstadoEncerramentoProposto(),
+                                relatorio.getIndicadorSolicitanteEstadoEncerramentoRejeitado(),
+                                relatorio.getIndicadorSolicitanteEstadoRespondida(),
+                                relatorio.getIndicadorSolicitanteEstadoAguardandoInformacoesAdicionais(),
+                                relatorio.getIndicadorSolicitanteEstadoEncerrada());
+
+                        view.setIndicadoresPrioridadeSolicitante(
+                                relatorio.getIndicadorSolicitantePrioridadeBaixa(),
+                                relatorio.getIndicadorSolicitantePrioridadeNormal(),
+                                relatorio.getIndicadorSolicitantePrioridadeAlta());
+
+                        view.setIndicadoresEstadoSolicitacoesAtendente(
+                                relatorio.getIndicadorAtendenteEstadoAguardandoAtendimento(),
+                                relatorio.getIndicadorAtendenteEstadoEmAndamento(),
+                                relatorio.getIndicadorAtendenteEstadoPausada(),
+                                relatorio.getIndicadorAtendenteEstadoEncerramentoProposto(),
+                                relatorio.getIndicadorAtendenteEstadoEncerramentoRejeitado(),
+                                relatorio.getIndicadorAtendenteEstadoRespondida(),
+                                relatorio.getIndicadorAtendenteEstadoAguardandoInformacoesAdicionais(),
+                                relatorio.getIndicadorAtendenteEstadoEncerrada());
+
+                        view.setIndicadoresPrioridadeAtendente(
+                                relatorio.getIndicadorAtendentePrioridadeBaixa(),
+                                relatorio.getIndicadorAtendentePrioridadeNormal(),
+                                relatorio.getIndicadorAtendentePrioridadeAlta());
+
+                        view.setIndicadoresEstadoSolicitacoesGestor(
+                                relatorio.getIndicadorGestorEstadoAguardandoAtendimento(),
+                                relatorio.getIndicadorGestorEstadoEmAndamento(),
+                                relatorio.getIndicadorGestorEstadoPausada(),
+                                relatorio.getIndicadorGestorEstadoEncerramentoProposto(),
+                                relatorio.getIndicadorGestorEstadoEncerramentoRejeitado(),
+                                relatorio.getIndicadorGestorEstadoRespondida(),
+                                relatorio.getIndicadorGestorEstadoAguardandoInformacoesAdicionais(),
+                                relatorio.getIndicadorGestorEstadoEncerrada());
+
+                        view.setIndicadoresPrioridadeGestor(
+                                relatorio.getIndicadorGestorPrioridadeBaixa(),
+                                relatorio.getIndicadorGestorPrioridadeNormal(),
+                                relatorio.getIndicadorGestorPrioridadeAlta());
                     }
                 });
     }

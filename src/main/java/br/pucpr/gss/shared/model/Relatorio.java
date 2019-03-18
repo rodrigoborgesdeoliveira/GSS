@@ -28,9 +28,9 @@ public class Relatorio implements IsSerializable {
     private ArrayList<Solicitacao> prioridadeAlta = new CountPapelSolicitacao<>();
 
     // Por papel
-    private ArrayList<Solicitacao> papelSolicitante = new ArrayList<>();
-    private ArrayList<Solicitacao> papelAtendente = new ArrayList<>();
-    private ArrayList<Solicitacao> papelGestor = new ArrayList<>();
+    private ArrayList<Solicitacao> papelSolicitante = new CountPapelSolicitacao<>();
+    private ArrayList<Solicitacao> papelAtendente = new CountPapelSolicitacao<>();
+    private ArrayList<Solicitacao> papelGestor = new CountPapelSolicitacao<>();
 
     /**
      * Construtor para o serializable.
@@ -110,10 +110,6 @@ public class Relatorio implements IsSerializable {
         return listaSolicitacoes.size() - estadoEncerrada.size();
     }
 
-    public int getIndicadorSolicitacoesEncerradas() {
-        return estadoEncerrada.size();
-    }
-
     public int getIndicadorSolicitacoesPrioridadeBaixa() {
         return prioridadeBaixa.size();
     }
@@ -180,6 +176,138 @@ public class Relatorio implements IsSerializable {
 
     public int getIndicadorSolicitacoesAbertasPrioridadeAlta() {
         return prioridadeAlta.size() - ((CountPapelSolicitacao) estadoEncerrada).countPrioridadeAlta;
+    }
+
+    public int getIndicadorSolicitanteEstadoAguardandoAtendimento() {
+        return ((CountPapelSolicitacao) estadoAguardandoAtendimento).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoEmAndamento() {
+        return ((CountPapelSolicitacao) estadoEmAndamento).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoPausada() {
+        return ((CountPapelSolicitacao) estadoPausada).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoEncerramentoProposto() {
+        return ((CountPapelSolicitacao) estadoEncerramentoProposto).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoEncerramentoRejeitado() {
+        return ((CountPapelSolicitacao) estadoEncerramentoRejeitado).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoEncerrada() {
+        return ((CountPapelSolicitacao) estadoEncerrada).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoRespondida() {
+        return ((CountPapelSolicitacao) estadoRespondida).countSolicitante;
+    }
+
+    public int getIndicadorSolicitanteEstadoAguardandoInformacoesAdicionais() {
+        return ((CountPapelSolicitacao) estadoAguardandoInformacoesAdicionais).countSolicitante;
+    }
+
+    public int getIndicadorSolicitantePrioridadeBaixa() {
+        return ((CountPapelSolicitacao) prioridadeBaixa).countSolicitante;
+    }
+
+    public int getIndicadorSolicitantePrioridadeNormal() {
+        return ((CountPapelSolicitacao) prioridadeNormal).countSolicitante;
+    }
+
+    public int getIndicadorSolicitantePrioridadeAlta() {
+        return ((CountPapelSolicitacao) prioridadeAlta).countSolicitante;
+    }
+
+    public int getIndicadorAtendenteEstadoAguardandoAtendimento() {
+        return ((CountPapelSolicitacao) estadoAguardandoAtendimento).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoEmAndamento() {
+        return ((CountPapelSolicitacao) estadoEmAndamento).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoPausada() {
+        return ((CountPapelSolicitacao) estadoPausada).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoEncerramentoProposto() {
+        return ((CountPapelSolicitacao) estadoEncerramentoProposto).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoEncerramentoRejeitado() {
+        return ((CountPapelSolicitacao) estadoEncerramentoRejeitado).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoEncerrada() {
+        return ((CountPapelSolicitacao) estadoEncerrada).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoRespondida() {
+        return ((CountPapelSolicitacao) estadoRespondida).countAtendente;
+    }
+
+    public int getIndicadorAtendenteEstadoAguardandoInformacoesAdicionais() {
+        return ((CountPapelSolicitacao) estadoAguardandoInformacoesAdicionais).countAtendente;
+    }
+
+    public int getIndicadorAtendentePrioridadeBaixa() {
+        return ((CountPapelSolicitacao) prioridadeBaixa).countAtendente;
+    }
+
+    public int getIndicadorAtendentePrioridadeNormal() {
+        return ((CountPapelSolicitacao) prioridadeNormal).countAtendente;
+    }
+
+    public int getIndicadorAtendentePrioridadeAlta() {
+        return ((CountPapelSolicitacao) prioridadeAlta).countAtendente;
+    }
+
+    public int getIndicadorGestorEstadoAguardandoAtendimento() {
+        return ((CountPapelSolicitacao) estadoAguardandoAtendimento).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoEmAndamento() {
+        return ((CountPapelSolicitacao) estadoEmAndamento).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoPausada() {
+        return ((CountPapelSolicitacao) estadoPausada).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoEncerramentoProposto() {
+        return ((CountPapelSolicitacao) estadoEncerramentoProposto).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoEncerramentoRejeitado() {
+        return ((CountPapelSolicitacao) estadoEncerramentoRejeitado).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoEncerrada() {
+        return ((CountPapelSolicitacao) estadoEncerrada).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoRespondida() {
+        return ((CountPapelSolicitacao) estadoRespondida).countGestor;
+    }
+
+    public int getIndicadorGestorEstadoAguardandoInformacoesAdicionais() {
+        return ((CountPapelSolicitacao) estadoAguardandoInformacoesAdicionais).countGestor;
+    }
+
+    public int getIndicadorGestorPrioridadeBaixa() {
+        return ((CountPapelSolicitacao) prioridadeBaixa).countGestor;
+    }
+
+    public int getIndicadorGestorPrioridadeNormal() {
+        return ((CountPapelSolicitacao) prioridadeNormal).countGestor;
+    }
+
+    public int getIndicadorGestorPrioridadeAlta() {
+        return ((CountPapelSolicitacao) prioridadeAlta).countGestor;
     }
 
     /**
