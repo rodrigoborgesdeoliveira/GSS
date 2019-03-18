@@ -26,7 +26,7 @@
                 <m:MaterialLabel text="Indicadores" fontWeight="BOLD" fontSize="16px"/>
             </m:MaterialRow>
             <m:MaterialRow>
-                <m:MaterialLink ui:field="gerarIndicadores" text="Gerar indicadores" fontSize="14px"/>
+                <m:MaterialLink ui:field="gerarIndicadores" text="Gerar relatório" fontSize="14px"/>
             </m:MaterialRow>
         </m:MaterialRow>
         <!-- CADASTROS -->

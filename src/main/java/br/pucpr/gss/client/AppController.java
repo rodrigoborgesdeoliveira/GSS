@@ -28,6 +28,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String REGISTRO_INFORMACOES_ADICIONAIS_TOKEN = "registroInformacoesAdicionais";
     public static final String REGISTRO_SOLUCAO_TOKEN = "registroSolucao";
     public static final String VISUALIZACAO_SOLUCAO_TOKEN = "visualizacaoSolucao";
+    public static final String GERAR_INDICADORES_TOKEN = "gerarRelatorio";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
