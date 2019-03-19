@@ -144,6 +144,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 case FabricaEstado.EM_ANDAMENTO:
                     view.setVisibilidadePausarAtendimento(true);
                     view.setVisibilidadeOferecerSolucao(true);
+                    view.setVisibilidadeRegistrarTarefasExecutadas(true);
                     break;
                 case FabricaEstado.PAUSADA:
                     view.setVisibilidadeContinuarAtendimento(true);
@@ -442,5 +443,10 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
     @Override
     public void onVisualizarSolucaoClicked() {
         eventBus.fireEvent(new VisualizarSolucaoEvent(solicitacao));
+    }
+
+    @Override
+    public void registrarTarefa(String tarefa) {
+
     }
 }

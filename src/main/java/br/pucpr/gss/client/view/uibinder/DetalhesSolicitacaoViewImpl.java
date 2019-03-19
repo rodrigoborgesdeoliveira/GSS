@@ -9,6 +9,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import gwt.material.design.client.data.factory.RowComponentFactory;
@@ -33,6 +34,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     private final String ACAO_INICIAR = "Iniciar";
     private final String ACAO_PAUSAR = "Pausar";
     private final String ACAO_CONTINUAR = "Continuar";
+    private final String ACAO_REGISTRAR_TAREFAS = "Registrar tarefa executada";
 
     interface DetalhesSolicitacaoViewImplUiBinder extends UiBinder<Widget, DetalhesSolicitacaoViewImpl> {
     }
@@ -226,7 +228,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         int indiceRequisitarInformacoes = getIndex(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS);
         int indiceVisualizarInformacoes = getIndex(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS);
         // Só realizar a troca de opção se alguma das opções já foi adicionada à lista
-        if (indiceRequisitarInformacoes > 0 || indiceVisualizarInformacoes  > 0) {
+        if (indiceRequisitarInformacoes > 0 || indiceVisualizarInformacoes > 0) {
             addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_INFORMACOES_ADICIONAIS, isVisualizar);
             addRemoveItemLista(listBoxAcoes, ACAO_REQUISITAR_INFORMACOES_ADICIONAIS, !isVisualizar);
         }
@@ -245,6 +247,11 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
     @Override
     public void setVisibilidadeVisualizarSolucao(boolean visivel) {
         addRemoveItemLista(listBoxAcoes, ACAO_VISUALIZAR_SOLUCAO, visivel);
+    }
+
+    @Override
+    public void setVisibilidadeRegistrarTarefasExecutadas(boolean visivel) {
+        addRemoveItemLista(listBoxAcoes, ACAO_REGISTRAR_TAREFAS, visivel);
     }
 
     /**
@@ -315,6 +322,10 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
                 case ACAO_VISUALIZAR_SOLUCAO:
                     presenter.onVisualizarSolucaoClicked();
                     break;
+                case ACAO_REGISTRAR_TAREFAS:
+                    onClickRegistarTarefa();
+
+                    break;
                 case ACAO_INICIAR:
                     onClickIniciarAtendimento();
                     break;
@@ -349,6 +360,23 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
             presenter.onContinuarAtendimentoClicked();
             listBoxAtendimento.setSelectedValue(listBoxAtendimento.getEmptyPlaceHolder());
             listBoxAtendimento.reload();
+        }
+    }
+
+    private void onClickRegistarTarefa() {
+        String tarefaRegistrada = Window.prompt("Tarefa executada (máximo de 62 caracteres)",
+                "");
+        // Se for null, significa que o diálogo foi cancelado
+        if (tarefaRegistrada != null) {
+            if (tarefaRegistrada.isEmpty()) {
+                Window.alert("O campo não pode ser vazio");
+                onClickRegistarTarefa();
+            } else if (tarefaRegistrada.length() > 62) {
+                Window.alert("O campo deve possuir no máximo 62 caracteres");
+                onClickRegistarTarefa();
+            } else {
+                presenter.registrarTarefa(tarefaRegistrada);
+            }
         }
     }
 

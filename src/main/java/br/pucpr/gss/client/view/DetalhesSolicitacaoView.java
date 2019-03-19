@@ -34,6 +34,8 @@ public interface DetalhesSolicitacaoView {
         void onOferecerSolucaoClicked();
 
         void onVisualizarSolucaoClicked();
+
+        void registrarTarefa(String tarefa);
     }
 
     void setPresenter(Presenter presenter);
@@ -109,4 +111,11 @@ public interface DetalhesSolicitacaoView {
      * @param visivel true, se visível, false, caso contrário.
      */
     void setVisibilidadeVisualizarSolucao(boolean visivel);
+
+    /**
+     * Define a visibilidade da opção de registrar tarefas executadas.
+     *
+     * @param visivel true, se visível, false, caso contrário.
+     */
+    void setVisibilidadeRegistrarTarefasExecutadas(boolean visivel);
 }
