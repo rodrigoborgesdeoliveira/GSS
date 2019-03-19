@@ -55,7 +55,7 @@ public class GeracaoRelatorioViewImpl extends Composite implements GeracaoRelato
 
     @Override
     public MenuView getMenuView() {
-        return new MenuViewImpl();
+        return menu;
     }
 
     @UiHandler("buttonGerar")
