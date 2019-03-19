@@ -184,11 +184,8 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
 
         logger.log(Level.INFO, "Informação adicional atualizada com sucesso");
 
-        Date dataOcorrencia = new Date();
-        Evento evento = new Evento(String.format("%s registrou informações adicionais",
-                usuario.getNome()), dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia), solicitacao.getId(),
-                usuario.getId());
-        insertEvento(solicitacao, usuario, evento);
+        registrarEvento(solicitacao, usuario, String.format("%s registrou informações adicionais",
+                usuario.getNome()));
     }
 
     @Override
@@ -205,5 +202,14 @@ public class SolicitacaoServiceImpl extends RemoteServiceServlet implements Soli
         GssDao.Evento gssDaoEvento = new GssDaoEventoImpl();
 
         return gssDaoEvento.getEventosByIdSolicitacao(idSolicitacao);
+    }
+
+    @Override
+    public void registrarEvento(Solicitacao solicitacao, Usuario usuario, String nomeEvento) throws IllegalStateException {
+        Date dataOcorrencia = new Date();
+        Evento evento = new Evento(nomeEvento, dataOcorrencia, Util.stringDataHoraFromDate(dataOcorrencia),
+                solicitacao.getId(), usuario.getId());
+
+        insertEvento(solicitacao, usuario, evento);
     }
 }

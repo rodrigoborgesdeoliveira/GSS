@@ -447,6 +447,20 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
 
     @Override
     public void registrarTarefa(String tarefa) {
+        SolicitacaoService.RPC.getInstance().registrarEvento(solicitacao, usuario,
+                "Tarefa executada: " + tarefa, new AsyncCallback<Void>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        GWT.log("Falha ao registrar a tarefa", caught);
 
+                        Window.alert("Não foi possível registrar a tarefa");
+                    }
+
+                    @Override
+                    public void onSuccess(Void result) {
+                        setViewUI();
+                        Window.alert("Tarefa registrada com sucesso");
+                    }
+                });
     }
 }

@@ -33,4 +33,6 @@ public interface SolicitacaoServiceAsync {
     void removerInformacoesAdicionaisByIdSolicitacao(int idSolicitacao, AsyncCallback<Void> async);
 
     void getEventosSolicitacao(int idSolicitacao, AsyncCallback<ArrayList<Evento>> async);
+
+    void registrarEvento(Solicitacao solicitacao, Usuario usuario, String nomeEvento, AsyncCallback<Void> async);
 }

@@ -53,6 +53,8 @@ public interface SolicitacaoService extends RemoteService {
 
     ArrayList<Evento> getEventosSolicitacao(int idSolicitacao) throws IllegalStateException;
 
+    void registrarEvento(Solicitacao solicitacao, Usuario usuario, String nomeEvento) throws IllegalStateException;
+
     /**
      * Classe para chamar os métodos de SolicitacaoService.
      * Use SolicitacaoService.RPC.getInstance() para acessar uma instância de SolicitacaoServiceAsync
