@@ -316,7 +316,7 @@ public class Relatorio implements IsSerializable {
         // Retornar em forma de HTML
         return "<h1 style=\"color: #5e9ca0;\"><span style=\"color: #000000;\">Relat&oacute;rio</span></h1>\n" +
                 "<p>&nbsp;</p>\n" +
-                "<h2 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Geral</span></h2>\n" +
+                "<h4 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Geral</span></h4>\n" +
                 "<p style=\"padding-left: 30px;\"><span style=\"color: #000000;\"><b>Total de Solicita&ccedil;&otilde;es:&nbsp;" + getIndicadorTotalSolicitacoes() + "</b></span></p>\n" +
                 "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">" + (getIndicadorSolicitacoesAbertas() / getIndicadorTotalSolicitacoes() * 100) + "% abertas</span></p>\n" +
                 "<p style=\"padding-left: 60px;\">" + (getIndicadorSolicitacoesEstadoEncerrada() / getIndicadorTotalSolicitacoes() * 100) + "% encerradas</p>\n" +
@@ -336,7 +336,7 @@ public class Relatorio implements IsSerializable {
                 "<p style=\"padding-left: 30px;\">&nbsp;</p>\n" +
                 "<p style=\"padding-left: 30px;\"><b><span style=\"color: #000000;\">Solicita&ccedil;&otilde;es encerradas:&nbsp;" + getIndicadorSolicitacoesEstadoEncerrada() + "</span></b></p>\n" +
                 "<p style=\"padding-left: 30px;\">&nbsp;</p>\n" +
-                "<h2 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Por papel</span></h2>\n" +
+                "<h4 style=\"color: #5e9ca0; padding-left: 30px;\"><span style=\"color: #000000;\">Por papel</span></h4>\n" +
                 "<p style=\"padding-left: 30px;\"><b>Solicitante:&nbsp;" + getIndicadorSolicitacoesPapelSolicitante() + "</b></p>\n" +
                 "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Aguardando atendimento:&nbsp;" + getIndicadorSolicitanteEstadoAguardandoAtendimento() + "</span></p>\n" +
                 "<p style=\"padding-left: 60px;\"><span style=\"color: #000000;\">Em andamento:&nbsp;" + getIndicadorSolicitanteEstadoEmAndamento() + "</span></p>\n" +
