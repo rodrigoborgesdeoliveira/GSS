@@ -72,7 +72,7 @@ public class Conexao {
                 "isAdmin BOOLEAN DEFAULT FALSE, " +
                 "funcionario_id INT NOT NULL, " +
                 "FOREIGN KEY (funcionario_id) REFERENCES rh.funcionario(id), " +
-                "UNIQUE INDEX funcionario_id_UNIQUE (funcionario_id ASC) INVISIBLE);";
+                "UNIQUE INDEX funcionario_id_UNIQUE (funcionario_id ASC));";
         // language=MySQL
         String sqlSolicitacao = "CREATE TABLE IF NOT EXISTS solicitacao (" +
                 "id INT NOT NULL AUTO_INCREMENT, " +
