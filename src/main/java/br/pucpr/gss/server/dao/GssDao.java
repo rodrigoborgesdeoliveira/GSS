@@ -1,6 +1,7 @@
 package br.pucpr.gss.server.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface GssDao {
 
@@ -14,6 +15,10 @@ public interface GssDao {
         int getQuantidadeUsuarios() throws IllegalStateException;
 
         void insertUsuario(br.pucpr.gss.shared.model.Usuario usuario) throws IllegalStateException;
+
+        List<br.pucpr.gss.shared.model.Usuario> getUsuarios() throws IllegalStateException;
+
+        void setAdmin(int idUsuarioCadastro, boolean asAdmin) throws IllegalStateException;
     }
 
     interface Solicitacao {

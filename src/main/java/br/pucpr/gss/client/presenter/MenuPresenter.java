@@ -43,7 +43,7 @@ public class MenuPresenter implements MenuView.Presenter {
 
     @Override
     public String getOnGerenciarCadastrosClickedToken() {
-        return "";
+        return AppController.GERENCIAR_CADASTROS_TOKEN;
     }
 
     @Override

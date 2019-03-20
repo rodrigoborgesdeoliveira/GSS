@@ -30,6 +30,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String VISUALIZACAO_SOLUCAO_TOKEN = "visualizacaoSolucao";
     public static final String GERAR_INDICADORES_TOKEN = "gerarRelatorio";
     public static final String RELATORIO_TOKEN = "relatorio";
+    public static final String GERENCIAR_CADASTROS_TOKEN = "gerenciarCadastros";
 
     private final HandlerManager eventBus;
     private HasWidgets container;
@@ -81,6 +82,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         eventBus.addHandler(GerarRelatorioEvent.TYPE, event -> doCarregarGerarIndicadores());
 
         eventBus.addHandler(RelatorioEvent.TYPE, event -> doCarregarRelatorio(event.getHtmlRelatorio()));
+
+        eventBus.addHandler(GerenciarCadastrosEvent.TYPE, event -> doCarregarGerenciarCadastros());
     }
 
     /**
@@ -168,6 +171,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         this.htmlRelatorio = htmlRelatorio;
 
         History.newItem(RELATORIO_TOKEN);
+    }
+
+    private void doCarregarGerenciarCadastros() {
+        History.newItem(GERENCIAR_CADASTROS_TOKEN);
     }
 
     @Override
@@ -318,6 +325,17 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
                         new RelatorioPresenter(eventBus, new RelatorioViewImpl(), htmlRelatorio).go(container);
                     } else {
                         History.newItem(DASHBOARD_TOKEN);
+                    }
+
+                    break;
+                case GERENCIAR_CADASTROS_TOKEN:
+                    if (usuario == null) {
+                        // Usuário não logado
+                        History.newItem(LOGIN_TOKEN);
+                    } else if (usuario.isAdmin()) {
+                        // Somente carregar esta página se o usuário for um administrador
+                        new GerenciamentoCadastrosPresenter(eventBus, new GerenciamentoCadastrosViewImpl(), usuario)
+                                .go(container);
                     }
 
                     break;

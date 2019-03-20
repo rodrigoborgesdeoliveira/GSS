@@ -5,6 +5,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,6 +100,55 @@ public class GssDaoUsuarioImpl implements GssDao.Usuario {
         String sql = String.format("INSERT INTO usuario (nome, senha, isAdmin, funcionario_id) VALUES " +
                         "('%s', SHA2('%s', 256), %b, %d);", usuario.getNome(), usuario.getSenha(), usuario.isAdmin(),
                 usuario.getIdFuncionario());
+        try {
+            Conexao.getInstance().executeSQLUpdateGSS(sql);
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        }
+    }
+
+    @Override
+    public List<Usuario> getUsuarios() throws IllegalStateException {
+        // language=MySQL
+        String sql = "SELECT * FROM usuario;";
+
+        ResultSet resultado = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            resultado = Conexao.getInstance().executeSQLQueryGSS(sql);
+
+            if (resultado != null) {
+                while (resultado.next()) {
+                    int id = resultado.getInt("id");
+                    String nome = resultado.getString("nome");
+                    boolean isAdmin = resultado.getBoolean("isAdmin");
+                    int idFuncionario = resultado.getInt("funcionario_id");
+
+                    usuarios.add(new Usuario(id, nome, isAdmin, idFuncionario));
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Não foi possível ler resultado", e);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } catch (Exception ex) {
+            logger.log(Level.WARNING, "Erro com o banco de dados", ex);
+
+            throw new IllegalStateException("Ocorreu um erro inesperado, tente novamente mais tarde");
+        } finally {
+            Conexao.getInstance().closeConnection(null, null, resultado);
+        }
+
+        return usuarios;
+    }
+
+    @Override
+    public void setAdmin(int idUsuarioCadastro, boolean asAdmin) throws IllegalStateException {
+        // language=MySQL
+        String sql = String.format("UPDATE usuario SET isAdmin = %b WHERE id = %d;", asAdmin, idUsuarioCadastro);
+
         try {
             Conexao.getInstance().executeSQLUpdateGSS(sql);
         } catch (Exception ex) {

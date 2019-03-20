@@ -7,6 +7,7 @@ import br.pucpr.gss.shared.model.Usuario;
 import br.pucpr.gss.shared.model.UsuarioLogin;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +48,33 @@ public class CadastroServiceImpl extends RemoteServiceServlet implements Cadastr
         } else {
             // Usuário não existe no banco do RH
             throw new IllegalArgumentException("Email não cadastrado no RH");
+        }
+    }
+
+    @Override
+    public List<Usuario> getCadastros(int idUsuario) throws IllegalStateException, IllegalArgumentException {
+        // Verificar se o usuário é um administrador
+        GssDao.Usuario gssDaoUsuario = new GssDaoUsuarioImpl();
+        Usuario usuario = gssDaoUsuario.getUsuarioById(idUsuario);
+
+        if (usuario != null && usuario.isAdmin()) {
+            return gssDaoUsuario.getUsuarios();
+        } else {
+            throw new IllegalArgumentException("Você não tem privilégios administrativos para realizar esta ação");
+        }
+    }
+
+    @Override
+    public void setAdmin(int idUsuarioAtual, int idUsuarioCadastro, boolean asAdmin) throws IllegalStateException,
+            IllegalArgumentException {
+        // Verificar se o usuário realizando a requisição é um administrador
+        GssDao.Usuario gssDaoUsuario = new GssDaoUsuarioImpl();
+        Usuario usuario = gssDaoUsuario.getUsuarioById(idUsuarioAtual);
+
+        if (usuario != null && usuario.isAdmin()) {
+            gssDaoUsuario.setAdmin(idUsuarioCadastro, asAdmin);
+        } else {
+            throw new IllegalArgumentException("Você não tem privilégios administrativos para realizar esta ação");
         }
     }
 }
