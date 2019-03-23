@@ -148,6 +148,7 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
         listBoxSetor.setReadOnly(false);
         listBoxAtendente.setVisible(true);
         listBoxAtendente.setReadOnly(false);
+        listBoxAtendente.setEmptyPlaceHolder("Selecione um atendente");
 
         // Definir valor dos elementos
         listBoxSetor.clear();

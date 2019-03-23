@@ -238,7 +238,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
                 solicitacao.getDataCriacao(), solicitacao.getPrazo(),
                 setor.getNome(), solicitacao.getEstado().getNome(),
                 prioridades.indexOf(solicitacao.getPrioridade().getNome()), prioridades,
-                atendente != null ? atendente.getNome() : "");
+                atendente != null ? atendente.getNome() : "Não definido");
 
         switch (solicitacao.getEstado().getIndice()) {
             case FabricaEstado.AGUARDANDO_INFORMACOES_ADICIONAIS:
