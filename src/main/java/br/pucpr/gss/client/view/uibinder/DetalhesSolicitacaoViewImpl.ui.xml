@@ -41,7 +41,7 @@
                         <m:MaterialListBox grid="s3" ui:field="listBoxPrioridade" placeholder="Prioridade"
                                            fieldType="OUTLINED"/>
                         <m:MaterialListBox grid="s3" ui:field="listBoxAtendente" fieldType="OUTLINED"
-                                           placeholder="Atendente"/>
+                                           placeholder="Atendente" emptyPlaceHolder="Selecione um atendente"/>
                         <m:MaterialListBox grid="s3" ui:field="listBoxAtendimento" emptyPlaceHolder="Selecione uma ação"
                                            placeholder="Atendimento" fieldType="OUTLINED" visible="false"/>
                     </m:MaterialRow>
