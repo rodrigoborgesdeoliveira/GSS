@@ -76,6 +76,8 @@ public class DetalhesSolicitacaoViewImpl extends Composite implements DetalhesSo
                 return historicoView.getColunaEvento();
             }
         }, "Evento");
+
+        datePickerPrazo.setDateMin(new Date());
     }
 
     @Override
