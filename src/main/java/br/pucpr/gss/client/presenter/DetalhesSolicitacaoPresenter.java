@@ -96,6 +96,7 @@ public class DetalhesSolicitacaoPresenter implements Presenter, DetalhesSolicita
         view.setVisibilidadeRegistrarInformacoesAdicionais(false);
         view.setVisibilidadeOferecerSolucao(false);
         view.setVisibilidadeVisualizarSolucao(false);
+        view.setVisibilidadeRegistrarTarefasExecutadas(false);
 
         ArrayList<String> prioridades = new ArrayList<>();
         prioridades.add(fabricaPrioridade.criarPrioridade(FabricaPrioridade.BAIXA).getNome());
